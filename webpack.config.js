@@ -2,7 +2,7 @@
 let path = require('path');
 
 module.exports = {
-  entry: './client/index.js',
+  entry: './browser/index.js',
   output: {
     path: __dirname,
     filename: './bundle.js'

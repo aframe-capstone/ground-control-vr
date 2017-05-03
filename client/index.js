@@ -7,4 +7,4 @@ ReactDOM.render(
 );
 
 
- // & nodemon server.js browser/index.js --exec babel-node --presets=es2015,react",
+ // & nodemon browser/index.js --exec babel-node --presets=es2015,react",

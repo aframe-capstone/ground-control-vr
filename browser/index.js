@@ -21,13 +21,17 @@ class App extends React.Component {
 
   render () {
     return (
-      <Scene>
+      <Scene firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
+                         authDomain: aframe-site.firebaseapp.com;
+                         databaseURL: https://aframe-site.firebaseio.com;
+                         storageBucket: aframe-site.appspot.com">
         <a-assets>
           <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
           <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
         </a-assets>
 
-        <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
+        {/* Example of firebase component mixin  */}
+        <Entity firebase-broadcast="componentsOnce: mixin; components: position" primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>

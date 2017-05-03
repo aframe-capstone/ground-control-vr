@@ -29,8 +29,9 @@ Our tech stack is:
 4. Firebase for real-time database state updates
 5. Web audio for real-time voice communication
 6. Sequelize for accounts and persistent data and textual analysis
-6. Google Voice to Text API
-7. Google or IBM Watson for textual analysis
+7. WebRTC
+8. Google Voice to Text API
+9. Google or IBM Watson for textual analysis
 
 ### MVP
 Our MVP will include an un-styled 3D world with two users participating and real-time audio communication. We will also have at least a rough draft of our algorithm for generating routes from our node graph.

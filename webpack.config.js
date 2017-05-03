@@ -1,9 +1,14 @@
+`use strict`;
+let path = require('path');
+
 module.exports = {
-  entry: './browser/index.js',
+  entry: './client/index.js',
   output: {
     path: __dirname,
     filename: './bundle.js'
   },
+  context: __dirname,
+
   devtool: 'source-map',
   module: {
     rules: [

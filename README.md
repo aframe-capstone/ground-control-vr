@@ -11,7 +11,8 @@ A-Frame/React/Firebase VR capstone project
 ## Tools
 [Waffle](https://waffle.io/aframe-capstone/aframe-vr-capstone)
 
-[Awesome-A-Frame Resources/Components/Integration/Scenes/Tools/Materials](https://github.com/aframevr/awesome-aframe) !!!Please look here first if you have any problems with A-frame!!!
+!!!Please look here first if you have any problems with A-frame!!!
+[Awesome-A-Frame Resources/Components/Integration/Scenes/Tools/Materials](https://github.com/aframevr/awesome-aframe) 
 
 [A-Frame Slack Channel](https://aframevr-slack.herokuapp.com/)
 

@@ -1,6 +1,6 @@
 # aframe-vr
 A-Frame/React/Firebase VR capstone project
-
+hello world
 ## Standards
 - Always work on a branch associated with an ISSUE.
 - No commits direct to master.
@@ -12,10 +12,10 @@ A-Frame/React/Firebase VR capstone project
 [Waffle](https://waffle.io/aframe-capstone/aframe-vr-capstone)
 
 **!!!Please look here first if you have any problems with A-frame!!!**
-- [Awesome-A-Frame Resources/Components/Integration/Scenes/Tools/Materials](https://github.com/aframevr/awesome-aframe) 
+- [Awesome-A-Frame Resources/Components/Integration/Scenes/Tools/Materials](https://github.com/aframevr/awesome-aframe)
 - [A-Frame Slack Channel](https://aframevr-slack.herokuapp.com/)
 
-## Tutorial 
+## Tutorial
 [Getting Started]
 (https://www.youtube.com/watch?v=dv6_C4UqTfs&list=PLRtjMdoYXLf4inSULAHyCMqpIUj4cmBTr)
 (https://www.youtube.com/watch?v=XFv55TajSAg&list=PLUtkqA7NXVH7ctoJYhsh4xqJn3iWMpP30)
@@ -35,6 +35,6 @@ A-Frame/React/Firebase VR capstone project
 [Building an A-Frame Vive App from Scratch]
 (https://www.youtube.com/watch?v=UcEMhuha8DA)
 
-## Other Resources 
+## Other Resources
 [Building Dungeon with A-Frame]
 (https://hacks.mozilla.org/2016/03/building-cardboard-dungeon-with-a-frame/)

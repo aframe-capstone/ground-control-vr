@@ -50,6 +50,8 @@
     "pg-hstore": "^2.3.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "aframe-animation-component": "^3.2.5",
+    "aframe-particle-system-component": "^1.0.8"
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
     "redux": "^3.6.0",

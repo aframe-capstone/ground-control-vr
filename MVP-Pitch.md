@@ -14,7 +14,9 @@ Users assume the role of navigator or driver. The driver begins in an unknown lo
 
 Neither know the driver's location. They communicate only through real-time voice chat. The navigator and driver cooperate to lead the driver to safety before a timer runs out. We aim for the experience to last 3 to 5 minutes.
 
-Our floor plans are randomly generated and unique each time. Floor plans are modeled as a graph, and we will use a graph algorithm to calculate the existence of an escape route of minimum length, so users are given a task of similar difficulty. By modeling rooms as nodes, we can create obstacles in the routes when the floorplan to force the users to adapt to changing circumstance.
+Our floor plans are randomly generated and unique each time. Floor plans are modeled as a graph, and we will use a graph algorithm to calculate the existence of an escape route. By calculating a minimum number of nodes for each escape route, users are given a unique experience but one of similar difficulty each time.
+
+By modeling rooms as nodes, we can create obstacles in the routes when the floorplan to force the users to adapt to changing circumstance.
 
 At the end, we will provide the pair with a transcript of their communication, a rating of how much each talked as a percentage of the conversation, and various ratings based on the text of their conversation including emotional valence.
 

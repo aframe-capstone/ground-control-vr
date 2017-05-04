@@ -16,9 +16,23 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 
 navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 
+
+// enable user media audio.
+// After have media
+// create a peer for THIS client
+// send stringified signal from client to server
+// send stringified signal to other peer
+// get signal back from other peer to original peer
+// on connect, begin voice streaming
+
+
+
 function gotMedia (stream) {
   var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
   var peer2 = new Peer({ initiator: false, stream: stream });
+
+  console.log("peer1", peer1);
+  console.log("peer2", peer2);
 
   peer1.on('error', function (err) { console.log('error', err) })
   peer2.on('error', function (err) { console.log('error', err) })
@@ -29,9 +43,9 @@ function gotMedia (stream) {
     peer2.signal(data)
   })
 
-  // peer2.on('signal', function (data) {
-  //   peer1.signal(data)
-  // })
+  peer2.on('signal', function (data) {
+    peer1.signal(data)
+  })
 
   peer1.on('connect', function() {
     console.log("PEER ONE CONNECTED");
@@ -39,10 +53,19 @@ function gotMedia (stream) {
   });
 
   peer2.on('stream', function (stream) {
+    console.log('streaming from peer2')
     // got remote video stream, now let's show it in a video tag
     var video = document.querySelector('video')
     video.src = window.URL.createObjectURL(stream)
     video.play()
+  })
+
+  peer1.on('stream', function (stream) {
+    console.log('streaming from peer1')
+    // // got remote video stream, now let's show it in a video tag
+    // var video = document.querySelector('video')
+    // video.src = window.URL.createObjectURL(stream)
+    // video.play()
   })
 
   peer2.on('connect', function() {

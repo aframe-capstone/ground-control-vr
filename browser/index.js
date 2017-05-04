@@ -6,7 +6,7 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var Peer = require('simple-peer')
+import Peer from 'simple-peer';
 // var p = new Peer({ })
 
 navigator.getUserMedia = ( navigator.getUserMedia ||

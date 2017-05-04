@@ -16,7 +16,6 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 
 navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 
-
 // enable user media audio.
 // After have media
 // create a peer for THIS client

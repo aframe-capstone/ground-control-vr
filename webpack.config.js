@@ -5,7 +5,7 @@ module.exports = {
   entry: './browser/index.js',
   output: {
     path: __dirname,
-    filename: './bundle.js'
+    filename: './public/bundle.js'
   },
   context: __dirname,
 

@@ -6,6 +6,30 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+var Peer = require('simple-peer')
+var p = new Peer({ initiator: location.hash === '#1', trickle: false })
+
+p.on('error', function (err) { console.log('error', err) })
+
+p.on('signal', function (data) {
+  console.log('SIGNAL', JSON.stringify(data))
+  document.querySelector('#outgoing').textContent = JSON.stringify(data)
+})
+
+document.querySelector('form').addEventListener('submit', function (ev) {
+  ev.preventDefault()
+  p.signal(JSON.parse(document.querySelector('#incoming').value))
+})
+
+p.on('connect', function () {
+  console.log('CONNECT')
+  p.send('whatever' + Math.random())
+})
+
+p.on('data', function (data) {
+  console.log('data: ' + data)
+})
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,19 +43,21 @@ class App extends React.Component {
     });
   }
 
+// // firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
+//                    authDomain: aframe-site.firebaseapp.com;
+//                    databaseURL: https://aframe-site.firebaseio.com;
+//                    storageBucket: aframe-site.appspot.com"
+// firebase-broadcast="componentsOnce: mixin; components: position"
   render () {
     return (
-      <Scene firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
-                         authDomain: aframe-site.firebaseapp.com;
-                         databaseURL: https://aframe-site.firebaseio.com;
-                         storageBucket: aframe-site.appspot.com">
+      <Scene >
         <a-assets>
           <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
           <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
         </a-assets>
 
         {/* Example of firebase component mixin  */}
-        <Entity firebase-broadcast="componentsOnce: mixin; components: position" primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
+        <Entity  primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
@@ -58,13 +84,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.querySelector('#sceneContainer'));
-
-
-ReactDOM.render(
-  <div>Hello World!</div>,
-  document.getElementById('app')
-);
-
+// ReactDOM.render(<App/>, document.querySelector('#sceneContainer'));
 
  // & nodemon server.js browser/index.js --exec babel-node --presets=es2015,react",

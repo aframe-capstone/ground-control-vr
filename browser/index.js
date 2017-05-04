@@ -25,8 +25,6 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 // get signal back from other peer to original peer
 // on connect, begin voice streaming
 
-
-
 function gotMedia (stream) {
   var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
   var peer2 = new Peer({ initiator: false, stream: stream });
@@ -143,6 +141,6 @@ class App extends React.Component {
   }
 }
 
-// ReactDOM.render(<App/>, document.querySelector('#sceneContainer'));
+ReactDOM.render(<App/>, document.querySelector('#sceneContainer'));
 
  // & nodemon server.js browser/index.js --exec babel-node --presets=es2015,react",

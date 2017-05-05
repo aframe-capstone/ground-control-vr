@@ -120,6 +120,7 @@ class App extends React.Component {
         <a-asset-item id="mountainMaterial" src="assets/Mountains/lowpolymountains.mtl" />
         <a-asset-item id="rockOne" src="assets/Rock1/Rock1.obj" />
         <a-asset-item id="rockOneMaterial" src="assets/Rock1/Rock1.mtl" />
+        <a-asset-item id="grassTexture" src="textures/blocks/grass_top.png" />
       </a-assets>
       { this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} /> }
     </Scene>);

@@ -177,7 +177,7 @@ export default class Simulation extends React.Component {
 
     return (
       <Entity >
-        <Entity primitive="a-plane" material={{color: 'green', shader: 'flat'}} rotation="-90 0 0" height="400" depth=".5" width="400"/>
+        <Entity primitive="a-plane" src="#grassTexture" rotation="-90 0 0" height="400" depth=".5" width="400"/>
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="300" src="#skyTexture" theta-length="90" width="2048"/>

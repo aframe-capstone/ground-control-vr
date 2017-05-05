@@ -1,4 +1,3 @@
-console.log('NEW IMPORT');
 import 'firebase';
 import 'aframe';
 import 'aframe-animation-component';
@@ -9,7 +8,6 @@ import 'aframe-firebase-component'
 import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-console.log('Firebase: ', firebase);
 
 class TestingFirebase extends React.Component {
 	render() {

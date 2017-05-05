@@ -1,0 +1,30 @@
+# Wavefront MTL
+# Created by fragMOTION 1.3.2
+# http://www.fragmosoft.com
+
+newmtl cockpit_mat
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 0.501961 0.501961 0.501961
+ke 0 0 0
+ns 11.52
+map_kd cockpit_01.tga
+newmtl display_mat
+illum 2
+d 1
+ka 1 1 1
+kd 1 1 1
+ks 0 0 0
+ke 0 0 0
+ns 3.2
+map_kd screen.tga
+newmtl glass_mat
+illum 2
+d 1
+ka 0.168627 0.239216 0.286275
+kd 0.168627 0.239216 0.286275
+ks 0 0 0
+ke 0 0 0
+ns 0

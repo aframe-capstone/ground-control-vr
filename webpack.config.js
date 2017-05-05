@@ -1,5 +1,4 @@
-`use strict`;
-let path = require('path');
+`use strict`
 
 module.exports = {
   entry: './browser/index.js',

@@ -2,10 +2,12 @@ import 'aframe';
 import 'aframe-animation-component';
 import 'aframe-particle-system-component';
 import 'babel-polyfill';
-import {Entity, Scene} from 'aframe-react';
+import { Entity, Scene } from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Peer from 'simple-peer';
+import Simulation from './simulation';
+import Menu from './menu';
+import Peer from 'simple-peer';
 // var p = new Peer({ })
 
 navigator.getUserMedia = ( navigator.getUserMedia ||
@@ -24,56 +26,56 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 // on connect, begin voice streaming
 
 function gotMedia (stream) {
-  var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
-  var peer2 = new Peer({ initiator: false, stream: stream });
-
-  console.log("peer1", peer1);
-  console.log("peer2", peer2);
-
-  peer1.on('error', function (err) { console.log('error', err) })
-  peer2.on('error', function (err) { console.log('error', err) })
-
-  peer1.on('signal', function (data) {
-    console.log('SIGNAL', JSON.stringify(data));
-    document.querySelector('#outgoing').textContent = JSON.stringify(data);
-    peer2.signal(data)
-  })
-
-  peer2.on('signal', function (data) {
-    peer1.signal(data)
-  })
-
-  peer1.on('connect', function() {
-    console.log("PEER ONE CONNECTED");
-    peer1.send('SENT FROM PEER1 ' + Math.random());
-  });
-
-  peer2.on('stream', function (stream) {
-    console.log('streaming from peer2')
-    // got remote video stream, now let's show it in a video tag
-    var video = document.querySelector('video')
-    video.src = window.URL.createObjectURL(stream)
-    video.play()
-  })
-
-  peer1.on('stream', function (stream) {
-    console.log('streaming from peer1')
-    // // got remote video stream, now let's show it in a video tag
-    // var video = document.querySelector('video')
-    // video.src = window.URL.createObjectURL(stream)
-    // video.play()
-  })
-
-  peer2.on('connect', function() {
-    console.log("PEER TWO CONNECTED");
-    peer1.send('SENT FROM PEER2 ' + Math.random());
-  });
-
-  document.querySelector('form').addEventListener('submit', function (ev) {
-    console.log("FORM SUBMITTED");
-    ev.preventDefault();
-    peer2.signal(JSON.parse(document.querySelector('#incoming').value));
-  })
+  // var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
+  // var peer2 = new Peer({ initiator: false, stream: stream });
+  //
+  // console.log("peer1", peer1);
+  // console.log("peer2", peer2);
+  //
+  // peer1.on('error', function (err) { console.log('error', err) })
+  // peer2.on('error', function (err) { console.log('error', err) })
+  //
+  // peer1.on('signal', function (data) {
+  //   console.log('SIGNAL', JSON.stringify(data));
+  //   document.querySelector('#outgoing').textContent = JSON.stringify(data);
+  //   peer2.signal(data)
+  // })
+  //
+  // peer2.on('signal', function (data) {
+  //   peer1.signal(data)
+  // })
+  //
+  // peer1.on('connect', function() {
+  //   console.log("PEER ONE CONNECTED");
+  //   peer1.send('SENT FROM PEER1 ' + Math.random());
+  // });
+  //
+  // peer2.on('stream', function (stream) {
+  //   console.log('streaming from peer2')
+  //   // got remote video stream, now let's show it in a video tag
+  //   var video = document.querySelector('video')
+  //   video.src = window.URL.createObjectURL(stream)
+  //   video.play()
+  // })
+  //
+  // peer1.on('stream', function (stream) {
+  //   console.log('streaming from peer1')
+  //   // // got remote video stream, now let's show it in a video tag
+  //   // var video = document.querySelector('video')
+  //   // video.src = window.URL.createObjectURL(stream)
+  //   // video.play()
+  // })
+  //
+  // peer2.on('connect', function() {
+  //   console.log("PEER TWO CONNECTED");
+  //   peer1.send('SENT FROM PEER2 ' + Math.random());
+  // });
+  //
+  // document.querySelector('form').addEventListener('submit', function (ev) {
+  //   console.log("FORM SUBMITTED");
+  //   ev.preventDefault();
+  //   peer2.signal(JSON.parse(document.querySelector('#incoming').value));
+  // })
 }
 
 // p.on('connect', function () {
@@ -88,45 +90,41 @@ function gotMedia (stream) {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {color: 'red'};
+    this.state = {
+      inSim: false,
+      isNavigator: false
+    };
+    this.setRole = this.setRole.bind(this)
   }
 
-
-
+  setRole(isNavigator) {
+    console.log('CALLED setRole WITH', isNavigator)
+    this.setState({ isNavigator: isNavigator, inSim: true });
+  }
 // // firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
 //                    authDomain: aframe-site.firebaseapp.com;
 //                    databaseURL: https://aframe-site.firebaseio.com;
 //                    storageBucket: aframe-site.appspot.com"
 // firebase-broadcast="componentsOnce: mixin; components: position"
+
   render () {
-    return (
-      <Scene>
-        <a-assets>
-          <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
-          <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
-        </a-assets>
-
-        {/* Example of firebase component mixin  */}
-
-
-
-
-        <Entity  primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
-        <Entity primitive="a-light" type="ambient" color="#445451"/>
-        <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
-        <Entity primitive="a-sky" height="2048" radius="300" src="#skyTexture" theta-length="90" width="2048"/>
-        <Entity text={{value: 'Hello, A-Frame React!', align: 'center'}} position={{x: 0, y: 2, z: -1}}/>
-
-
-
-
-
-</Scene>
-    );
+    return (<Scene>
+      <a-assets>
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
+        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
+        <a-asset-item id="treeOne" src="assets/LowPolyTree1/tree.obj" />
+        <a-asset-item id="treeOneMaterial" src="assets/LowPolyTree1/tree.mtl" />
+        <a-asset-item id="treeTwo" src="assets/LowPolyTree2/lowpolytree.obj" />
+        <a-asset-item id="treeTwoMaterial" src="assets/LowPolyTree2/lowpolytree.mtl" />
+        <a-asset-item id="mountain" src="assets/Mountains/lowpolymountains.obj" />
+        <a-asset-item id="mountainMaterial" src="assets/Mountains/lowpolymountains.mtl" />
+        <a-asset-item id="rockOne" src="assets/Rock1/Rock1.obj" />
+        <a-asset-item id="rockOneMaterial" src="assets/Rock1/Rock1.mtl" />
+        <a-asset-item id="grassTexture" src="textures/blocks/grass_top.png" />
+      </a-assets>
+      { this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} /> }
+    </Scene>);
   }
 }
 
-ReactDOM.render(<App/>, document.querySelector('#sceneContainer'));
-
-
- // & nodemon server.js browser/index.js --exec babel-node --presets=es2015,react",
+ReactDOM.render(<App />, document.querySelector('#sceneContainer'));

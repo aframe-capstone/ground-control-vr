@@ -85,10 +85,12 @@ const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-
 </Entity>);
 
 const driverCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
+  <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/>
 </Entity>);
 
 const TREE_PROBABILITY = 0.03;
 const ROCK_PROBABILITY = 0.01;
+const MOUNTAIN_PROBABILITY = 0.01;
 
 const generateForest = (x, z) => {
   console.log("GENERATING FOREST")
@@ -101,6 +103,9 @@ const generateForest = (x, z) => {
       if (Math.random() < ROCK_PROBABILITY) {
         // forest.push(generateRock(tempX + Math.random(), tempZ + Math.random()))
       }
+      if (Math.random() < MOUNTAIN_PROBABILITY) {
+        // forest.push(generateMountain(tempX + Math.random(), tempZ + Math.random()))
+      }
     }
   }
   return forest;
@@ -109,6 +114,14 @@ const generateForest = (x, z) => {
 const generateRock = (xPos, zPos) => {
   return (<Entity obj-model={{obj: '#rockOne', mtl: '#rockOneMaterial'}}
         scale={{x: Math.random(), y: Math.random(), z: Math.random()}}
+        rotation={{x: 0, y: getRandomIntInclusive(0, 360), z: 0}}
+        position={{x: xPos, y: 0, z: zPos}}
+        ></Entity>);
+}
+
+const generateMountain = (xPos, zPos) => {
+  return (<Entity obj-model={{obj: '#mountain', mtl: '#mountainMaterial'}}
+        scale={{x: 1, y: 1, z: 1}}
         rotation={{x: 0, y: getRandomIntInclusive(0, 360), z: 0}}
         position={{x: xPos, y: 0, z: zPos}}
         ></Entity>);
@@ -178,8 +191,8 @@ export default class Simulation extends React.Component {
     return (
       <Entity >
         <Entity primitive="a-plane" src="#grassTexture" rotation="-90 0 0" height="400" depth=".5" width="400"/>
-        <Entity primitive="a-light" type="ambient" color="#445451"/>
-        <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
+        {/* <Entity primitive="a-light" type="ambient" color="#445451"/> */}
+
         <Entity primitive="a-sky" height="2048" radius="300" src="#skyTexture" theta-length="90" width="2048"/>
         {/* <Entity particle-system={{preset: 'snow', particleCount: 2000}}/> */}
 

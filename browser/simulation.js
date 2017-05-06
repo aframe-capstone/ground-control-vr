@@ -9,7 +9,7 @@ import Peer from 'simple-peer'
 import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 
-navigator.getUserMedia = ( navigator.getUserMedia ||
+navigator.getUserMedia = (navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
                        navigator.mozGetUserMedia ||
                        navigator.msGetUserMedia)

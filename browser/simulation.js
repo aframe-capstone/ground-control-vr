@@ -58,14 +58,26 @@ export default class Simulation extends React.Component {
           position={{x: 0, y: 4, z: 0}}
           ></Entity>
         <Entity color="#213033"
-          primitive="a-box" width="2.2" height="0.01" depth="0.8" rotation={{x: 60, y: 90, z: 0}} position={{x: -1.5, y: 3.5, z: 2.5}} >
+          primitive="a-box" width="2.3" height="0.01" depth="0.6" rotation={{x: 60, y: 90, z: 0}} position={{x: -1.5, y: 3.5, z: 2.5}} >
           {generatePanel(1, 1)}
         </Entity>
-        {/* <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: -90, z: 0}} position={{x: 1.5, y: 3.5, z: 2.5}} >
-          {generatePanel(1,1)}
+        {/* <Entity color="#213033"
+          primitive="a-box"
+          width="2.3"
+          height="0.01"
+          depth="0.6"
+          rotation={{x: 60, y: -90, z: 0}}
+          position={{x: 1.5, y: 3.5, z: 2.5}} >
+          {generatePanel(1, 1)}
         </Entity>
-        <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 3.5, z: 0}} >
-          {generatePanel(1,1)}
+        <Entity color="#213033"
+          primitive="a-box"
+          width="2.3"
+          height="0.01"
+          depth="0.6"
+          rotation={{x: 60, y: 0, z: 0}}
+          position={{x: 0, y: 3.5, z: 0}} >
+          {generatePanel(1, 1)}
         </Entity> */}
         {warningLight}
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>

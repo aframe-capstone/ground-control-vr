@@ -12,7 +12,7 @@ const userCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-
 
 export default class Menu extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
   }
 
@@ -39,7 +39,7 @@ export default class Menu extends React.Component {
   //   this.setState({ isNavigator: !this.state.isNavigator });
   // }
 
-  render () {
+  render() {
     return (
       <Entity>
         <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>

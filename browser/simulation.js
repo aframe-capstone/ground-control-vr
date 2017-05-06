@@ -1,12 +1,13 @@
-import 'aframe';
-import 'aframe-animation-component';
-import 'aframe-particle-system-component';
-import 'babel-polyfill';
-import {Entity, Scene} from 'aframe-react';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Peer from 'simple-peer';
-import 'aframe-ui-widgets';
+import 'aframe'
+import 'aframe-animation-component'
+import 'aframe-particle-system-component'
+import 'babel-polyfill'
+import {Entity, Scene} from 'aframe-react'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Peer from 'simple-peer'
+import 'aframe-ui-widgets'
+import 'aframe-fence-component'
 
 navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
@@ -86,6 +87,7 @@ const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-
 </Entity>)
 
 const driverCam = (<Entity position="0 2.25 1" userHeight="0.6" primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
+  {/* <Entity fence="width: 1; depth: 1; x0: -1.5; z0: -1.5" /> */}
   {/* <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/> */}
 </Entity>)
 
@@ -133,7 +135,7 @@ export default class Simulation extends React.Component {
     super(props)
     this.state = {
       renderCockpit: true,
-      forest: []
+      cockpit: []
     }
   }
 
@@ -144,23 +146,21 @@ export default class Simulation extends React.Component {
     })
   }
 
-  stopForestGen() {
-    this.setState({renderNewforest: false})
+  stopInteriorRender() {
+    this.setState({renderCockpit: false})
   }
 
   componentWillMount() {
     if (this.state.renderCockpit) {
-      // let forest = generateForest(100, 100)
-      // this.setState({forest})
+      // Set interior's state here?
     }
-    // this.stopForestGen()
+    this.stopInteriorRender()
   }
 
-  // Two panels are temporarily disabled for our alpha!
+  // Two panels are temporarily disabled for our alpha! Don't delete!
   render() {
     return (
       <Entity >
-        {/* <Entity id="thePlane" primitive="plane" position={{x: 0, y: 4, z: 0}} rotation={{x: -90, y: 0, z: 0}} height={100} depth={0.1} width={100} color="#000000" /> */}
         <Entity static-body obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
           ></Entity>

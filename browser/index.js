@@ -97,9 +97,9 @@ function gotMedia (stream) {
   p.on('stream', function (stream) {
     console.log('streaming started')
     // got remote video stream, now let's show it in a video tag
-    var video = document.querySelector('video')
-    video.src = window.URL.createObjectURL(stream)
-    video.play()
+    var audio = document.querySelector('audio')
+    audio.src = window.URL.createObjectURL(stream)
+    audio.play()
   })
 }
 

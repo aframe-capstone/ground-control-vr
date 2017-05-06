@@ -25,30 +25,56 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 // on connect, begin voice streaming
 
 function gotMedia (stream) {
+
+  var p = new Peer({ initiator: location.hash === '#1', trickle: false })
+
+  p.on('error', function (err) { console.log('error', err) })
+
+  p.on('signal', function (data) {
+    console.log('SIGNAL', JSON.stringify(data))
+    // document.querySelector('#outgoing').textContent = JSON.stringify(data)
+  })
+
+  // Get signal from firebase
+  document.querySelector('form').addEventListener('submit', function (ev) {
+    ev.preventDefault()
+    p.signal(JSON.parse(document.querySelector('#incoming').value))
+  })
+
+  p.on('connect', function () {
+    console.log('CONNECT')
+    p.send('whatever' + Math.random())
+  })
+
+  p.on('data', function (data) {
+    console.log('data: ' + data)
+  })
+
+
   // var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
   // var peer2 = new Peer({ initiator: false, stream: stream });
-  //
+  
   // console.log("peer1", peer1);
   // console.log("peer2", peer2);
-  //
+  
   // peer1.on('error', function (err) { console.log('error', err) })
   // peer2.on('error', function (err) { console.log('error', err) })
-  //
+  
   // peer1.on('signal', function (data) {
   //   console.log('SIGNAL', JSON.stringify(data));
   //   document.querySelector('#outgoing').textContent = JSON.stringify(data);
   //   peer2.signal(data)
   // })
-  //
+  
   // peer2.on('signal', function (data) {
   //   peer1.signal(data)
   // })
-  //
+  
   // peer1.on('connect', function() {
   //   console.log("PEER ONE CONNECTED");
   //   peer1.send('SENT FROM PEER1 ' + Math.random());
   // });
-  //
+  
   // peer2.on('stream', function (stream) {
   //   console.log('streaming from peer2')
   //   // got remote video stream, now let's show it in a video tag
@@ -56,7 +82,7 @@ function gotMedia (stream) {
   //   video.src = window.URL.createObjectURL(stream)
   //   video.play()
   // })
-  //
+  
   // peer1.on('stream', function (stream) {
   //   console.log('streaming from peer1')
   //   // // got remote video stream, now let's show it in a video tag
@@ -64,27 +90,18 @@ function gotMedia (stream) {
   //   // video.src = window.URL.createObjectURL(stream)
   //   // video.play()
   // })
-  //
+  
   // peer2.on('connect', function() {
   //   console.log("PEER TWO CONNECTED");
   //   peer1.send('SENT FROM PEER2 ' + Math.random());
   // });
-  //
+  
   // document.querySelector('form').addEventListener('submit', function (ev) {
   //   console.log("FORM SUBMITTED");
   //   ev.preventDefault();
   //   peer2.signal(JSON.parse(document.querySelector('#incoming').value));
   // })
 }
-
-// p.on('connect', function () {
-//   console.log('CONNECT')
-//   p.send('whatever' + Math.random())
-// })
-//
-// p.on('data', function (data) {
-//   console.log('data: ' + data)
-// })
 
 class App extends React.Component {
   constructor(props) {
@@ -115,4 +132,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.querySelector('#sceneContainer'));
+// ReactDOM.render(<App />, document.querySelector('#sceneContainer'));

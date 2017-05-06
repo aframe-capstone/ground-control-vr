@@ -107,6 +107,8 @@ class App extends React.Component {
         <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
         <audio id="alarm" src="assets/sound/alarmloop.mp3"/>
+        <a-asset-item id="sunRaysOne" src="assets/sunrays/sun_rays1.dae" />
+        <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
         <a-asset-item id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
         <a-asset-item id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
       </a-assets>

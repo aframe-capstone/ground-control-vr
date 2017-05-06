@@ -12,20 +12,19 @@ const userCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-
 
 export default class Menu extends React.Component {
   constructor(props) {
-    super(props);
-
+    super(props)
   }
 
   selectNavigator(e) {
     console.log("inside selectNavigator")
-    e.preventDefault();
-    console.log(e);
+    e.preventDefault()
+    console.log(e)
     this.props.setRole(true)
   }
 
   selectDriver(e) {
     console.log("inside selectDriver")
-    e.preventDefault();
+    e.preventDefault()
     this.props.setRole(false)
   }
 
@@ -39,7 +38,7 @@ export default class Menu extends React.Component {
   //   this.setState({ isNavigator: !this.state.isNavigator });
   // }
 
-  render () {
+  render() {
     return (
       <Entity>
         <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
@@ -73,10 +72,7 @@ export default class Menu extends React.Component {
                   geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
                   material={{color: '#24CAFF'}}/>
         </Entity>
-
-
         {userCam}
-
       </Entity>)
-    }
   }
+}

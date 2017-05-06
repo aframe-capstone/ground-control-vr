@@ -93,7 +93,7 @@ const driverCam = (<Entity position="0 2.25 1" >
 
 const warningLight = (<Entity id="warning-light" position="0 5.3 0.4" primitive="a-cone" geometry={{radiusBottom: 0.21, radiusTop: 0.33, height: 0.3}} opacity="0.4" transparent animation={{property: 'material.color', from: '#000', to: '#900', ease: 'linear', loop: 'true', direction: 'ease-in'}}>
   <Entity primitive="a-light" type="hemisphere" position="0, 0, 0" intensity='5' animation={{property: 'color', from: '#000', to: '#900', loop: 'true', ease: 'ease-in', direction: 'alternate'}} />
-  <Entity primitive='a-sound' src="#alarm" loop="true" autoplay="true" position="0 0 0" />
+  {/* Uncomment this line to enable alarm sound (disabled to avoid going crazy while testing) <Entity primitive='a-sound' src="#alarm" loop="true" autoplay="true" position="0 0 0" /> */}
 </Entity>)
 
 function generatePanel(xDimension, zDimension) {

@@ -14,7 +14,7 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.mozGetUserMedia ||
                        navigator.msGetUserMedia)
 
-navigator.getUserMedia({ audio: true }, gotMedia, function () {})
+navigator.getUserMedia({ audio: true }, gotMedia, function() {})
 
 // enable user media audio.
 // After have media
@@ -24,7 +24,7 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () {})
 // get signal back from other peer to original peer
 // on connect, begin voice streaming
 
-function gotMedia (stream) {
+function gotMedia(stream) {
   // var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
   // var peer2 = new Peer({ initiator: false, stream: stream });
   //
@@ -86,8 +86,8 @@ function gotMedia (stream) {
 const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-camera" look-controls-enabled="false" wasd-controls-enabled="false">
 </Entity>)
 
-const driverCam = (<Entity position="0 2.25 1" userHeight="0.6" primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
-  {/* <Entity fence="width: 1; depth: 1; x0: -1.5; z0: -1.5" /> */}
+const driverCam = (<Entity position="0 2.25 1" >
+  <Entity fence="width: 3; depth: 4; x0: 0; z0: 1" userHeight="0.6" primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true" />
   {/* <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/> */}
 </Entity>)
 

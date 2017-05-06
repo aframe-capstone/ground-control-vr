@@ -3,13 +3,8 @@ import {Entity} from 'aframe-react'
 
 const generatePanel = (xDimension, zDimension) => {
   const panel = []
-  for (let tempX = 0; tempX <= xDimension; tempX+=1) {
-    for (let tempZ = 0; tempZ <= zDimension; tempZ+=1) {
-      console.log('calling generatePanel')
-      panel.push(generateModule(-1, 0, 0))
-      panel.push(generateModule(0, 0, 0))
-    }
-  }
+  panel.push(generateModule(-1, 0, 0))
+  panel.push(generateModule(0, 0, 0))
   return <Entity id='MyPanel' > {panel} </Entity>
 }
 
@@ -20,8 +15,13 @@ const generateModule = (initialXCoord, initialYCoord, initialZCoord) => {
     initialXCoord+=0.3
     module.push(generateLever(initialXCoord, initialZCoord, 'red'))
   }
-  module.push(<Entity geometry={{primitive: 'plane', width: '1', height: 'auto'}} id='ModuleName' rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: 'Flux Capacitor'}} />)
-  return module
+  return <Entity id='ModuleName' position={{x: initialXCoord - 0.9, y: initialZCoord, z: initialZCoord}}>
+    <Entity geometry={{primitive: 'plane', width: '1', height: 'auto'}}
+    rotation='-60 0 0'
+    text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt',
+      value: 'Flux Capacitor'}}
+    />{ module }</Entity>
+  // return module
 }
 
 const generateButton = (x, z, color) => {

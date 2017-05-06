@@ -11,22 +11,22 @@ import Peer from 'simple-peer';
 
 // Initialize firebase
 var config = {
-    apiKey: "AIzaSyAoEAecAsSgktGQmv2dHhinVRrMhoUYiYg",
-    authDomain: "test-61ce3.firebaseapp.com",
-    databaseURL: "https://test-61ce3.firebaseio.com",
-    projectId: "test-61ce3",
-    storageBucket: "test-61ce3.appspot.com",
-    messagingSenderId: "555633723470"
-  };
+  apiKey: "AIzaSyAoEAecAsSgktGQmv2dHhinVRrMhoUYiYg",
+  authDomain: "test-61ce3.firebaseapp.com",
+  databaseURL: "https://test-61ce3.firebaseio.com",
+  projectId: "test-61ce3",
+  storageBucket: "test-61ce3.appspot.com",
+  messagingSenderId: "555633723470"
+};
 firebase.initializeApp(config);
 console.log('FIREBASE initialized');
 
-navigator.getUserMedia = ( navigator.getUserMedia ||
-                       navigator.webkitGetUserMedia ||
-                       navigator.mozGetUserMedia ||
-                       navigator.msGetUserMedia);
+navigator.getUserMedia = (navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.msGetUserMedia);
 
-navigator.getUserMedia({ audio: true }, gotMedia, function () {});
+navigator.getUserMedia({ audio: true }, gotMedia, function () { });
 
 // enable user media audio.
 // After have media
@@ -36,47 +36,47 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 // get signal back from other peer to original peer
 // on connect, begin voice streaming
 
-function gotMedia (stream) {
+function gotMedia(stream) {
   var p;
   const simplePeerRef = firebase.database().ref('SimplePeer/');
-  if(location.hash === '#1'){
+  if (location.hash === '#1') {
     p = new Peer({ initiator: true, trickle: false, stream: stream })
     p.on('close', function () {
       console.log('CLOSING CONNECTION AND EMPTYING DB')
-      simplePeerRef.set({});         
+      simplePeerRef.set({});
     })
-    p.on('error', function (err) { 
+    p.on('error', function (err) {
       console.log('error', err)
-      simplePeerRef.set({}); 
+      simplePeerRef.set({});
     })
     p.on('signal', function (signalData) {
       simplePeerRef.push(JSON.stringify(signalData))
-      .then(() =>{
-        console.log('PUSHED SIGNAL TO DATABASE');
-        let second = false;
-        return simplePeerRef.limitToLast(2).on('child_added', snapshot => {
-          if(second === false){
-            second = true;
-          }
-          else{
-            p.signal(JSON.parse(snapshot.val()));
-            console.log('SIGNAL RECEIVED');
-          }
+        .then(() => {
+          console.log('PUSHED SIGNAL TO DATABASE');
+          let second = false;
+          return simplePeerRef.limitToLast(2).on('child_added', snapshot => {
+            if (second === false) {
+              second = true;
+            }
+            else {
+              p.signal(JSON.parse(snapshot.val()));
+              console.log('SIGNAL RECEIVED');
+            }
+          })
         })
-      })
     })
   }
-  else{
-    p = new Peer({ initiator: false, trickle: false })
+  else {
+    p = new Peer({ initiator: false, trickle: false, stream: stream })
     p.on('close', function () {
-      console.log('CLOSING CONNECTION AND EMPTYING DB')    
-      simplePeerRef.set({});         
-    })
-    p.on('error', function (err) { 
-      console.log('error', err) 
+      console.log('CLOSING CONNECTION AND EMPTYING DB')
       simplePeerRef.set({});
     })
-    simplePeerRef.once('child_added', function(snapshot) {
+    p.on('error', function (err) {
+      console.log('error', err)
+      simplePeerRef.set({});
+    })
+    simplePeerRef.once('child_added', function (snapshot) {
       console.log('SINGAL RECEIVED');
       p.signal(JSON.parse(snapshot.val()));
       p.on('signal', function (signalData) {
@@ -97,9 +97,9 @@ function gotMedia (stream) {
   p.on('stream', function (stream) {
     console.log('streaming started')
     // got remote video stream, now let's show it in a video tag
-    var video = document.querySelector('video')
-    video.src = window.URL.createObjectURL(stream)
-    video.play()
+    var audio = document.querySelector('audio')
+    audio.src = window.URL.createObjectURL(stream)
+    audio.play()
   })
 }
 
@@ -115,10 +115,10 @@ class App extends React.Component {
   render() {
     return (
       <Scene>
-      <a-assets>
-        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
-      </a-assets>
-      { this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} /> }
+        <a-assets>
+          <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" />
+        </a-assets>
+        {this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} />}
       </Scene>
     )
   }

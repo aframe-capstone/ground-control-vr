@@ -9,6 +9,18 @@ import Simulation from './simulation';
 import Menu from './menu';
 import Peer from 'simple-peer';
 
+// Initialize firebase
+var config = {
+    apiKey: "AIzaSyAoEAecAsSgktGQmv2dHhinVRrMhoUYiYg",
+    authDomain: "test-61ce3.firebaseapp.com",
+    databaseURL: "https://test-61ce3.firebaseio.com",
+    projectId: "test-61ce3",
+    storageBucket: "test-61ce3.appspot.com",
+    messagingSenderId: "555633723470"
+  };
+firebase.initializeApp(config);
+console.log('FIREBASE initialized');
+
 navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
                        navigator.mozGetUserMedia ||
@@ -25,24 +37,56 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () {});
 // on connect, begin voice streaming
 
 function gotMedia (stream) {
-
-  var p = new Peer({ initiator: location.hash === '#1', trickle: false })
-
-  p.on('error', function (err) { console.log('error', err) })
-
-  p.on('signal', function (data) {
-    console.log('SIGNAL', JSON.stringify(data))
-    // document.querySelector('#outgoing').textContent = JSON.stringify(data)
-  })
-
-  // Get signal from firebase
-  document.querySelector('form').addEventListener('submit', function (ev) {
-    ev.preventDefault()
-    p.signal(JSON.parse(document.querySelector('#incoming').value))
-  })
-
+  var p;
+  const simplePeerRef = firebase.database().ref('SimplePeer/');
+  if(location.hash === '#1'){
+    p = new Peer({ initiator: true, trickle: false })
+    p.on('close', function () {
+      console.log('CLOSING CONNECTION AND EMPTYING DB')
+      simplePeerRef.set({});         
+    })
+    p.on('error', function (err) { 
+      console.log('error', err)
+      simplePeerRef.set({}); 
+    })
+    p.on('signal', function (signalData) {
+      simplePeerRef.push(JSON.stringify(signalData))
+      .then(() =>{
+        console.log('PUSHED SIGNAL TO DATABASE');
+        let second = false;
+        return simplePeerRef.limitToLast(2).on('child_added', snapshot => {
+          if(second === false){
+            second = true;
+          }
+          else{
+            p.signal(JSON.parse(snapshot.val()));
+            console.log('SIGNAL RECEIVED');
+          }
+        })
+      })
+    })
+  }
+  else{
+    p = new Peer({ initiator: false, trickle: false })
+    p.on('close', function () {
+      console.log('CLOSING CONNECTION AND EMPTYING DB')    
+      simplePeerRef.set({});         
+    })
+    p.on('error', function (err) { 
+      console.log('error', err) 
+      simplePeerRef.set({});
+    })
+    simplePeerRef.once('child_added', function(snapshot) {
+      console.log('SINGAL RECEIVED');
+      p.signal(JSON.parse(snapshot.val()));
+      p.on('signal', function (signalData) {
+        simplePeerRef.push(JSON.stringify(signalData))
+        console.log('PUSHED SIGNAL TO FIREBASE');
+      })
+    });
+  }
   p.on('connect', function () {
-    console.log('CONNECT')
+    console.log('CONNECTED')
     p.send('whatever' + Math.random())
   })
 
@@ -50,57 +94,13 @@ function gotMedia (stream) {
     console.log('data: ' + data)
   })
 
-
-  // var peer1 = new Peer({ initiator: location.hash === '#1', trickle: false, stream: stream });
-  // var peer2 = new Peer({ initiator: false, stream: stream });
-  
-  // console.log("peer1", peer1);
-  // console.log("peer2", peer2);
-  
-  // peer1.on('error', function (err) { console.log('error', err) })
-  // peer2.on('error', function (err) { console.log('error', err) })
-  
-  // peer1.on('signal', function (data) {
-  //   console.log('SIGNAL', JSON.stringify(data));
-  //   document.querySelector('#outgoing').textContent = JSON.stringify(data);
-  //   peer2.signal(data)
-  // })
-  
-  // peer2.on('signal', function (data) {
-  //   peer1.signal(data)
-  // })
-  
-  // peer1.on('connect', function() {
-  //   console.log("PEER ONE CONNECTED");
-  //   peer1.send('SENT FROM PEER1 ' + Math.random());
-  // });
-  
-  // peer2.on('stream', function (stream) {
-  //   console.log('streaming from peer2')
-  //   // got remote video stream, now let's show it in a video tag
-  //   var video = document.querySelector('video')
-  //   video.src = window.URL.createObjectURL(stream)
-  //   video.play()
-  // })
-  
-  // peer1.on('stream', function (stream) {
-  //   console.log('streaming from peer1')
-  //   // // got remote video stream, now let's show it in a video tag
-  //   // var video = document.querySelector('video')
-  //   // video.src = window.URL.createObjectURL(stream)
-  //   // video.play()
-  // })
-  
-  // peer2.on('connect', function() {
-  //   console.log("PEER TWO CONNECTED");
-  //   peer1.send('SENT FROM PEER2 ' + Math.random());
-  // });
-  
-  // document.querySelector('form').addEventListener('submit', function (ev) {
-  //   console.log("FORM SUBMITTED");
-  //   ev.preventDefault();
-  //   peer2.signal(JSON.parse(document.querySelector('#incoming').value));
-  // })
+  p.on('stream', function (stream) {
+    console.log('streaming started')
+    // got remote video stream, now let's show it in a video tag
+    var video = document.querySelector('video')
+    video.src = window.URL.createObjectURL(stream)
+    video.play()
+  })
 }
 
 class App extends React.Component {
@@ -110,26 +110,17 @@ class App extends React.Component {
       inSim: false,
       isNavigator: false
     }
-    this.setRole = this.setRole.bind(this)
-  }
-
-  setRole(isNavigator) {
-    console.log('CALLED setRole WITH', isNavigator)
-    this.setState({ isNavigator: isNavigator, inSim: true })
   }
 
   render() {
-    return (<Scene>
+    return (
+      <Scene>
       <a-assets>
-        <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
-        <audio id="alarm" src="assets/sound/alarmloop.mp3"/>
-        <a-asset-item id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
-        <a-asset-item id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
       </a-assets>
       { this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} /> }
-    </Scene>)
+      </Scene>
+    )
   }
 }
-
 // ReactDOM.render(<App />, document.querySelector('#sceneContainer'));

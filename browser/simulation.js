@@ -2,7 +2,7 @@ import 'aframe'
 import 'aframe-animation-component'
 import 'aframe-particle-system-component'
 import 'babel-polyfill'
-import {Entity, Scene} from 'aframe-react'
+import {Entity, Scene, Animation} from 'aframe-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Peer from 'simple-peer'
@@ -91,6 +91,12 @@ const driverCam = (<Entity position="0 2.25 1" >
   {/* <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/> */}
 </Entity>)
 
+// animation__warning={{property: 'color', begin: '2000', direction: 'alternate', from: '#000000', to: '#88888', dur: '1000', repeat: 'indefinite', loop: 'true'}}
+// animation="property: 'color'; from: 'white'; to: 'red'; dur: '1000'; loop: true"
+const warningLight = (<Entity id="warning-light" position="0 5.3 0.4" primitive="a-cone" geometry={{radiusBottom: 0.21, radiusTop: 0.33, height: 0.3}} opacity="0.4" transparent animation={{property: 'material.color', from: '#000', to: '#900', ease: 'linear', loop: 'true', direction: 'ease-in'}}>
+  <Entity primitive="a-light" type="hemisphere" position="0, 0, 0" intensity='5' animation={{property: 'color', from: '#000', to: '#900', loop: 'true', ease: 'ease-in', direction: 'alternate'}} />
+</Entity>)
+
 function generatePanel(xDimension, zDimension) {
   const panel = []
   for (let tempX = 0; tempX <= xDimension; tempX+=1) {
@@ -174,11 +180,10 @@ export default class Simulation extends React.Component {
         <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 3.5, z: 0}} >
           {generatePanel(1,1)}
         </Entity> */}
-
-        <Entity primitive="a-light" type="ambient" intensity="2" color="#445451"/>
+        {warningLight}
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         <Entity primitive="a-sphere" radius="5" position={{x: 3, y: 2, z: 30}} radius="10" color="yellow" >
-          <Entity primitive="a-light" type="directional" position={{x: 3, y: 2, z: -9}} color="yellow" intensity="2" />
+          <Entity primitive="a-light" type="directional" position={{x: 3, y: 2, z: -9}} color="yellow" intensity=".3" />
         </Entity>
         {this.props.isNavigator ? navigatorCam : driverCam}
       </Entity>

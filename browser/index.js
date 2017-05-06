@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom';
 import Simulation from './simulation';
 import Menu from './menu';
 import Peer from 'simple-peer';
-// var p = new Peer({ })
 
 navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
@@ -89,41 +88,29 @@ function gotMedia (stream) {
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       inSim: false,
       isNavigator: false
-    };
+    }
     this.setRole = this.setRole.bind(this)
   }
 
   setRole(isNavigator) {
     console.log('CALLED setRole WITH', isNavigator)
-    this.setState({ isNavigator: isNavigator, inSim: true });
+    this.setState({ isNavigator: isNavigator, inSim: true })
   }
-// // firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
-//                    authDomain: aframe-site.firebaseapp.com;
-//                    databaseURL: https://aframe-site.firebaseio.com;
-//                    storageBucket: aframe-site.appspot.com"
-// firebase-broadcast="componentsOnce: mixin; components: position"
 
-  render () {
+  render() {
     return (<Scene>
       <a-assets>
-        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
+        <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
-        <a-asset-item id="treeOne" src="assets/LowPolyTree1/tree.obj" />
-        <a-asset-item id="treeOneMaterial" src="assets/LowPolyTree1/tree.mtl" />
-        <a-asset-item id="treeTwo" src="assets/LowPolyTree2/lowpolytree.obj" />
-        <a-asset-item id="treeTwoMaterial" src="assets/LowPolyTree2/lowpolytree.mtl" />
-        <a-asset-item id="mountain" src="assets/Mountains/lowpolymountains.obj" />
-        <a-asset-item id="mountainMaterial" src="assets/Mountains/lowpolymountains.mtl" />
-        <a-asset-item id="rockOne" src="assets/Rock1/Rock1.obj" />
-        <a-asset-item id="rockOneMaterial" src="assets/Rock1/Rock1.mtl" />
-        <a-asset-item id="grassTexture" src="textures/blocks/grass_top.png" />
+        <a-asset-item id="cockpit" src="cockpit/cockpit-05_obj.obj" />
+        <a-asset-item id="cockpitMaterial" src="cockpit/cockpit-05_obj.mtl" />
       </a-assets>
       { this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} /> }
-    </Scene>);
+    </Scene>)
   }
 }
 

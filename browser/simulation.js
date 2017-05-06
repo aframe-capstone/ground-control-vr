@@ -6,13 +6,14 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Peer from 'simple-peer';
+import 'aframe-ui-widgets';
 
 navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
                        navigator.mozGetUserMedia ||
-                       navigator.msGetUserMedia);
+                       navigator.msGetUserMedia)
 
-navigator.getUserMedia({ audio: true }, gotMedia, function () {});
+navigator.getUserMedia({ audio: true }, gotMedia, function () {})
 
 // enable user media audio.
 // After have media
@@ -82,137 +83,108 @@ function gotMedia (stream) {
 // })
 
 const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-camera" look-controls-enabled="false" wasd-controls-enabled="false">
-</Entity>);
+</Entity>)
 
-const driverCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
-  <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/>
-</Entity>);
+const driverCam = (<Entity position="0 2.25 1" userHeight="0.6" primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
+  {/* <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/> */}
+</Entity>)
 
-const TREE_PROBABILITY = 0.03;
-const ROCK_PROBABILITY = 0.01;
-const MOUNTAIN_PROBABILITY = 0.01;
-
-const generateForest = (x, z) => {
-  console.log("GENERATING FOREST")
-  const forest = [];
-  for (let tempX = 0; tempX <= x; tempX++) {
-    for (let tempZ = 0; tempZ <= z; tempZ++) {
-      if (Math.random() < TREE_PROBABILITY) {
-        forest.push(generateTree(tempX + Math.random(), tempZ + Math.random()))
-      }
-      if (Math.random() < ROCK_PROBABILITY) {
-        // forest.push(generateRock(tempX + Math.random(), tempZ + Math.random()))
-      }
-      if (Math.random() < MOUNTAIN_PROBABILITY) {
-        // forest.push(generateMountain(tempX + Math.random(), tempZ + Math.random()))
-      }
+function generatePanel(xDimension, zDimension) {
+  const panel = []
+  for (let tempX = 0; tempX <= xDimension; tempX+=1) {
+    for (let tempZ = 0; tempZ <= zDimension; tempZ+=1) {
+      panel.push(generateModule(-1, 0, 0))
+      panel.push(generateModule(0, 0, 0))
     }
   }
-  return forest;
+  return panel
 }
 
-const generateRock = (xPos, zPos) => {
-  return (<Entity obj-model={{obj: '#rockOne', mtl: '#rockOneMaterial'}}
-        scale={{x: Math.random(), y: Math.random(), z: Math.random()}}
-        rotation={{x: 0, y: getRandomIntInclusive(0, 360), z: 0}}
-        position={{x: xPos, y: 0, z: zPos}}
-        ></Entity>);
-}
-
-const generateMountain = (xPos, zPos) => {
-  return (<Entity obj-model={{obj: '#mountain', mtl: '#mountainMaterial'}}
-        scale={{x: 1, y: 1, z: 1}}
-        rotation={{x: 0, y: getRandomIntInclusive(0, 360), z: 0}}
-        position={{x: xPos, y: 0, z: zPos}}
-        ></Entity>);
-}
-
-const generateTree = (xPos, zPos) => {
-  if (Math.random() <= 0.5) {
-    return (<Entity obj-model={{obj: '#treeOne', mtl: '#treeOneMaterial'}}
-      height={getRandomIntInclusive(1, 6).toString()}
-      width={'0.01'}
-      depth={'0.01'}
-      rotation={{x: 0, y: getRandomIntInclusive(0, 360), z: 0}}
-      position={{x: xPos, y: 0, z: zPos}}
-      ></Entity>);
-  } else {
-    return (<Entity obj-model={{obj: '#treeTwo', mtl: '#treeTwoMaterial'}}
-      height={getRandomIntInclusive(1, 6).toString()}
-      width={'0.01'}
-      depth={'0.01'}
-      rotation={{x: 0, y: getRandomIntInclusive(0, 360), z: 0}}
-      position={{x: xPos, y: 0, z: zPos}}
-      ></Entity>);
+function generateModule(initialXCoord, initialYCoord, initialZCoord) {
+  const module = []
+  let length = initialXCoord + 3
+  for (var i = initialXCoord; i < length; i++) {
+    initialXCoord+=0.3
+    module.push(generateLever(initialXCoord, initialZCoord, 'red'))
   }
+  return module
+}
+
+function generateButton(x, z, color) {
+  return <Entity ui-button color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
+  </Entity>
+}
+
+function generateLever(x, z, color) {
+  return <Entity ui-toggle color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
+  </Entity>
 }
 
 function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 export default class Simulation extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      renderNewForest: true,
+      renderCockpit: true,
       forest: []
-    };
+    }
   }
 
   changeColor() {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue']
     this.setState({
       color: colors[Math.floor(Math.random() * colors.length)]
-    });
+    })
   }
 
   stopForestGen() {
     this.setState({renderNewforest: false})
   }
 
-// // firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
-//                    authDomain: aframe-site.firebaseapp.com;
-//                    databaseURL: https://aframe-site.firebaseio.com;
-//                    storageBucket: aframe-site.appspot.com"
-// firebase-broadcast="componentsOnce: mixin; components: position"
   componentWillMount() {
-    if(this.state.renderNewForest) {
-      let forest = generateForest(100, 100)
-      this.setState({forest})
+    if (this.state.renderCockpit) {
+      // let forest = generateForest(100, 100)
+      // this.setState({forest})
     }
-    this.stopForestGen()
+    // this.stopForestGen()
   }
 
-  render () {
-
+  // Two panels are temporarily disabled for our alpha!
+  render() {
     return (
       <Entity >
-        <Entity primitive="a-plane" src="#grassTexture" rotation="-90 0 0" height="400" depth=".5" width="400"/>
-        {/* <Entity primitive="a-light" type="ambient" color="#445451"/> */}
+        {/* <Entity id="thePlane" primitive="plane" position={{x: 0, y: 4, z: 0}} rotation={{x: -90, y: 0, z: 0}} height={100} depth={0.1} width={100} color="#000000" /> */}
+        <Entity static-body obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
+          position={{x: 0, y: 4, z: 0}}
+          ></Entity>
+        <Entity color="#213033"
+          primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 90, z: 0}} position={{x: -1.5, y: 3.5, z: 2.5}} >
+          {generatePanel(1, 1)}
+        </Entity>
+        {/* <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: -90, z: 0}} position={{x: 1.5, y: 3.5, z: 2.5}} >
+          {generatePanel(1,1)}
+        </Entity>
+        <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 3.5, z: 0}} >
+          {generatePanel(1,1)}
+        </Entity> */}
 
-        <Entity primitive="a-sky" height="2048" radius="300" src="#skyTexture" theta-length="90" width="2048"/>
-        {/* <Entity particle-system={{preset: 'snow', particleCount: 2000}}/> */}
-
-        {this.state.forest}
-
+        <Entity primitive="a-light" type="ambient" intensity="2" color="#445451"/>
+        <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
+        <Entity primitive="a-sphere" radius="5" position={{x: 3, y: 2, z: 30}} radius="10" color="yellow" >
+          <Entity primitive="a-light" type="directional" position={{x: 3, y: 2, z: -9}} color="yellow" intensity="2" />
+        </Entity>
         {this.props.isNavigator ? navigatorCam : driverCam}
-
       </Entity>
-    );
+    )
   }
 }
 
-
-/* Example of text above landmark
-          <Entity
-            color={'#000'}
-            scale={{x: 5, y: 1, z: 5}}
-            text={{ value: 'DINING ROOM!', align: 'center' }}
-            side={"double"}
-            transparent={false}
-            rotation={{ x: -90, y: 0, z: 0 }}
-            position={{x: 0, y: 5, z: 0}} />
-        </Entity> */
+const ExamplePanel = <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 4, z: 0}} >
+  {generatePanel(1, 1)}</Entity>

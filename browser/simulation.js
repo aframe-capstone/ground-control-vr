@@ -28,9 +28,38 @@ export default class Simulation extends React.Component {
     super(props)
     this.state = {
       renderCockpit: true,
-      cockpit: []
+      cockpit: [],
+      strike: 0,
+      currentPhase: 1,
+      phase1: {
+        module1: {
+          currentState: []
+        },
+        module2: {
+          currentState: []
+        }
+      },
+      phase2: {
+        module1: {
+          currentState: []
+        },
+        module2: {
+          currentState: []
+        }
+      },
+      phase3: {
+        module1: {
+          currentState: []
+        },
+        module2: {
+          currentState: []
+        }
+      },
+      testing: false
     }
+    this.handleClick = this.handleClick.bind(this)
   }
+
 
   changeColor() {
     const colors = ['red', 'orange', 'yellow', 'green', 'blue']
@@ -50,6 +79,12 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
+  handleClick(e) {
+    console.log('This has been click by id', e.target.id)
+    console.log('Before State', this.state)
+    this.setState({testing: true})
+    console.log(this.state)
+  }
   // Two panels are temporarily disabled for our alpha! Don't delete!
   render() {
     return (

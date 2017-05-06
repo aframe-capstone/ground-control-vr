@@ -5,7 +5,7 @@ const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-
 </Entity>)
 
 const DriverCam = (<Entity position="0 2.25 1" >
-  <Entity fence="width: 3; depth: 4; x0: 0; z0: 1" userHeight="0.6" primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true" />
+  <Entity fence="width: 3; depth: 4; x0: 0; z0: 1" userHeight="0.6" primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true" cursor/>
   {/* <Entity primitive="a-light" type="spot" intensity="0.1" position="2 1 4"/> */}
 </Entity>)
 

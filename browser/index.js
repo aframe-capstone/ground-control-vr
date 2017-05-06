@@ -40,7 +40,7 @@ function gotMedia (stream) {
   var p;
   const simplePeerRef = firebase.database().ref('SimplePeer/');
   if(location.hash === '#1'){
-    p = new Peer({ initiator: true, trickle: false })
+    p = new Peer({ initiator: true, trickle: false, stream: stream })
     p.on('close', function () {
       console.log('CLOSING CONNECTION AND EMPTYING DB')
       simplePeerRef.set({});         
@@ -97,9 +97,9 @@ function gotMedia (stream) {
   p.on('stream', function (stream) {
     console.log('streaming started')
     // got remote video stream, now let's show it in a video tag
-    var audio = document.querySelector('audio')
-    audio.src = window.URL.createObjectURL(stream)
-    audio.play()
+    var video = document.querySelector('video')
+    video.src = window.URL.createObjectURL(stream)
+    video.play()
   })
 }
 

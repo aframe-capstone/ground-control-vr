@@ -69,6 +69,3 @@ export default class Simulation extends React.Component {
     )
   }
 }
-
-const ExamplePanel = <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 4, z: 0}} >
-  {generatePanel(1, 1)}</Entity>

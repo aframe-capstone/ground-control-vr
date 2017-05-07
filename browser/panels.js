@@ -8,7 +8,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber) => {
   panel.push(generateButton(0.9, 0, '#080'))
   return <Entity
     color="#213033"
-    primitive="a-box"
+    primitive="abox"
     width="2.3"
     height="0.01"
     depth="0.6"
@@ -48,14 +48,5 @@ const generateLever = (x, z, color) => {
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }
-
-/*
-Scanner Unit System. Button Switch, Slider
-Gravitron Emitter. Knob, Button, Button
-Amp Scrambler. Knob, Slider, Switch
-System Process Uploader. Slider. Button. Slider
-Circuit Current Computer. Knobs
-Sensor Anaylzer. Slider, Slider, Knob
-*/
 
 export {generatePanel}

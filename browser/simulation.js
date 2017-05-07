@@ -39,6 +39,10 @@ export default class Simulation extends React.Component {
     })
   }
 
+  playSound() {
+    
+  }
+
   stopInteriorRender() {
     this.setState({renderCockpit: false})
   }

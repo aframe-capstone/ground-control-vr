@@ -10,6 +10,8 @@ import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
+
+/* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
 
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')

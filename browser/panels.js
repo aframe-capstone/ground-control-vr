@@ -6,16 +6,16 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber) => {
   panel.push(generateModule(0, 0, 0, 'Gravitron Emitter'))
   panel.push(generateModule(-1, 0, 0, 'Flux Capacitor'))
   panel.push(generateButton(0.9, 0, '#080'))
-  return <Entity
+  return (<Entity
     color="#213033"
-    primitive="abox"
+    primitive="a-box"
     width="2.3"
     height="0.01"
     depth="0.6"
     rotation={{x: 60, y: yRotation, z: 0}}
     position={{x: xDimension, y: 3.5, z: zDimension}}
     id={`${panelNumber}`}
-    > {panel} </Entity>
+    > {panel} </Entity>)
 }
 
 const generateModuleName = (name) => {

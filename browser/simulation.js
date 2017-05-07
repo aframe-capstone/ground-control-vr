@@ -54,31 +54,14 @@ export default class Simulation extends React.Component {
   render() {
     return (
       <Entity >
-        <Entity static-body obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
+        <Entity
+          static-body
+          obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
-          ></Entity>
-        <Entity color="#213033"
-          primitive="a-box" width="2.3" height="0.01" depth="0.6" rotation={{x: 60, y: 90, z: 0}} position={{x: -1.5, y: 3.5, z: 2.5}} >
-          {generatePanel(1, 1)}
-        </Entity>
-        {/* <Entity color="#213033"
-          primitive="a-box"
-          width="2.3"
-          height="0.01"
-          depth="0.6"
-          rotation={{x: 60, y: -90, z: 0}}
-          position={{x: 1.5, y: 3.5, z: 2.5}} >
-          {generatePanel(1, 1)}
-        </Entity>
-        <Entity color="#213033"
-          primitive="a-box"
-          width="2.3"
-          height="0.01"
-          depth="0.6"
-          rotation={{x: 60, y: 0, z: 0}}
-          position={{x: 0, y: 3.5, z: 0}} >
-          {generatePanel(1, 1)}
-        </Entity> */}
+        />
+        {generatePanel(-1.5, 2.5, 90)}
+        {generatePanel(1.5, 2.5, -90)}
+        {generatePanel(0, 0, 0)}
         {warningLight}
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         {Sun}

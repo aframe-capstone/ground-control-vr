@@ -20,7 +20,6 @@ class App extends React.Component {
   }
 
   setRole(isNavigator) {
-    console.log('CALLED setRole WITH', isNavigator)
     this.setState({ isNavigator: isNavigator, inSim: true })
   }
 

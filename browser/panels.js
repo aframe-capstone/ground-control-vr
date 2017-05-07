@@ -1,12 +1,44 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
-const generatePanel = (xDimension, zDimension) => {
+{/* <Entity
+    >
+  {generatePanel(1, 1)}
+</Entity> */}
+{/* <Entity color="#213033"
+  primitive="a-box"
+  width="2.3"
+  height="0.01"
+  depth="0.6"
+  rotation={{x: 60, y: -90, z: 0}}
+  position={{x: 1.5, y: 3.5, z: 2.5}} >
+  {generatePanel(1, 1)}
+</Entity>
+<Entity color="#213033"
+  primitive="a-box"
+  width="2.3"
+  height="0.01"
+  depth="0.6"
+  rotation={{x: 60, y: 0, z: 0}}
+  position={{x: 0, y: 3.5, z: 0}} >
+  {generatePanel(1, 1)}
+</Entity> */}
+
+const generatePanel = (xDimension, zDimension, yRotation) => {
   const panel = []
   panel.push(generateModule(0, 0, 0))
   panel.push(generateModule(-1, 0, 0))
   panel.push(generateButton(0.9, 0, '#080'))
-  return <Entity id='MyPanel' > {panel} </Entity>
+  return <Entity
+    color="#213033"
+    primitive="a-box"
+    width="2.3"
+    height="0.01"
+    depth="0.6"
+    rotation={{x: 60, y: yRotation, z: 0}}
+    position={{x: xDimension, y: 3.5, z: zDimension}}
+    id='MyPanel'
+    > {panel} </Entity>
 }
 
 const generateModule = (initialXCoord, initialYCoord, initialZCoord) => {

@@ -50,7 +50,6 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
-  // Two panels are temporarily disabled for our alpha! Don't delete!
   render() {
     return (
       <Entity >

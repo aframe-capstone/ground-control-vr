@@ -1,33 +1,10 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
-{/* <Entity
-    >
-  {generatePanel(1, 1)}
-</Entity> */}
-{/* <Entity color="#213033"
-  primitive="a-box"
-  width="2.3"
-  height="0.01"
-  depth="0.6"
-  rotation={{x: 60, y: -90, z: 0}}
-  position={{x: 1.5, y: 3.5, z: 2.5}} >
-  {generatePanel(1, 1)}
-</Entity>
-<Entity color="#213033"
-  primitive="a-box"
-  width="2.3"
-  height="0.01"
-  depth="0.6"
-  rotation={{x: 60, y: 0, z: 0}}
-  position={{x: 0, y: 3.5, z: 0}} >
-  {generatePanel(1, 1)}
-</Entity> */}
-
-const generatePanel = (xDimension, zDimension, yRotation) => {
+const generatePanel = (xDimension, zDimension, yRotation, panelNumber) => {
   const panel = []
-  panel.push(generateModule(0, 0, 0))
-  panel.push(generateModule(-1, 0, 0))
+  panel.push(generateModule(0, 0, 0, 'Gravitron Emitter'))
+  panel.push(generateModule(-1, 0, 0, 'Flux Capacitor'))
   panel.push(generateButton(0.9, 0, '#080'))
   return <Entity
     color="#213033"
@@ -37,25 +14,27 @@ const generatePanel = (xDimension, zDimension, yRotation) => {
     depth="0.6"
     rotation={{x: 60, y: yRotation, z: 0}}
     position={{x: xDimension, y: 3.5, z: zDimension}}
-    id='MyPanel'
+    id={`${panelNumber}`}
     > {panel} </Entity>
 }
 
-const generateModule = (initialXCoord, initialYCoord, initialZCoord) => {
-  const module = []
+const generateModuleName = (name) => {
+  return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: `${name}`}}/>
+}
+
+const generateModule = (initialXCoord, initialYCoord, initialZCoord, name) => {
+  const widgets = []
   let iterator = 0
   let length = initialXCoord + 3
   for (var i = initialXCoord; i < length; i++) {
-    module.push(generateLever(iterator, initialZCoord, 'red'))
+    widgets.push(generateLever(iterator, initialZCoord, 'red'))
     iterator+=0.3
   }
-  return <Entity id='ModuleName' position={{x: initialXCoord, y: initialZCoord, z: initialZCoord}}>
-    <Entity position={{x: 0.63, y: 0.05, z: -0.18}}
-    rotation='-60 0 0'
-    text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt',
-      value: 'Gravitron Emitter'}}
-    />{ module }</Entity>
-  // return module
+  return (<Entity id={`${name}`}
+    position={{x: initialXCoord, y: initialZCoord, z: initialZCoord}}>
+    {generateModuleName(name)}
+    { widgets }
+  </Entity>)
 }
 
 const generateButton = (x, z, color) => {

@@ -19,7 +19,7 @@ const DriverCam = (<Entity id='driverCamera' position="0 2.25 1" >
       //   ease: 'ease-in',
       //   direction: 'alternate'}}
       position={{x: 0.01, y: -0.45, z: -0.6}}/>
-    <Entity primitive='a-sound' src="#transmissionBeep" events={{click: this.playSound}} />
+    {/* <Entity primitive='a-sound' src="#transmissionBeep" /> */}
   </Entity>
 </Entity>)
 

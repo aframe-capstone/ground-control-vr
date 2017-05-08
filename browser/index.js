@@ -120,17 +120,13 @@ class App extends React.Component {
 
   render() {
 
-    let destination = null
+    let destination = <Menu setRole={this.setRole}/>
 
-    if(this.state.isNavigator){ destination = <Navigator/>}
-
-    else if (this.state.inSim){destination = <Simulation/>}
-
-    else destination = <Menu setRole = {this.setRole}/>
+    if (this.state.inSim && !this.state.isNavigator){destination = <Simulation/>}
 
     return (
     <div>
-      {this.state.isNavigator ? <Navigator/> : null}
+      {this.state.isNavigator ? <Navigator/> :
 
       <Scene>
         <a-assets>
@@ -145,9 +141,9 @@ class App extends React.Component {
         {/* <a-asset-item id="moduleFont" src='https://cdn.aframe.io/fonts/Exo2Bold.fnt' /> */}
         </a-assets>
 
-        !this.state.isNavigator ? {destination} : null
+        {destination}
 
-      </Scene>
+      </Scene>}
 
       </div>
     )

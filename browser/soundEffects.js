@@ -6,11 +6,11 @@ const playSpaceshipAmbience = () => {
 }
 
 const playSwitchOffSound = () => {
-  return <Entity primitive='a-sound' src="#switchOnSound" autoplay='true' loop='true' />
+  return <Entity primitive='a-sound' src="#switchOnSound" />
 }
 
 const playSwitchOnSound = () => {
-  return <Entity primitive='a-sound' src="#switchOffSound" autoplay='true' loop='true' />
+  return <Entity primitive='a-sound' src="#switchOffSound" />
 }
 
 export {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound}

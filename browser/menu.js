@@ -41,7 +41,6 @@ export default class Menu extends React.Component {
   render() {
     return (
       <Entity>
-        <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
@@ -51,9 +50,9 @@ export default class Menu extends React.Component {
           geometry={{primitive: 'box'}}
           material={{opacity: 0.6}}
           animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          position={{x: 0, y: 1, z: -3}}
+          position={{x: 1, y: 1, z: -3}}
           events={{click: this.selectNavigator.bind(this)}}>
-          <Entity text={{value: 'NAVIGATE!', align: 'center'}} position={{x: 0, y: 1, z: 0}}/>
+          <Entity text={{value: 'NAVIGATE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
           <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
                   geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
                   material={{color: '#24CAFF'}}/>
@@ -63,9 +62,9 @@ export default class Menu extends React.Component {
           geometry={{primitive: 'box'}}
           material={{opacity: 0.6}}
           animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          position={{x: 4, y: 1, z: -3}}
+          position={{x: -1, y: 1, z: -3}}
           events={{click: this.selectDriver.bind(this)}}>
-          <Entity text={{value: 'DRIVE!', align: 'center'}} position={{x: 0, y: 1, z: 0}}/>
+          <Entity text={{value: 'DRIVE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
           <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
                   geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
                   material={{color: '#24CAFF'}}/>

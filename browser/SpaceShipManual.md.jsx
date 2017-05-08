@@ -1,5 +1,7 @@
 import React from 'react'
 
+//just use this file, not the ones in documentation -ob
+
 export default class Manual extends React.Component{
   constructor(props){
     super(props)

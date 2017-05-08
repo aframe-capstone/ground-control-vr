@@ -30,6 +30,7 @@ const generateModule = (initialXCoord, initialYCoord, initialZCoord, name) => {
     widgets.push(generateLever(iterator, initialZCoord, 'red'))
     iterator+=0.3
   }
+  // id can be just name
   return (<Entity id={`${name}`}
     position={{x: initialXCoord, y: initialZCoord, z: initialZCoord}}>
     {generateModuleName(name)}
@@ -37,6 +38,7 @@ const generateModule = (initialXCoord, initialYCoord, initialZCoord, name) => {
   </Entity>)
 }
 
+// x and z could just be numbers - ob
 const generateButton = (x, z, color) => {
   return <Entity ui-button color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
@@ -49,4 +51,6 @@ const generateLever = (x, z, color) => {
   </Entity>
 }
 
+
+//could be default export - ob
 export {generatePanel}

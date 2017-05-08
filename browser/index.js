@@ -39,6 +39,7 @@ navigator.getUserMedia({ audio: true }, gotMedia, function () { });
 
 function gotMedia(stream) {
   var p;
+  //distinguish between different rooms with something like SimplePeer/:roomId
   const simplePeerRef = firebase.database().ref('SimplePeer/');
   if (location.hash === '#1') {
     p = new Peer({ initiator: true, trickle: false, stream: stream })

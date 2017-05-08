@@ -4,7 +4,7 @@ import {Entity} from 'aframe-react'
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber) => {
   const panel = []
   panel.push(generateModule(0, 0, 0, 'Gravitron Emitter'))
-  panel.push(generateModule(-1, 0, 0, 'Flux Capacitor'))
+  panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher'))
   panel.push(generateButton(0.9, 0, '#080'))
   return (<Entity
     color="#213033"

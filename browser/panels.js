@@ -53,6 +53,10 @@ const getWidget = (widgetName, xVal, zVal, color) => {
     break
   }
 }
+function handleChange(e) {
+  console.log('this is button',e)
+}
+
 
 const generateRotary = (x, z, color) => {
   return <Entity ui-rotary color={color} position={{x, y: 0.02, z: z}} >
@@ -61,13 +65,12 @@ const generateRotary = (x, z, color) => {
 }
 
 const generateSlider = (x, z, color) => {
-  return <Entity ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
+  return <Entity  events={{click: handleChange}}ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }
-
 const generateButton = (x, z, color) => {
-  return <Entity ui-button color={color} position={{x, y: 0.02, z}} >
+  return <Entity events={{click: handleChange}}ui-button color={color} position={{x, y: 0.02, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }

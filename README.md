@@ -1,12 +1,17 @@
 # aframe-vr
 A-Frame/React/Firebase VR capstone project
 hello world
+
 ## Standards
 - Always work on a branch associated with an ISSUE.
 - No commits direct to master.
 - No `git yolo`!
 - Many small commits throughout the day
 - If you are stuck on a bug, ask someone to help you. Don't spend too much time and get burned out or lose momentum!
+
+## Code Style
+- Functions should be ES6-style functions, saved to consts and exported (default if possible)
+- Keep it modular! Don't pollute our primary views/top-level server logic with utility functions or other components that can be put into separate files
 
 ## Tools
 [Waffle](https://waffle.io/aframe-capstone/aframe-vr-capstone)

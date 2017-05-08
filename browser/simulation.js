@@ -56,8 +56,6 @@ export default class Simulation extends React.Component {
   }
 
   render() {
-
-    
     return (
       <Entity >
         <Entity

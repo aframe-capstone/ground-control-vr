@@ -10,12 +10,13 @@ import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
+
+/* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
 
-const warningLight = (<Entity id="warning-light" position="0 5.3 0.4" primitive="a-cone" geometry={{radiusBottom: 0.21, radiusTop: 0.33, height: 0.3}} opacity="0.4" transparent animation={{property: 'material.color', from: '#000', to: '#900', ease: 'linear', loop: 'true', direction: 'ease-in'}}>
-  <Entity primitive="a-light" type="hemisphere" position="0, 0, 0" intensity='5' animation={{property: 'color', from: '#000', to: '#900', loop: 'true', ease: 'ease-in', direction: 'alternate'}} />
-  {/* Uncomment this line to enable alarm sound (disabled to avoid going crazy while testing)<Entity primitive='a-sound' src="#alarm" loop="true" autoplay="true" position="0 0 0" /> */}
-</Entity>)
+/* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
+to generate a warning light with proper hex value and animation */
+import {getWarningLightOfColor} from './strike'
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min)
@@ -39,6 +40,10 @@ export default class Simulation extends React.Component {
     })
   }
 
+  playSound() {
+
+  }
+
   stopInteriorRender() {
     this.setState({renderCockpit: false})
   }
@@ -50,26 +55,20 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
-  // Two panels are temporarily disabled for our alpha! Don't delete!
   render() {
 
     
     return (
       <Entity >
-        <Entity static-body obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
+        <Entity
+          static-body
+          obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
-          ></Entity>
-        <Entity color="#213033"
-          primitive="a-box" width="2.2" height="0.01" depth="0.8" rotation={{x: 60, y: 90, z: 0}} position={{x: -1.5, y: 3.5, z: 2.5}} >
-          {generatePanel(1, 1)}
-        </Entity>
-        {/* <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: -90, z: 0}} position={{x: 1.5, y: 3.5, z: 2.5}} >
-          {generatePanel(1,1)}
-        </Entity>
-        <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 3.5, z: 0}} >
-          {generatePanel(1,1)}
-        </Entity> */}
-        {warningLight}
+        />
+        {generatePanel(-1.5, 2.5, 90)}
+        {generatePanel(1.5, 2.5, -90)}
+        {generatePanel(0, 0, 0)}
+        {getWarningLightOfColor('red')}
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         {Sun}
         {DriverCam}
@@ -77,6 +76,3 @@ export default class Simulation extends React.Component {
     )
   }
 }
-
-const ExamplePanel = <Entity color="#213033" primitive="a-box" width="2.2" height="0.01" depth="0.7" rotation={{x: 60, y: 0, z: 0}} position={{x: 0, y: 4, z: 0}} >
-  {generatePanel(1, 1)}</Entity>

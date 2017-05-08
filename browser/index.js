@@ -21,7 +21,6 @@ class App extends React.Component {
   }
 
   setRole(isNavigator) {
-    console.log('CALLED setRole WITH', isNavigator)
     this.setState({ isNavigator: isNavigator, inSim: true })
   }
 
@@ -44,6 +43,7 @@ class App extends React.Component {
         <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
         <audio id="alarm" src="assets/sound/alarmloop.mp3"/>
+        <audio id="transmissionBeep" src="assets/sound/NASAtransmissionbeep.mp3"/>
         <a-asset-item id="sunRaysOne" src="assets/sunrays/sun_rays1.dae" />
         <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
         <a-asset-item id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />

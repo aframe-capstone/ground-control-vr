@@ -52,6 +52,8 @@ export default class Simulation extends React.Component {
 
   // Two panels are temporarily disabled for our alpha! Don't delete!
   render() {
+
+    
     return (
       <Entity >
         <Entity static-body obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}

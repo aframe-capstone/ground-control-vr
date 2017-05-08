@@ -8,8 +8,10 @@ import ReactDOM from 'react-dom'
 import Peer from 'simple-peer'
 import 'aframe-ui-widgets'
 import 'aframe-fence-component'
+import 'aframe-cubemap-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
+import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
@@ -33,13 +35,6 @@ export default class Simulation extends React.Component {
     }
   }
 
-  changeColor() {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue']
-    this.setState({
-      color: colors[Math.floor(Math.random() * colors.length)]
-    })
-  }
-
   playSound() {
 
   }
@@ -56,20 +51,21 @@ export default class Simulation extends React.Component {
   }
 
   render() {
-
-    
     return (
       <Entity >
+        <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity
           static-body
           obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
         />
-        {generatePanel(-1.5, 2.5, 90)}
-        {generatePanel(1.5, 2.5, -90)}
-        {generatePanel(0, 0, 0)}
+        {generatePanel(-1.5, 2.5, 90, 1)}
+        {generatePanel(1.5, 2.5, -90, 2)}
+        {generatePanel(0, 0, 0, 3)}
         {getWarningLightOfColor('red')}
-        <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
+        {playSpaceshipAmbience()}
+        {playSwitchOnSound()}
+        {playSwitchOffSound()}
         {Sun}
         {DriverCam}
       </Entity>

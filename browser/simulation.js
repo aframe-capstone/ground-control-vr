@@ -10,6 +10,7 @@ import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
+import {playSpaceshipAmbience} from './soundEffects'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
@@ -67,6 +68,7 @@ export default class Simulation extends React.Component {
         {generatePanel(1.5, 2.5, -90, 2)}
         {generatePanel(0, 0, 0, 3)}
         {getWarningLightOfColor('red')}
+        {playSpaceshipAmbience()}
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         {Sun}
         {DriverCam}

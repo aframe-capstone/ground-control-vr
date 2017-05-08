@@ -56,8 +56,6 @@ export default class Simulation extends React.Component {
   }
 
   render() {
-
-    
     return (
       <Entity >
         <Entity
@@ -65,9 +63,9 @@ export default class Simulation extends React.Component {
           obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
         />
-        {generatePanel(-1.5, 2.5, 90)}
-        {generatePanel(1.5, 2.5, -90)}
-        {generatePanel(0, 0, 0)}
+        {generatePanel(-1.5, 2.5, 90, 1)}
+        {generatePanel(1.5, 2.5, -90, 2)}
+        {generatePanel(0, 0, 0, 3)}
         {getWarningLightOfColor('red')}
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         {Sun}

@@ -1,7 +1,12 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
-const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-camera" look-controls-enabled="false" wasd-controls-enabled="false">
+const navigatorCam = (<Entity
+  position="0 20 0"
+  rotation="-90 0 0"
+  primitive="a-camera"
+  look-controls-enabled="false"
+  wasd-controls-enabled="false">
 </Entity>)
 
 
@@ -23,7 +28,11 @@ const DriverCam = (
       //   loop: 'true',
       //   ease: 'ease-in',
       //   direction: 'alternate'}}
-      position={{x: 0.3, y: -0.45, z: -0.6}}/>
+      position={{
+        x: 0.3,
+        y: -0.45,
+        z: -0.6
+      }}/>
     <Entity text={{value: 'Time Till Impact: 3:00'}}
       // animation={{
       //   property: 'material.opacity',
@@ -32,8 +41,11 @@ const DriverCam = (
       //   loop: 'true',
       //   ease: 'ease-in',
       //   direction: 'alternate'}}
-      position={{x: 0.35, y: 0.45, z: -0.6}}/>
-    {/* <Entity primitive='a-sound' src="#transmissionBeep" /> */}
+      position={{
+        x: 0.35,
+        y: 0.45,
+        z: -0.6
+      }}/>
   </Entity>
 </Entity>
 </Entity>)

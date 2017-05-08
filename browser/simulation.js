@@ -66,7 +66,6 @@ export default class Simulation extends React.Component {
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}
         {playSwitchOffSound()}
-        {/* <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/> */}
         {Sun}
         {DriverCam}
       </Entity>

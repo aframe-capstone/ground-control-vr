@@ -35,13 +35,6 @@ export default class Simulation extends React.Component {
     }
   }
 
-  changeColor() {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue']
-    this.setState({
-      color: colors[Math.floor(Math.random() * colors.length)]
-    })
-  }
-
   playSound() {
 
   }

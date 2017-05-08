@@ -4,7 +4,7 @@ import {Entity} from 'aframe-react'
 const navigatorCam = (<Entity position="0 20 0" rotation="-90 0 0" primitive="a-camera" look-controls-enabled="false" wasd-controls-enabled="false">
 </Entity>)
 
-var emitChange = new Event('change')
+
 
 const DriverCam = (
   <Entity>
@@ -14,7 +14,7 @@ const DriverCam = (
     primitive="a-camera"
     look-controls-enabled="true"
     wasd-controls-enabled="true">
-    <Entity primitive="a-cursor" events={{}}animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
+    <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
     <Entity text={{value: 'INCOMING TRANSMISSION'}}
       // animation={{
       //   property: 'material.opacity',

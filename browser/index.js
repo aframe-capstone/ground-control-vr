@@ -1,3 +1,4 @@
+
 import 'aframe';
 import 'aframe-animation-component';
 import 'aframe-particle-system-component';
@@ -5,7 +6,7 @@ import 'babel-polyfill';
 import { Entity, Scene } from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Simulation from './simulation';
+import SimulationContainer from './container/Simulation';
 import Menu from './menu';
 import Navigator from './navigator';
 import setUpAudio from './audio';
@@ -32,7 +33,7 @@ class App extends React.Component {
 
     if(this.state.isNavigator){ destination = <Navigator/>}
 
-    else if (this.state.inSim){destination = <Simulation/>}
+    else if (this.state.inSim){destination = <SimulationContainer />}
 
     else destination = <Menu setRole = {this.setRole}/>
 

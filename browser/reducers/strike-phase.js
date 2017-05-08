@@ -4,8 +4,19 @@ const FAILING = 'FAILING'
 // #### INITIAL STATE #### //
 const initialPhaseStrike  = {
   phase: 1,
-  strike: 0
+  strikes: 0
 }
+
+// #### ACTION CREATORS #### //
+
+export const addStrike = () => ({
+  type: FAILING
+})
+
+export const addPhase = () => ({
+  type: PASSING
+})
+
 
 // #### REDUCER #### //
 
@@ -18,7 +29,7 @@ export default function (state = initialPhaseStrike, action) {
       return newState
 
     case FAILING:
-      newState.strike ++;
+      newState.strikes ++;
       return newState
 
     default:

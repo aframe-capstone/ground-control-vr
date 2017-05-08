@@ -44,7 +44,7 @@ export default class Menu extends React.Component {
         <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
-        <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
+        <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
 
         <Entity id="boxOne"

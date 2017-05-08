@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import Simulation from './simulation';
 import Menu from './menu';
 import Peer from 'simple-peer';
+import Navigator from './navigator'
 
 // Initialize firebase
 var config = {
@@ -113,13 +114,36 @@ class App extends React.Component {
   }
 
   render() {
+
+    let destination = null
+
+    if(this.state.isNavigator){ destination = <Navigator/>}
+
+    else if (this.state.inSim){destination = <Simulation/>}
+
+    else destination = <Menu setRole = {this.setRole}/>
+
     return (
+    <div>
+      {this.state.isNavigator ? <Navigator/> : null}
+
       <Scene>
         <a-assets>
-          <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" />
+        <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
+        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
+        <audio id="alarm" src="assets/sound/alarmloop.mp3"/>
+        <a-asset-item id="sunRaysOne" src="assets/sunrays/sun_rays1.dae" />
+        <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
+        <a-asset-item id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
+        <a-asset-item id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
+        {/* <a-asset-item id="moduleFont" src='https://cdn.aframe.io/fonts/Exo2Bold.fnt' /> */}
         </a-assets>
-        {this.state.inSim ? <Simulation isNavigator={this.state.isNavigator} /> : <Menu setRole={this.setRole} />}
+
+        !this.state.isNavigator ? {destination} : null
+
       </Scene>
+
+      </div>
     )
   }
 }

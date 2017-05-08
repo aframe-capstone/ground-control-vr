@@ -14,12 +14,12 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber) => {
     depth="0.6"
     rotation={{x: 60, y: yRotation, z: 0}}
     position={{x: xDimension, y: 3.5, z: zDimension}}
-    id={`${panelNumber}`}
+    key={panelNumber}
     > {panel} </Entity>)
 }
 
 const generateModuleName = (name) => {
-  return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: `${name}`}}/>
+  return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>
 }
 
 const generateModule = (initialXCoord, initialYCoord, initialZCoord, moduleName, widgetNameSpecifiers) => {
@@ -67,7 +67,7 @@ const generateSlider = (x, z, color) => {
 }
 
 const generateButton = (x, z, color) => {
-  return <Entity ui-button color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+  return <Entity ui-button color={color} position={{x, y: 0.02, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }

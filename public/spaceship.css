@@ -1,9 +1,23 @@
 
 
   .a-body{
-    overflow: scroll;
+    overflow: visible;
   }
 
   .a-html{
     position: static;
+  }
+
+  #front-image{
+    width:800px;
+    height:500px;
+  }
+
+  #RED{
+    color:red;
+  }
+
+  #panic{
+    color: red;
+    font-size: 75px;
   }

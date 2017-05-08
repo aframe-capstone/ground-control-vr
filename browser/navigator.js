@@ -8,12 +8,8 @@ export default class Navigator extends React.Component{
     super(props)
   }
 
-  componentWillMount(){
-    console.log('EY');
-  }
 
-
-  render(){
+render(){
     return (
     <div>
       <Manual/>

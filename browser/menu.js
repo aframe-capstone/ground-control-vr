@@ -50,7 +50,6 @@ export default class Menu extends React.Component {
         <Entity id="boxOne"
           geometry={{primitive: 'box'}}
           material={{opacity: 0.6}}
-          animation__rotate={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
           animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
           position={{x: 0, y: 1, z: -3}}
           events={{click: this.selectNavigator.bind(this)}}>
@@ -63,7 +62,6 @@ export default class Menu extends React.Component {
         <Entity id="boxTwo"
           geometry={{primitive: 'box'}}
           material={{opacity: 0.6}}
-          animation__rotate={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
           animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
           position={{x: 4, y: 1, z: -3}}
           events={{click: this.selectDriver.bind(this)}}>

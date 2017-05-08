@@ -55,13 +55,13 @@ const getWidget = (widgetName, xVal, zVal, color) => {
 }
 
 const generateRotary = (x, z, color) => {
-  return <Entity ui-rotary color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+  return <Entity ui-rotary color={color} position={{x, y: 0.02, z: z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }
 
 const generateSlider = (x, z, color) => {
-  return <Entity ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+  return <Entity ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }
@@ -73,7 +73,7 @@ const generateButton = (x, z, color) => {
 }
 
 const generateSwitch = (x, z, color) => {
-  return <Entity ui-toggle color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+  return <Entity ui-toggle color={color} position={{x, y: 0.02, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>
 }

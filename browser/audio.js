@@ -21,19 +21,38 @@ const setUpAudio = isNavigator => {
   const gotMedia = stream => {
     var p;
     const simplePeerRef = firebase.database().ref('SimplePeer/');
-    const setCloseAndError = p => {
+    const setHandlers = p => {
       p.on('close', () => {
         console.log('CLOSING CONNECTION AND EMPTYING DB')
         simplePeerRef.set({});
-      })
+      });
+
       p.on('error', err => {
         console.log('error', err)
         simplePeerRef.set({});
-      })
+      });
+
+      p.on('connect', () => {
+        console.log('CONNECTED');
+        p.send('whatever' + Math.random());
+      });
+
+      p.on('data', data => {
+        console.log('data: ' + data);
+      });
+
+      p.on('stream', stream => {
+        console.log('streaming started')
+        // got remote video stream, now let's show it in a video tag
+        var audio = document.querySelector('audio');
+        audio.src = window.URL.createObjectURL(stream);
+        audio.play();
+      });
     }
+
     if ( isNavigator) {
       p = new Peer({ initiator: true, trickle: false, stream: stream })
-      setCloseAndError(p);
+      setHandlers(p);
       p.on('signal', signalData => {
         simplePeerRef.push(JSON.stringify(signalData))
           .then(() => {
@@ -62,23 +81,7 @@ const setUpAudio = isNavigator => {
         })
       });
     }
-
-    p.on('connect', function () {
-      console.log('CONNECTED');
-      p.send('whatever' + Math.random());
-    })
-
-    p.on('data', function (data) {
-      console.log('data: ' + data);
-    })
-
-    p.on('stream', function (stream) {
-      console.log('streaming started')
-      // got remote video stream, now let's show it in a video tag
-      var audio = document.querySelector('audio');
-      audio.src = window.URL.createObjectURL(stream);
-      audio.play();
-    })
+    
   }
 
   navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) });

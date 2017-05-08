@@ -28,16 +28,6 @@ export default class Menu extends React.Component {
     this.props.setRole(false)
   }
 
-// // firebase="apiKey: AIzaSyBFBn5MIxtegDAL-zG6sFNReh_S8XQRTv8;
-//                    authDomain: aframe-site.firebaseapp.com;
-//                    databaseURL: https://aframe-site.firebaseio.com;
-//                    storageBucket: aframe-site.appspot.com"
-// firebase-broadcast="componentsOnce: mixin; components: position"
-  // changeRole() {
-  //   console.log('calling change role')
-  //   this.setState({ isNavigator: !this.state.isNavigator });
-  // }
-
   render() {
     return (
       <Entity>

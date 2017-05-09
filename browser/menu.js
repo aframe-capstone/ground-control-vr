@@ -1,10 +1,11 @@
-import 'aframe';
-import 'aframe-animation-component';
-import 'aframe-particle-system-component';
-import 'babel-polyfill';
-import {Entity, Scene} from 'aframe-react';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import 'aframe'
+import 'aframe-animation-component'
+import 'aframe-particle-system-component'
+import 'babel-polyfill'
+import {Entity, Scene} from 'aframe-react'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import 'aframe-text-geometry-component'
 
 const userCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
   <Entity primitive="a-cursor" events={{}} animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
@@ -31,10 +32,12 @@ export default class Menu extends React.Component {
   render() {
     return (
       <Entity>
+        <Entity primitive='a-sound' src="#menuMusic" loop="true" autoplay="true" position="0 0 0" />
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
-        <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
+        <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>
+        <a-entity id="GROUND-CONTROL" position="-4 4.5 -4.7" scale='1.5 1.5 1.5' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
 
         <Entity id="boxOne"
           geometry={{primitive: 'box'}}

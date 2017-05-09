@@ -50,7 +50,7 @@ const setUpAudio = isNavigator => {
       });
     }
 
-    if ( isNavigator) {
+    if (isNavigator) {
       p = new Peer({ initiator: true, trickle: false, stream: stream })
       setHandlers(p);
       p.on('signal', signalData => {
@@ -64,7 +64,7 @@ const setUpAudio = isNavigator => {
               }
               else {
                 p.signal(JSON.parse(snapshot.val()));
-                console.log('SIGNAL RECEIVED');
+                console.log('SIGNAL RECEIVED FOR NAVIGATOR');
               }
             })
           })
@@ -72,8 +72,9 @@ const setUpAudio = isNavigator => {
     }
     else {
       p = new Peer({ initiator: false, trickle: false, stream: stream })
+      setHandlers(p);
       simplePeerRef.once('child_added', snapshot => {
-        console.log('SINGAL RECEIVED');
+        console.log('SIGNAL RECEIVED FOR DRIVER');
         p.signal(JSON.parse(snapshot.val()));
         p.on('signal', signalData => {
           simplePeerRef.push(JSON.stringify(signalData));
@@ -81,7 +82,7 @@ const setUpAudio = isNavigator => {
         })
       });
     }
-    
+
   }
 
   navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) });
@@ -95,5 +96,3 @@ const setUpAudio = isNavigator => {
 }
 
 export default setUpAudio;
-
-

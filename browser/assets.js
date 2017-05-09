@@ -35,4 +35,5 @@ const loadSoundEffects = () => (<a-assets>
 
 const loadSoundAmbient = () => (<a-assets>
   <audio id="spaceshipAmbience" src="assets/sound/spaceship-ambience.mp3"/>
+  <audio id="machineHumAmbience" src="assets/sound/machine-ambience.mp3"/>
 </a-assets>)

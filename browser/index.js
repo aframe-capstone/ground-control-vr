@@ -12,7 +12,6 @@ import Navigator from './navigator'
 import setUpAudio from './audio'
 import loadAllAssets from './assets'
 
-
 class App extends React.Component {
   constructor(props) {
     super(props)

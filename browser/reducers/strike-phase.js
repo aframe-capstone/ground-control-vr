@@ -4,7 +4,7 @@ const FAILING = 'FAILING'
 // #### INITIAL STATE #### //
 const initialPhaseStrike  = {
   phase: 1,
-  strikes: 3
+  strikes: 0
 }
 
 // #### ACTION CREATORS #### //

@@ -4,7 +4,7 @@ const FAILING = 'FAILING'
 // #### INITIAL STATE #### //
 const initialPhaseStrike  = {
   phase: 1,
-  strikes: 0
+  strikes: 3
 }
 
 // #### ACTION CREATORS #### //
@@ -36,4 +36,3 @@ export default function (state = initialPhaseStrike, action) {
       return state
   }
 }
-

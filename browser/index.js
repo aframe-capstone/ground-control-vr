@@ -12,7 +12,6 @@ import Navigator from './navigator'
 import setUpAudio from './audio'
 import loadAllAssets from './assets'
 
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -30,26 +29,19 @@ class App extends React.Component {
   }
 
   render() {
-
     let destination = <Menu setRole={this.setRole}/>
-
-    if(this.state.isNavigator){ destination = <Navigator/>}
-
-    else if (this.state.inSim){destination = <SimulationContainer />}
-
-    else destination = <Menu setRole = {this.setRole}/>
-
+    if (this.state.isNavigator) {
+      destination = <Navigator/>
+    } else if (this.state.inSim) {
+      destination = <SimulationContainer />
+    } else { destination = <Menu setRole = {this.setRole}/> }
     return (
     <div>
       {this.state.isNavigator ? <Navigator/> :
-
-      <Scene>
-        {loadAllAssets()}
-
-        {destination}
-
-      </Scene>}
-
+        <Scene>
+          {loadAllAssets()}
+          {destination}
+        </Scene>}
       </div>
     )
   }

@@ -8,11 +8,10 @@ export default () => (<a-assets>
   {loadSoundEffects()}
   {loadFonts()}
   {loadUIElements()}
-{/* <a-asset-item id="moduleFont" src='https://cdn.aframe.io/fonts/Exo2Bold.fnt' /> */}
 </a-assets>)
 
 const loadFonts = () => {
-  // fonts go here
+  return <a-asset-item id="moduleFont" src='assets/Virgo.json' />
 }
 
 const loadModels = () => (<a-assets>
@@ -55,5 +54,6 @@ const loadSoundEffects = () => (<a-assets>
 
 const loadSoundAmbient = () => (<a-assets>
   <audio id="spaceshipAmbience" src="assets/sound/spaceship-ambience.mp3"/>
+  <audio id="menuMusic" src="assets/sound/memory.mp3"/>
   <audio id="machineHumAmbience" src="assets/sound/machine-ambience.mp3"/>
 </a-assets>)

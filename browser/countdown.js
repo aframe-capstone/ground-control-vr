@@ -16,7 +16,7 @@ const countdownTimer = (numberOfSeconds, renderCountdown) => {
 
 const renderCountdown = (numberOfSeconds) => {
   console.log(numberOfSeconds)
-  return numberOfSeconds.toString()
+  count.numberOfSeconds = numberOfSeconds
 }
 
 var hasBeenInvoked = true
@@ -28,4 +28,9 @@ const countdown = (seconds) => {
   }
 }
 
-export default countdown
+const count = {
+  countdown,
+  numberOfSeconds: 0, 
+}
+
+export default count

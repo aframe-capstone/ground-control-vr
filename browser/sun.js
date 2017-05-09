@@ -1,7 +1,13 @@
 import React from 'react'
 import {Entity, Animation} from 'aframe-react'
 
-const Sun = (<Entity id="Sun" primitive="a-sphere" material={{opacity: '0.95', transparent: 'true', shader: 'flat'}} radius="11" position={{x: 1, y: 4, z: 30}} color="yellow" >
+const Sun = (<Entity id="Sun" primitive="a-sphere" material={{
+  opacity: '0.95',
+  transparent: 'true',
+  shader: 'flat'}}
+  radius="11"
+  position={{x: 1, y: 4, z: 30}}
+  color="yellow" >
   <Entity id="sunRays" rotation="0 0 0">
     <Entity collada-model='#sunRaysOne'
       animation={{property: 'rotation',
@@ -22,7 +28,12 @@ const Sun = (<Entity id="Sun" primitive="a-sphere" material={{opacity: '0.95', t
         to: '0 0 360',
         repeat: 'indefinite'}} />
     </Entity>
-  <Entity primitive="a-light" type="directional" position={{x: 3, y: 2, z: -9}} color="yellow" intensity=".3" />
+  <Entity primitive="a-light"
+    type="directional"
+    position={{x: 3, y: 2, z: -9}}
+    color="yellow"
+    intensity=".3"
+   />
 </Entity>)
 
 export default Sun

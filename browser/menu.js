@@ -34,7 +34,7 @@ export default class Menu extends React.Component {
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
-        <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
+        <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>
 
         <Entity id="boxOne"
           geometry={{primitive: 'box'}}

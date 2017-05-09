@@ -15,7 +15,6 @@ import 'lodash'
 import solution1 from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 
-
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
 

@@ -9,8 +9,6 @@ const navigatorCam = (<Entity
   wasd-controls-enabled="false">
 </Entity>)
 
-
-
 const DriverCam = (
   <Entity>
   <Entity id='driverCamera' position="0 2.25 1" >

@@ -43,7 +43,7 @@ const setUpAudio = isNavigator => {
       })
 
       p.on('stream', stream => {
-        console.log('streaming started:', stream)
+        console.log('streaming started:', stream.getTracks())
         // got remote video stream, now let's show it in a video tag
         var audio = document.querySelector('audio')
         audio.src = window.URL.createObjectURL(stream)
@@ -75,18 +75,17 @@ const setUpAudio = isNavigator => {
       p = new Peer({ initiator: false, trickle: false, stream: stream })
       setHandlers(p)
       simplePeerRef.once('child_added', snapshot => {
-        console.log('SIGNAL RECEIVED FOR DRIVER');
-        p.signal(JSON.parse(snapshot.val()));
+        console.log('SIGNAL RECEIVED FOR DRIVER')
+        p.signal(JSON.parse(snapshot.val()))
         p.on('signal', signalData => {
-          simplePeerRef.push(JSON.stringify(signalData));
-          console.log('PUSHED SIGNAL TO FIREBASE');
+          simplePeerRef.push(JSON.stringify(signalData))
+          console.log('PUSHED SIGNAL TO FIREBASE')
         })
-      });
+      })
     }
-
   }
 
-  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) });
+  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
   // enable user media audio.
   // After have media
   // create a peer for THIS client
@@ -96,4 +95,4 @@ const setUpAudio = isNavigator => {
   // on connect, begin voice streaming
 }
 
-export default setUpAudio;
+export default setUpAudio

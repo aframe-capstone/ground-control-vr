@@ -96,7 +96,10 @@ export default class Simulation extends React.Component {
   }
 
   render() {
-    console.log('STRIKES STRIKES LOOK HERE', this.state.strikes)
+    let solvedPhase1 = false
+    if(this.state.currentPhase > 1){
+      solvedPhase1 = true
+    }
     return (
       <Entity >
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
@@ -105,9 +108,7 @@ export default class Simulation extends React.Component {
           obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
         />
-        {generatePanel(-1.5, 2.5, 90, 1, this.handleClick, 1, this.handleSubmit)}
-        {/* {generatePanel(1.5, 2.5, -90, 2)}
-               {generatePanel(0, 0, 0, 3)} */}
+        {generatePanel(-1.5, 2.5, 90, 1, this.handleClick, 1, this.handleSubmit, solvedPhase1)}
         {getWarningLightOfColor(this.state.strikes)}
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}

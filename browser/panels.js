@@ -3,7 +3,7 @@ import {Entity} from 'aframe-react'
 
 
 
-const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit) => {
+const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
   const generateModuleName = (name) => {
     return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>
   }
@@ -64,7 +64,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
   }
 
   const generateFloatingUI = (x, y, z) => {
-    return (<a-entity visible={false} id={`panel-${panelId}-ui`} position="0 1.1 -0.97" rotation="-60 0 0" scale="0.3 0.3 0.3">
+    return (<a-entity visible={solvedPhase1} id={`panel-${panelId}-ui`} position="0 1.1 -0.97" rotation="-60 0 0" scale="0.3 0.3 0.3">
         <a-image mixin="image" src="#glow1" scale="5 5 5" position="0 0 -2">
           <a-animation attribute="visible" from="false" to="true" delay="1500" dur="1" fill="both"></a-animation>
         </a-image>

@@ -39,13 +39,13 @@ export default class Manual extends React.Component{
       </thead>
       <tbody>
       <tr>
-      <td>Scanner Unit System</td>
-      <td>Widget A: (BUTTON): press 3X ; Widget B: (SWITCH): Set position up ; Widget C: (SLIDER): Turn to 100%</td>
+      <td>Nanomatronic Kilowasher</td>
+      <td>Widget A: (SWITCH): turn up 1x; Widget B: (SWITCH): Set turn up 1x; Widget C: (SWITCH): turn up 1x</td>
       </tr>
       <br></br>
       <tr>
       <td>Gravitron Emitter</td>
-      <td>Widget A: (KNOB): rotate 50% ;  Widget B:(BUTTON): press 2x ; Widget C : (BUTTON): press 5X</td>
+      <td>Widget A: (BUTTON): press 1x ;  Widget B:(BUTTON): press 1x ; Widget C : (BUTTON): press 1x</td>
       </tr>
       <hr/>
       <br></br>

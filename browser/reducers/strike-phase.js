@@ -36,4 +36,3 @@ export default function (state = initialPhaseStrike, action) {
       return state
   }
 }
-

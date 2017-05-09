@@ -72,7 +72,7 @@ const setUpAudio = isNavigator => {
     }
     else {
       p = new Peer({ initiator: false, trickle: false, stream: stream })
-      setHandlers(p);
+      setHandlers(p)
       simplePeerRef.once('child_added', snapshot => {
         console.log('SIGNAL RECEIVED FOR DRIVER');
         p.signal(JSON.parse(snapshot.val()));

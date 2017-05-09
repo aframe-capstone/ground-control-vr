@@ -1,5 +1,6 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
+import Timer from './timer'
 
 const navigatorCam = (<Entity
   position="0 20 0"
@@ -9,7 +10,7 @@ const navigatorCam = (<Entity
   wasd-controls-enabled="false">
 </Entity>)
 
-const DriverCam = (
+const DriverCam = props => (
   <Entity>
   <Entity id='driverCamera' position="0 2.25 1" >
   <Entity fence="width: 3; depth: 4; x0: 0; z0: 1"
@@ -31,19 +32,7 @@ const DriverCam = (
         y: -0.45,
         z: -0.6
       }}/>
-    <Entity text={{value: 'Time Till Impact: 3:00'}}
-      // animation={{
-      //   property: 'material.opacity',
-      //   from: '0',
-      //   to: '1.0',
-      //   loop: 'true',
-      //   ease: 'ease-in',
-      //   direction: 'alternate'}}
-      position={{
-        x: 0.35,
-        y: 0.45,
-        z: -0.6
-      }}/>
+      <Timer />
   </Entity>
 </Entity>
 </Entity>)

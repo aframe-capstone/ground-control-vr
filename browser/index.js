@@ -11,7 +11,7 @@ import Menu from './menu'
 import Navigator from './navigator'
 import setUpAudio from './audio'
 import loadAllAssets from './assets'
-import FailureView from './FailureView'
+import FailureView from './failureView'
 
 class App extends React.Component {
   constructor(props) {

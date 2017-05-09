@@ -1,5 +1,6 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
+import countdown from './countdown'
 
 const navigatorCam = (<Entity
   position="0 20 0"
@@ -9,7 +10,7 @@ const navigatorCam = (<Entity
   wasd-controls-enabled="false">
 </Entity>)
 
-const DriverCam = (
+const DriverCam = (props) => (
   <Entity>
   <Entity id='driverCamera' position="0 2.25 1" >
   <Entity fence="width: 3; depth: 4; x0: 0; z0: 1"
@@ -39,6 +40,7 @@ const DriverCam = (
       //   loop: 'true',
       //   ease: 'ease-in',
       //   direction: 'alternate'}}
+      text={{value: `Time To Impact: ${props.timeRemaining}`}}
       position={{
         x: 0.35,
         y: 0.45,

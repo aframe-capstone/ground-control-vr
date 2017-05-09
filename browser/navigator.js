@@ -7,11 +7,11 @@ export default class Navigator extends React.Component{
     super(props)
   }
 
-
-render(){
-    return (
-      <Manual/>
-    )
+  render(){
+      return (
+      <div>
+        <Manual/>
+      </div>
+      )
   }
-
 }

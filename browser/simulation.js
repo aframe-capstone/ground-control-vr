@@ -109,6 +109,8 @@ export default class Simulation extends React.Component {
           position={{x: 0, y: 4, z: 0}}
         />
         {generatePanel(-1.5, 2.5, 90, 1, this.handleClick, 1, this.handleSubmit, solvedPhase1)}
+        {generatePanel(1.5, 2.5, -90, 2)}
+        {generatePanel(0, 0, 0, 3)}
         {getWarningLightOfColor(this.state.strikes)}
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}

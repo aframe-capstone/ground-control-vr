@@ -6,10 +6,12 @@ import { Entity, Scene } from 'aframe-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Simulation from './simulation'
+import SimulationContainer from './container/Simulation';
 import Menu from './menu'
 import Navigator from './navigator'
 import setUpAudio from './audio'
 import loadAllAssets from './assets'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -31,7 +33,11 @@ class App extends React.Component {
 
     let destination = <Menu setRole={this.setRole}/>
 
-    if (this.state.inSim && !this.state.isNavigator){destination = <Simulation/>}
+    if(this.state.isNavigator){ destination = <Navigator/>}
+
+    else if (this.state.inSim){destination = <SimulationContainer />}
+
+    else destination = <Menu setRole = {this.setRole}/>
 
     return (
     <div>
@@ -48,4 +54,6 @@ class App extends React.Component {
     )
   }
 }
-ReactDOM.render(<App />, document.querySelector('#sceneContainer'));
+
+export default App
+// ReactDOM.render(<App />, document.querySelector('#sceneContainer'));

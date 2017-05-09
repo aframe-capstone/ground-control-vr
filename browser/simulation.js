@@ -8,8 +8,13 @@ import ReactDOM from 'react-dom'
 import Peer from 'simple-peer'
 import 'aframe-ui-widgets'
 import 'aframe-fence-component'
+import 'aframe-cubemap-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
+import 'lodash'
+import solution1 from './validation'
+import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
+
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
@@ -29,15 +34,21 @@ export default class Simulation extends React.Component {
     super(props)
     this.state = {
       renderCockpit: true,
-      cockpit: []
+      cockpit: [],
+      strikes: this.props.strikes,
+      currentPhase: this.props.phase,
+      1: {
+        1: {
+          currentState: []
+        },
+        2: {
+          currentState: []
+        }
+      },
+      testing: false
     }
-  }
-
-  changeColor() {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue']
-    this.setState({
-      color: colors[Math.floor(Math.random() * colors.length)]
-    })
+    this.handleClick = this.handleClick.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   playSound() {
@@ -55,19 +66,51 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
+  handleClick(e) {
+    const panelId = e.currentTarget.parentElement.parentElement.id
+    const moduleId = e.currentTarget.parentElement.id
+    const buttonId = e.currentTarget.id
+    const typeOfwidget = e.currentTarget.className
+    let nextState = _.cloneDeep(this.state)
+    nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
+    this.setState(nextState)
+    console.log('this is your new state', this.state)
+  }
+
+  handleSubmit(e) {
+    if(_.isEqual(this.state[1], solution1)) {
+      this.props.addPhase()
+      let newState = _.cloneDeep(this.state)
+      newState[1][1].currentState = []
+      newState[1][2].currentState = []
+      newState.currentPhase++
+      this.setState(newState)
+    } else {
+      this.props.addStrike()
+      let newState = _.cloneDeep(this.state)
+      newState[1][1].currentState = []
+      newState[1][2].currentState = []
+      newState.strikes++
+      this.setState(newState)
+    }
+  }
+
   render() {
     return (
       <Entity >
+        <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity
           static-body
           obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
         />
-        {generatePanel(-1.5, 2.5, 90, 1)}
-        {generatePanel(1.5, 2.5, -90, 2)}
-        {generatePanel(0, 0, 0, 3)}
+        {generatePanel(-1.5, 2.5, 90, 1,this.handleClick, 1, this.handleSubmit)}
+        { /*{generatePanel(1.5, 2.5, -90, 2)}
+               {generatePanel(0, 0, 0, 3)} */}
         {getWarningLightOfColor('red')}
-        <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
+        {playSpaceshipAmbience()}
+        {playSwitchOnSound()}
+        {playSwitchOffSound()}
         {Sun}
         {DriverCam}
       </Entity>

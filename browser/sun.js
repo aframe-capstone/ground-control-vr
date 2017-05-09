@@ -1,11 +1,12 @@
 import React from 'react'
 import {Entity, Animation} from 'aframe-react'
 
-const Sun = (<Entity id="Sun" primitive="a-sphere" material={{opacity: '0.95', transparent: 'true', shader: 'flat'}} radius="10" position={{x: 3, y: 2, z: 30}} color="yellow" >
+const Sun = (<Entity id="Sun" primitive="a-sphere" material={{opacity: '0.95', transparent: 'true', shader: 'flat'}} radius="11" position={{x: 1, y: 4, z: 30}} color="yellow" >
   <Entity id="sunRays" rotation="0 0 0">
     <Entity collada-model='#sunRaysOne'
       animation={{property: 'rotation',
         dur: '120000',
+        loop: 'true',
         easing: 'linear',
         fill: 'none',
         to: '360 0 0',
@@ -15,6 +16,7 @@ const Sun = (<Entity id="Sun" primitive="a-sphere" material={{opacity: '0.95', t
     <Entity collada-model='#sunRaysTwo'
       animation={{property: 'rotation',
         dur: '120000',
+        loop: 'true',
         easing: 'linear',
         fill: 'none',
         to: '0 0 360',

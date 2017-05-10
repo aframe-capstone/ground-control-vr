@@ -3,14 +3,12 @@ import {connect} from 'react-redux'
 //import explosion from '.././public/./assets/explodingShip'
 
 const mapStatetoProps = (state) =>{
-  console.log(state.strikes, 'STATE');
   return{
     strikes: state.strikes
   }
 }
 
  function Failure(props){
-   console.log(props.strikes, 'props');
 
      return(
       props.strikes===3 ?

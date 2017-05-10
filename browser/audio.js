@@ -5,7 +5,9 @@ import processRadioTransmission from './processRadioTransmission'
 /* global firebase AudioContext MediaRecorder URL FileReader Blob */
 
 let mediaRecorder
-var isRecording = false
+let isRecording = false
+let interval
+let audioQueue = []
 
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
@@ -13,7 +15,7 @@ const startRecording = (app) => {
   } else {
     mediaRecorder.start()
     console.log('starting to record!')
-    var interval = setInterval(() => {
+    interval = setInterval(() => {
       clearInterval(interval)
       if (isRecording){
         console.log('STOPPED RECORDING BECUASE INTERVAL EXSPIRED!')
@@ -27,6 +29,10 @@ const startRecording = (app) => {
 
 const stopRecording = (app) => {
   if (isRecording && app.state.inSim) {
+    if(interval){
+      clearInterval(interval)
+      console.log('INTERVAL CLEARED')
+    }
     console.log('STOPPED RECORDING BECAUSE SPACEBAR LIFTED')
     mediaRecorder.stop()
     isRecording = false
@@ -58,6 +64,12 @@ const setUpRecording = isNavigator => {
   const driverMessagesDB = setupDataBase('Driver_Messages/')
   const navigatorMessagesDB = setupDataBase('Navigator_Messages/')
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
+  audio.onpause = () =>{
+    console.log('ON PAUSE LISTENER WAS INVOKED')
+    if(audioQueue.length > 0){
+      playAudio(audioQueue.shift())
+    }
+  }
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
@@ -67,7 +79,11 @@ const setUpRecording = isNavigator => {
         typedArray[i] = newMessage.charCodeAt(i)
       }
 
-      playAudio(typedArray)
+      if(audioQueue.length === 0 && audio.paused){
+        playAudio(typedArray)
+      } else {
+        audioQueue.push(typedArray)
+      }
     })
   }
 

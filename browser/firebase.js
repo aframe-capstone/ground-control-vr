@@ -1,12 +1,12 @@
 // FIREBASE MODULE
 /* global firebase */
 var config = {
-  apiKey: 'AIzaSyAoEAecAsSgktGQmv2dHhinVRrMhoUYiYg',
-  authDomain: 'test-61ce3.firebaseapp.com',
-  databaseURL: 'https://test-61ce3.firebaseio.com',
-  projectId: 'test-61ce3',
-  storageBucket: 'test-61ce3.appspot.com',
-  messagingSenderId: '555633723470'
+  apiKey: "AIzaSyCao3V8b2INzVjRy8ZzTsSXBP-z3gZSJiI",
+  authDomain: "testing-firebase-5f787.firebaseapp.com",
+  databaseURL: "https://testing-firebase-5f787.firebaseio.com",
+  projectId: "testing-firebase-5f787",
+  storageBucket: "testing-firebase-5f787.appspot.com",
+  messagingSenderId: "930281689218"
 }
 
 firebase.initializeApp(config)

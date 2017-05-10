@@ -85,43 +85,37 @@ const setUpRecording = isNavigator => {
     // var arrBuff = new Blob([dataArr])
     var audioBuff = toBuffer(dataArr)
     var audioArrBuff = toArrayBuffer(audioBuff)
-    // audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
     var context = new AudioContext()
     var source = context.createBufferSource()
+    // audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
 
     source.onended = () => {
       NASABeep.play()
+      context.close()
     }
 
     var tuna = new Tuna(context)
 
-    var chorus = new tuna.Chorus({
-      rate: 1.5,
-      feedback: 0.2,
-      delay: 0.5,
-      bypass: 0
-    })
-
+    // Filters out high and low freqs
     var filter = new tuna.Filter({
       frequency: 440, //20 to 22050
-      Q: 70, //0.001 to 100
+      Q: 80, //0.001 to 100
       gain: 0, //-40 to 40 (in decibels)
       filterType: "bandpass", //lowpass, highpass, bandpass, lowshelf, highshelf, peaking, notch, allpass
       bypass: 0
     })
 
+    // Distorts audio
     var overdrive = new tuna.Overdrive({
-      outputGain: 0.5,         //0 to 1+
-      drive: 0.7,              //0 to 1
-      curveAmount: 1,          //0 to 1
-      algorithmIndex: 0,       //0 to 5, selects one of our drive algorithms
+      outputGain: 0.1,         //0 to 1+
+      drive: 1,              //0 to 1
+      curveAmount: 0.65,          //0 to 1
+      algorithmIndex: 2,       //0 to 5, selects one of our drive algorithms
       bypass: 0
     })
 
-    source.connect(filter).connect(context.destination)
-
-    // LISTEN FOR AUDIO STOPPED PLAYING EVENT and play 'beep sound' The ended event
-    // The ended event is fired when playback has stopped because the end of the media was reached.
+    filter.connect(overdrive)
+    source.connect(overdrive).connect(context.destination)
 
     context.decodeAudioData(audioArrBuff)
       .then(decodedAudio => {
@@ -129,8 +123,6 @@ const setUpRecording = isNavigator => {
         console.log('playing decoded audio', decodedAudio)
         source.start()
       })
-    // console.log(URL.createObjectURL(new Blob([dataArr])))
-    // audio.play()
   }
 
   const gotMedia = stream => {
@@ -139,7 +131,7 @@ const setUpRecording = isNavigator => {
       // TODO: play sound indicator about starting to record
       console.log("RECORDER STARTED")
     }
-    
+
     mediaRecorder.onstop = () => {
       // TODO: play sound indicator about stopping to record
       console.log("RECORDER STOPPED")

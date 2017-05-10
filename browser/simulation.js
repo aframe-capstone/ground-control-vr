@@ -86,6 +86,8 @@ export default class Simulation extends React.Component {
   }
 
   handleClick(e) {
+    e.preventDefault()
+    e.stopPropagation()
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
@@ -97,6 +99,8 @@ export default class Simulation extends React.Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault()
+    e.stopPropagation()
     let module1 = 1
     let module2 = 2
     let solution

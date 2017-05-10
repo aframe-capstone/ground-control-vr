@@ -23,6 +23,20 @@ class App extends React.Component {
       isNavigator: false
     }
     this.setRole = this.setRole.bind(this)
+    this.selectNavigator = this.selectNavigator.bind(this)
+    this.selectDriver = this.selectDriver.bind(this)
+  }
+
+  selectNavigator(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.setRole(true)
+  }
+
+  selectDriver(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.setRole(false)
   }
 
   handleKeyDown(e) {
@@ -58,23 +72,18 @@ class App extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
-    document.removeEventListener('keyup', this.handleKeyUp.bind(this));    
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
   }
 
   render() {
-    let destination = <Menu setRole={this.setRole}/>
-    if (this.state.isNavigator) {
-      destination = <Navigator/>
-    } else if (this.state.inSim) {
-      destination = <SimulationContainer />
-    } else { destination = <Menu setRole = {this.setRole}/> }
     return (
     <div>
-      {this.state.isNavigator ? <Navigator/> :
         <Scene>
           {loadAllAssets()}
-          {destination}
-        </Scene>}
+          {this.state.isNavigator && <Navigator />}
+          {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}
+          {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
+        </Scene>
       </div>
     )
   }

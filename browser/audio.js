@@ -8,17 +8,16 @@ let mediaRecorder
 let isRecording = false
 let interval
 let audioQueue = []
+var context = new AudioContext()
 
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
     console.log('trying to record while already recording or when outside sim')
   } else {
     mediaRecorder.start()
-    console.log('starting to record!')
     interval = setInterval(() => {
       clearInterval(interval)
       if (isRecording){
-        console.log('STOPPED RECORDING BECUASE INTERVAL EXSPIRED!')
         mediaRecorder.stop()
         isRecording = false
       }
@@ -29,11 +28,9 @@ const startRecording = (app) => {
 
 const stopRecording = (app) => {
   if (isRecording && app.state.inSim) {
-    if(interval){
+    if(interval) {
       clearInterval(interval)
-      console.log('INTERVAL CLEARED')
     }
-    console.log('STOPPED RECORDING BECAUSE SPACEBAR LIFTED')
     mediaRecorder.stop()
     isRecording = false
   } else {
@@ -67,12 +64,14 @@ const setUpRecording = isNavigator => {
   audio.onpause = () =>{
     console.log('ON PAUSE LISTENER WAS INVOKED')
     if(audioQueue.length > 0){
+      console.log('from inside ON PAUSE')
       playAudio(audioQueue.shift())
     }
   }
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
+      console.log('I detected a child added')
       var newMessage = snapshot.val()
       var typedArray = new Uint8Array(newMessage.length)
       for (var i=0; i < newMessage.length; i++) {
@@ -80,6 +79,7 @@ const setUpRecording = isNavigator => {
       }
 
       if(audioQueue.length === 0 && audio.paused){
+        console.log('from inside listen for messageandPlay')
         playAudio(typedArray)
       } else {
         audioQueue.push(typedArray)
@@ -99,13 +99,13 @@ const setUpRecording = isNavigator => {
   const playAudio = (dataArr) => {
     var audioBuff = toBuffer(dataArr)
     var audioArrBuff = toArrayBuffer(audioBuff)
-    var context = new AudioContext()
     var source = context.createBufferSource()
+    console.log('PLAYING AUDIO')
 
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
+      // source.buffer = null
       NASABeep.play()
-      context.close()
     }
 
     processRadioTransmission(context, source)
@@ -114,6 +114,7 @@ const setUpRecording = isNavigator => {
     context.decodeAudioData(audioArrBuff)
       .then(decodedAudio => {
         source.buffer = decodedAudio
+        console.log('DECODED AUDIO IS ... ', decodedAudio)
         source.start()
       })
   }

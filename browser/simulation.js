@@ -28,24 +28,6 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-var isRecording = false
-
-const startRecording = () => {
-  if (isRecording) {
-
-  } else {
-    console.log('starting to record!')
-    var interval = setInterval(() => {
-      console.log('inside stoprecording', interval)
-      console.log('stopped recording!')
-      clearInterval(interval)
-      isRecording = false
-    }, 5000)
-    console.log('inside startRecording', interval)
-    isRecording = true
-  }
-}
-
 export default class Simulation extends React.Component {
   constructor(props) {
     super(props)
@@ -82,21 +64,10 @@ export default class Simulation extends React.Component {
       // Set interior's state here?
     }
     this.stopInteriorRender()
-    document.addEventListener('keydown', this.handleKeyDown.bind(this))
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown.bind(this))
-  }
 
-  handleKeyDown(e) {
-    switch (e.keyCode) {
-    case 32:
-      startRecording()
-      break
-    default:
-      break
-    }
   }
 
   handleClick(e) {
@@ -130,7 +101,7 @@ export default class Simulation extends React.Component {
 
   render() {
     let solvedPhase1 = false
-    if(this.state.currentPhase > 1){
+    if (this.state.currentPhase > 1) {
       solvedPhase1 = true
     }
     return (

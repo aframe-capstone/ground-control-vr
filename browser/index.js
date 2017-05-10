@@ -13,6 +13,22 @@ import setUpAudio from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 
+var isRecording = false
+
+const startRecording = (app) => {
+  if (isRecording && app.state.inSim) {
+    console.log('trying to record while already recording or when outside sim')
+  } else {
+    console.log('starting to record!')
+    var interval = setInterval(() => {
+      console.log('stopped recording!')
+      clearInterval(interval)
+      isRecording = false
+    }, 5000)
+    isRecording = true
+  }
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -23,10 +39,28 @@ class App extends React.Component {
     this.setRole = this.setRole.bind(this)
   }
 
+  handleKeyDown(e) {
+    switch (e.keyCode) {
+    case 32:
+      startRecording(this)
+      break
+    default:
+      break
+    }
+  }
+
   setRole(isNavigator) {
     this.setState({ isNavigator: isNavigator, inSim: true })
     // SETS UP AUDIO Navigator is initiator for signal. Arbritrary decision for this.
     setUpAudio(isNavigator)
+  }
+
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleKeyDown.bind(this))
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown.bind(this))
   }
 
   render() {

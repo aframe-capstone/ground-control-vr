@@ -13,6 +13,8 @@ import {setUpRecording, mediaRecorder} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 
+const SPACE_BAR = 32
+
 var isRecording = false
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
@@ -30,6 +32,14 @@ const startRecording = (app) => {
   }
 }
 
+const stopRecording = (app) => {
+  if (isRecording && app.state.inSim) {
+    mediaRecorder.stop()
+  } else {
+    console.log('trying to stop recording while not recording or outside sim')
+  }
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -42,8 +52,18 @@ class App extends React.Component {
 
   handleKeyDown(e) {
     switch (e.keyCode) {
-    case 32:
+    case SPACE_BAR:
       startRecording(this)
+      break
+    default:
+      break
+    }
+  }
+
+  handleKeyUp(e) {
+    switch (e.keyCode) {
+    case SPACE_BAR:
+      stopRecording(this)
       break
     default:
       break
@@ -58,10 +78,12 @@ class App extends React.Component {
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this))
+    document.addEventListener('keyup', this.handleKeyUp.bind(this));
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
+    document.addEventListener('keyup', this.handleKeyUp.bind(this));    
   }
 
   render() {

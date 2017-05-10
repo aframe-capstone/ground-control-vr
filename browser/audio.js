@@ -1,5 +1,7 @@
 import Peer from 'simple-peer'
 
+/* global firebase MediaRecorder URL */
+
 // Initialize firebase
 var config = {
   apiKey: 'AIzaSyAoEAecAsSgktGQmv2dHhinVRrMhoUYiYg',
@@ -22,20 +24,27 @@ const setUpRecording = isNavigator => {
   navigator.msGetUserMedia)
 
   const gotMedia = stream => {
-    mediaRecorder = new MediaRecorder(stream)
-    console.log(mediaRecorder)
+    const driverMessagesDB = firebase.database().ref('Driver_Messages/')
+
+    mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
     mediaRecorder.onstart = () => {
       console.log("RECORDER STARTED")
-
     }
     mediaRecorder.onstop = () => {
       console.log("RECORDER STOPPED")
-      console.log(mediaRecorder.stream)
-      var audio = document.querySelector('audio')
-      audio.src = mediaRecorder.stream
-      console.log('playing audio')
-      audio.play()
     }
+    mediaRecorder.addEventListener('dataavailable', onRecordingReady)
+  }
+
+  const onRecordingReady = (e) => {
+    var audioData = e.data
+    var audio = document.querySelector('audio')
+    var src = URL.createObjectURL(audioData)
+    audio.src = src
+    console.log('playing audio')
+
+    // audio.play()
+    console.log('AUDIO DATA', audioData)
   }
 
   navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })

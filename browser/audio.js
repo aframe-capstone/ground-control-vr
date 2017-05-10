@@ -7,6 +7,7 @@ import toBuffer from 'typedarray-to-buffer'
 let mediaRecorder
 
 var isRecording = false
+
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
     console.log('trying to record while already recording or when outside sim')
@@ -14,12 +15,24 @@ const startRecording = (app) => {
     mediaRecorder.start()
     console.log('starting to record!')
     var interval = setInterval(() => {
-      console.log('stopped recording!')
       clearInterval(interval)
-      mediaRecorder.stop()
-      isRecording = false
+      if(isRecording){
+        console.log('STOPPED RECORDING BECUASE INTERVAL EXSPIRED!')
+        mediaRecorder.stop()
+        isRecording = false
+      }
     }, 5000)
     isRecording = true
+  }
+}
+
+const stopRecording = (app) => {
+  if (isRecording && app.state.inSim) {
+    console.log('STOPPED RECORDING BECAUSE SPACEBAR LIFTED')
+    mediaRecorder.stop()
+    isRecording = false
+  } else {
+    console.log('trying to stop recording while not recording or outside sim')
   }
 }
 
@@ -126,11 +139,24 @@ const setUpRecording = isNavigator => {
       // TODO: play sound indicator about starting to record
       console.log("RECORDER STARTED")
     }
-    mediaRecorder.onstop = () => {0
+    
+    mediaRecorder.onstop = () => {
       // TODO: play sound indicator about stopping to record
       console.log("RECORDER STOPPED")
     }
+
+    window.onbeforeunload = () => {
+      if(isNavigator){
+        navigatorMessagesDB.set({})
+        driverMessagesDB.set({})
+      } else {
+        navigatorMessagesDB.set({})
+        driverMessagesDB.set({})
+      }
+    }
+
     mediaRecorder.addEventListener('dataavailable', onRecordingReady)
+
   }
 
   const convertAudioToBinary = (event) => {
@@ -150,4 +176,4 @@ const setUpRecording = isNavigator => {
   navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
 }
 
-export {setUpRecording, mediaRecorder, startRecording}
+export {setUpRecording, mediaRecorder, startRecording, stopRecording}

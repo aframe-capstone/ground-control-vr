@@ -9,9 +9,11 @@ import Simulation from './simulation'
 import SimulationContainer from './container/Simulation'
 import Menu from './menu'
 import Navigator from './navigator'
-import {setUpRecording, mediaRecorder, startRecording} from './audio'
+import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
+
+const SPACE_BAR = 32
 
 class App extends React.Component {
   constructor(props) {
@@ -25,8 +27,18 @@ class App extends React.Component {
 
   handleKeyDown(e) {
     switch (e.keyCode) {
-    case 32:
+    case SPACE_BAR:
       startRecording(this)
+      break
+    default:
+      break
+    }
+  }
+
+  handleKeyUp(e) {
+    switch (e.keyCode) {
+    case SPACE_BAR:
+      stopRecording(this)
       break
     default:
       break
@@ -41,10 +53,12 @@ class App extends React.Component {
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this))
+    document.addEventListener('keyup', this.handleKeyUp.bind(this));
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this));    
   }
 
   render() {

@@ -14,7 +14,6 @@ import loadAllAssets from './assets'
 import FailureView from './failureView'
 
 var isRecording = false
-
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
     console.log('trying to record while already recording or when outside sim')

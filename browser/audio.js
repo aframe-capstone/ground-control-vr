@@ -15,7 +15,9 @@ var config = {
 firebase.initializeApp(config)
 console.log('FIREBASE initialized')
 
-const setUpAudio = isNavigator => {
+let mediaRecorder
+
+const setUpRecording = isNavigator => {
   navigator.getUserMedia = (navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||

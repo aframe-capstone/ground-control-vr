@@ -14,6 +14,7 @@ export default class Manual extends React.Component{
     return (
       <div>
         <link rel="stylesheet" type="text/css" href='sciFi.css' />
+
       <ul className="tabs-demo">
       <Clock color={'#00bebe'} seconds={180} size={100} id='clock'/>
 
@@ -30,16 +31,19 @@ export default class Manual extends React.Component{
     <h1><a id="Ship_Layout_14"></a>Ship Layout</h1>
     <ul>
     <li>Each Galactic Hyperion XL5 spacecraft is outfitted with <strong>3 control panels</strong>, each with <strong>2 modules</strong> consisting of <strong>3 widgets</strong> and a <strong>submit button</strong>.</li>
-    <li>Each widget will either be a <strong>toggle switch</strong>, a <strong>knob</strong>, a <strong>button</strong>, or a <strong>slider</strong></li>
+    <li>Each widget will either be a <strong>toggle switch</strong> or a <strong>button</strong>.</li>
     <li><em>Depending on what  <strong>phase</strong> you are experiencing (1, 2, 3) you will need to address several modules, and manipulate the widgets of the modules in a precise manner</em></li>
     <li>When you are certain that you have entered the correct inputs, <strong>hit the initializer button at the far right of the panel</strong> to clear that panel</li>
     <li>If you get the inputs wrong, the ALARM SYSTEM will activate, going from <strong>white</strong> to <strong>orange</strong> to <strong id='RED'>RED</strong>. You have 3 strikes to get the configuration right across all phases</li>
     </ul>
-    <p>The instructions below are organized  per phase, with two modules per phase that must be solved</p>
+    <p>The instructions are organized  per phase, with two modules per phase that must be solved</p>
     <p><strong>Widgets are labeled from left to right</strong><br />
     Per module, each widget will have the following layout:</p>
-    <pre><code className="language-sh"> Widget: (TYPE) : INSTRUCTIONS
-    </code></pre> </div>
+    <pre><code className="language-sh"> Widget: (TYPE)(ORDER) : INSTRUCTIONS
+    </code></pre>
+    <li><p>Where TYPE is the kind of widget, ORDER is when in the sequence to use it, and INSTRUCTIONS is information on what to do with it.  </p></li>
+    </div>
+
 
   </li>
 
@@ -52,13 +56,13 @@ export default class Manual extends React.Component{
     <div className="section">
     <tr>
     <td>Nanomatronic Kilowasher</td>
-    <td>Widget A: (SWITCH): turn up 1x; Widget B: (SWITCH): Set turn up 1x; Widget C: (SWITCH): turn up 1x</td>
+    <td>Widget A: (SWITCH)(#1): turn up 1x; Widget B: (SWITCH)(#2): Set turn up 1x; Widget C: (SWITCH)(#3): turn up 1x</td>
     </tr>
     <br></br>
 
     <tr>
     <td>Gravitron Emitter</td>
-    <td>Widget A: (BUTTON): press 1x ;  Widget B:(BUTTON): press 1x ; Widget C : (BUTTON): press 1x</td>
+    <td>Widget A: (BUTTON)(#4): press 1x ;  Widget B:(BUTTON)(#5): press 1x ; Widget C : (BUTTON)(#6): press 1x</td>
     </tr>
     </div>
   </li>
@@ -72,12 +76,12 @@ export default class Manual extends React.Component{
     <div className="section">
     <tr>
     <td>Amp Scrambler</td>
-    <td>Widget A: (KNOB): rotate 25%;   Widget B: (SLIDER): turn up 75% ;Widget C: (SWITCH): Set position up, set position down</td>
+    <td>Widget A: (SWITCH)(#1): turn up ;   Widget B: (BUTTON)(#3): press  75% ;Widget C: (SWITCH)(5): turn up</td>
     </tr>
     <br></br>
     <tr>
     <td>System Process Uploader</td>
-    <td>Widget A: (SLIDER): turn up 90%, then turn down to 0% Widget B:(BUTTON): press 3X;  Widget C: (SLIDER): turn up 100%</td>
+    <td>Widget A: (BUTTON)(#6): press, then turn down to 0% Widget B:(SWITCH)(#4): turn up;  Widget C: (BUTTON)(#2): turn up 100%</td>
     </tr>
     </div>
 
@@ -92,12 +96,12 @@ export default class Manual extends React.Component{
     <div className="section">
     <tr>
     <td>Circuit Current Computer</td>
-    <td>Widget A:(KNOB): turn 100% Widget B:(KNOB): turn 0% Widget C: (KNOB): turn 100%</td>
+    <td>Widget A:(BUTTON)(#6): press Widget B:(SWITCH)(#4): turn up Widget C: (BUTTON)(#2): press</td>
     </tr>
     <br></br>
     <tr>
     <td>Sensor Analyzer</td>
-    <td>Widget A:(SLIDER): turn up 25% ; Widget B (SLIDER): turn up 75% ; Widget C: (KNOB): turn up 25%</td>
+    <td>Widget A:(SWITCH)(#1): turn up ; Widget B (SWITCH)(#3): turn up ; Widget C: (BUTTON)(#5): press</td>
     </tr>
     </div>
 

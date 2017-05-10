@@ -1,4 +1,4 @@
-
+@import url("https://fonts.googleapis.com/css?family=Orbitron")
 
 
   #clock{
@@ -29,7 +29,9 @@
     font-size: 75px;
   }
 
-
+.section{
+  font-family: 'Orbitron', sans-serif;
+}
 
 
 

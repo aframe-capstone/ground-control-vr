@@ -24,16 +24,34 @@ const setUpRecording = isNavigator => {
   navigator.msGetUserMedia)
 
   const audio = document.querySelector('audio')
-
   const driverMessagesDB = firebase.database().ref('Driver_Messages/')
   const navigatorMessagesDB = firebase.database().ref('Navigator_Messages/')
+
+  const listenForNewMessageAndPlay = (databaseReference) => {
+    databaseReference.on('child_added', snapshot => {
+      var newMessage = snapshot.val()
+      var typedArray = new Uint8Array(newMessage.length)
+      for (var i=0; i < newMessage.length; i++) {
+        typedArray[i] = newMessage.charCodeAt(i)
+      }
+      playAudio(typedArray)
+    })
+  }
+
+  const playAudio = (dataArr) => {
+    audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
+    audio.play()
+  }
+
   const gotMedia = stream => {
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
     mediaRecorder.onstart = () => {
+      // TODO: play sound indicator about starting to record
       console.log("RECORDER STARTED")
     }
 
     mediaRecorder.onstop = () => {
+      // TODO: play sound indicator about stopping to record
       console.log("RECORDER STOPPED")
     }
 
@@ -57,7 +75,6 @@ const setUpRecording = isNavigator => {
     fileReader.readAsBinaryString(audioData)
 
     fileReader.onloadend = () => {
-      console.log('Pushing Audio to Firebase')
       if (isNavigator) {
         navigatorMessagesDB.push(fileReader.result)
       } else {
@@ -66,38 +83,11 @@ const setUpRecording = isNavigator => {
     }
   }
   if (isNavigator) {
-    driverMessagesDB.on('child_added', snapshot => {
-      var newMessage = snapshot.val()
-      var typedArray = new Uint8Array(newMessage.length)
-      for (var i=0; i<newMessage.length; i++)
-        typedArray[i] = newMessage.charCodeAt(i)
-      console.log(typeof typedArray)
-      console.log(typedArray)
-      audio.src = URL.createObjectURL(new Blob([typedArray]), {type: 'audio/webm'})
-      audio.play()
-    })
+    listenForNewMessageAndPlay(driverMessagesDB)
   } else {
-    navigatorMessagesDB.on('child_added', snapshot => {
-      var newMessage = snapshot.val()
-      var typedArray = new Uint8Array(newMessage.length)
-      for (var i=0; i<newMessage.length; i++)
-        typedArray[i] = newMessage.charCodeAt(i)
-      console.log(typeof typedArray)
-      console.log(typedArray)
-      audio.src = URL.createObjectURL(new Blob([typedArray]), {type: 'audio/webm'})
-      audio.play()
-    })
+    listenForNewMessageAndPlay(navigatorMessagesDB)
   }
   navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
-  // enable user media audio.
-  // After have media
-  // create a peer for THIS client
-  // send stringified signal from client to server
-  // send stringified signal to other peer
-  // get signal back from other peer to original peer
-  // on connect, begin voice streaming
 }
 
-
-// export default setUpAudio
 export {setUpRecording, mediaRecorder}

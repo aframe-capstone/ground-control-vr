@@ -1,6 +1,6 @@
 import Peer from 'simple-peer'
 
-/* global firebase MediaRecorder URL */
+/* global firebase MediaRecorder URL FileReader Blob */
 
 // Initialize firebase
 var config = {
@@ -23,9 +23,11 @@ const setUpRecording = isNavigator => {
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia)
 
-  const gotMedia = stream => {
-    const driverMessagesDB = firebase.database().ref('Driver_Messages/')
+  const audio = document.querySelector('audio')
 
+  const driverMessagesDB = firebase.database().ref('Driver_Messages/')
+  const navigatorMessagesDB = firebase.database().ref('Navigator_Messages/')
+  const gotMedia = stream => {
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
     mediaRecorder.onstart = () => {
       console.log("RECORDER STARTED")
@@ -37,16 +39,42 @@ const setUpRecording = isNavigator => {
   }
 
   const onRecordingReady = (e) => {
+    const fileReader = new FileReader()
     var audioData = e.data
-    var audio = document.querySelector('audio')
-    var src = URL.createObjectURL(audioData)
-    audio.src = src
-    console.log('playing audio')
+    fileReader.readAsBinaryString(audioData)
 
-    // audio.play()
-    console.log('AUDIO DATA', audioData)
+    fileReader.onloadend = () => {
+      console.log('Pushing Audio to Firebase')
+      if (isNavigator) {
+        navigatorMessagesDB.push(fileReader.result)
+      } else {
+        driverMessagesDB.push(fileReader.result)
+      }
+    }
   }
-
+  if (isNavigator) {
+    driverMessagesDB.on('child_added', snapshot => {
+      var newMessage = snapshot.val()
+      var typedArray = new Uint8Array(newMessage.length)
+      for (var i=0; i<newMessage.length; i++)
+        typedArray[i] = newMessage.charCodeAt(i)
+      console.log(typeof typedArray)
+      console.log(typedArray)
+      audio.src = URL.createObjectURL(new Blob([typedArray]), {type: 'audio/webm'})
+      audio.play()
+    })
+  } else {
+    navigatorMessagesDB.on('child_added', snapshot => {
+      var newMessage = snapshot.val()
+      var typedArray = new Uint8Array(newMessage.length)
+      for (var i=0; i<newMessage.length; i++)
+        typedArray[i] = newMessage.charCodeAt(i)
+      console.log(typeof typedArray)
+      console.log(typedArray)
+      audio.src = URL.createObjectURL(new Blob([typedArray]), {type: 'audio/webm'})
+      audio.play()
+    })
+  }
   navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
 }
 //
@@ -131,6 +159,7 @@ const setUpRecording = isNavigator => {
 //   // get signal back from other peer to original peer
 //   // on connect, begin voice streaming
 // }
+
 
 
 // export default setUpAudio

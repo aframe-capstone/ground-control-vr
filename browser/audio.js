@@ -1,10 +1,8 @@
 import setupDataBase from './firebase'
-import 'tunajs'
+import Tuna from 'tunajs'
+import toBuffer from 'typedarray-to-buffer'
 
- // context = new AudioContext()
-
-
-/* global firebase MediaRecorder URL FileReader Blob */
+/* global firebase AudioContext MediaRecorder URL FileReader Blob */
 
 let mediaRecorder
 
@@ -63,6 +61,7 @@ const setUpRecording = isNavigator => {
   navigator.msGetUserMedia)
 
   const audio = document.querySelector('#messageAudioNode')
+  const NASABeep = document.querySelector('#NASABeepAudioNode')
   const driverMessagesDB = setupDataBase('Driver_Messages/')
   const navigatorMessagesDB = setupDataBase('Navigator_Messages/')
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
@@ -89,9 +88,57 @@ const setUpRecording = isNavigator => {
     })
   }
 
+  function toArrayBuffer(buf) {
+    var ab = new ArrayBuffer(buf.length)
+    var view = new Uint8Array(ab)
+    for (var i = 0; i < buf.length; ++i) {
+        view[i] = buf[i]
+    }
+    return ab
+  }
+
   const playAudio = (dataArr) => {
-    audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
-    audio.play()
+    // var arrBuff = new Blob([dataArr])
+    var audioBuff = toBuffer(dataArr)
+    var audioArrBuff = toArrayBuffer(audioBuff)
+    var context = new AudioContext()
+    var source = context.createBufferSource()
+    // audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
+
+    source.onended = () => {
+      NASABeep.play()
+      context.close()
+    }
+
+    var tuna = new Tuna(context)
+
+    // Filters out high and low freqs
+    var filter = new tuna.Filter({
+      frequency: 440, //20 to 22050
+      Q: 80, //0.001 to 100
+      gain: 0, //-40 to 40 (in decibels)
+      filterType: "bandpass", //lowpass, highpass, bandpass, lowshelf, highshelf, peaking, notch, allpass
+      bypass: 0
+    })
+
+    // Distorts audio
+    var overdrive = new tuna.Overdrive({
+      outputGain: 0.1,         //0 to 1+
+      drive: 1,              //0 to 1
+      curveAmount: 0.65,          //0 to 1
+      algorithmIndex: 2,       //0 to 5, selects one of our drive algorithms
+      bypass: 0
+    })
+
+    filter.connect(overdrive)
+    source.connect(overdrive).connect(context.destination)
+
+    context.decodeAudioData(audioArrBuff)
+      .then(decodedAudio => {
+        source.buffer = decodedAudio
+        console.log('playing decoded audio', decodedAudio)
+        source.start()
+      })
   }
 
   const gotMedia = stream => {
@@ -111,7 +158,7 @@ const setUpRecording = isNavigator => {
         navigatorMessagesDB.set({})
         driverMessagesDB.set({})
       } else {
-        navigatorMessagesDB.set({})        
+        navigatorMessagesDB.set({})
         driverMessagesDB.set({})
       }
     }

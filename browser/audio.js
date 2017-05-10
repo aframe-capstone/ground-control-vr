@@ -2,7 +2,7 @@ import setupDataBase from './firebase'
 import toBuffer from 'typedarray-to-buffer'
 import processRadioTransmission from './processRadioTransmission'
 
-/* global firebase AudioContext MediaRecorder URL FileReader Blob */
+/* global firebase AudioContext MediaRecorder location URL FileReader Blob */
 
 let mediaRecorder
 let isRecording = false
@@ -58,8 +58,9 @@ const setUpRecording = isNavigator => {
 
   const audio = document.querySelector('#messageAudioNode')
   const NASABeep = document.querySelector('#NASABeepAudioNode')
-  const driverMessagesDB = setupDataBase('Driver_Messages/')
-  const navigatorMessagesDB = setupDataBase('Navigator_Messages/')
+  const roomName = location.hash.substring(1, location.hash.length)
+  const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
+  const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
   audio.onpause = () =>{
     console.log('ON PAUSE LISTENER WAS INVOKED')

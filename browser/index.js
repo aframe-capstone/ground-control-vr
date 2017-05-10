@@ -6,10 +6,10 @@ import { Entity, Scene } from 'aframe-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Simulation from './simulation'
-import SimulationContainer from './container/Simulation';
+import SimulationContainer from './container/Simulation'
 import Menu from './menu'
 import Navigator from './navigator'
-import setUpAudio from './audio'
+import {setUpRecording, mediaRecorder} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 
@@ -19,10 +19,12 @@ const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
     console.log('trying to record while already recording or when outside sim')
   } else {
+    mediaRecorder.start()
     console.log('starting to record!')
     var interval = setInterval(() => {
       console.log('stopped recording!')
       clearInterval(interval)
+      mediaRecorder.stop()
       isRecording = false
     }, 5000)
     isRecording = true
@@ -52,7 +54,7 @@ class App extends React.Component {
   setRole(isNavigator) {
     this.setState({ isNavigator: isNavigator, inSim: true })
     // SETS UP AUDIO Navigator is initiator for signal. Arbritrary decision for this.
-    setUpAudio(isNavigator)
+    setUpRecording(isNavigator)
   }
 
   componentWillMount() {

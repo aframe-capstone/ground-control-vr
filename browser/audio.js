@@ -1,4 +1,8 @@
 import setupDataBase from './firebase'
+import 'tunajs'
+
+ // context = new AudioContext()
+
 
 /* global firebase MediaRecorder URL FileReader Blob */
 
@@ -21,13 +25,13 @@ const startRecording = (app) => {
   }
 }
 
-const setupFileReader = () => {
+const setupFileReader = (isNavigator, navigatorMessages, driverMessages) => {
   const fileReader = new FileReader()
   fileReader.onloadend = () => {
     if (isNavigator) {
-      navigatorMessagesDB.push(fileReader.result)
+      navigatorMessages.push(fileReader.result)
     } else {
-      driverMessagesDB.push(fileReader.result)
+      driverMessages.push(fileReader.result)
     }
   }
   return fileReader
@@ -42,7 +46,7 @@ const setUpRecording = isNavigator => {
   const audio = document.querySelector('audio')
   const driverMessagesDB = setupDataBase('Driver_Messages/')
   const navigatorMessagesDB = setupDataBase('Navigator_Messages/')
-  const fileReader = setupFileReader()
+  const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
@@ -51,12 +55,15 @@ const setUpRecording = isNavigator => {
       for (var i=0; i < newMessage.length; i++) {
         typedArray[i] = newMessage.charCodeAt(i)
       }
+
       playAudio(typedArray)
     })
   }
 
   const playAudio = (dataArr) => {
     audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
+    console.log(URL.createObjectURL(new Blob([dataArr])))
+    console.log(audio)
     audio.play()
   }
 

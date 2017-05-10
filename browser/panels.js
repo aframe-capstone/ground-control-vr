@@ -94,25 +94,61 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
         </a-image>
       </a-entity>)
   }
-
   let id = 1
   let moduleId = 1
-  const panel = []
-  panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
-  panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
-  panel.push(generateButton(0.9, 0, '#080', handleSubmit))
-  panel.push(generateFloatingUI(panelId))
-  return (<Entity
-    id={panelId}
-    color="#213033"
-    primitive="a-box"
-    width="2.3"
-    height="0.01"
-    depth="0.6"
-    rotation={{x: 60, y: yRotation, z: 0}}
-    position={{x: xDimension, y: 3.5, z: zDimension}}
-    key={panelNumber}
-    > {panel} </Entity>)
+
+  if(panelId === 1) {
+    const panel = []
+    panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
+    panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
+    panel.push(generateButton(0.9, 0, '#080', handleSubmit))
+    panel.push(generateFloatingUI(panelId))
+    return (<Entity
+      id={panelId}
+      color="#213033"
+      primitive="a-box"
+      width="2.3"
+      height="0.01"
+      depth="0.6"
+      rotation={{x: 60, y: yRotation, z: 0}}
+      position={{x: xDimension, y: 3.5, z: zDimension}}
+      key={panelNumber}
+      > {panel} </Entity>)
+  } else if(panelId === 2) {
+    const panel = []
+    panel.push(generateModule(0, 0, 0, "Rick's Modules...his Penis", ['button', 'switch', 'button']))
+    panel.push(generateModule(-1, 0, 0, 'Morty is Great', ['switch', 'button', 'switch']))
+    panel.push(generateButton(0.9, 0, '#080', handleSubmit))
+    panel.push(generateFloatingUI(panelId))
+    return (<Entity
+      id={panelId}
+      color="#213033"
+      primitive="a-box"
+      width="2.3"
+      height="0.01"
+      depth="0.6"
+      rotation={{x: 60, y: yRotation, z: 0}}
+      position={{x: xDimension, y: 3.5, z: zDimension}}
+      key={panelNumber}
+      > {panel} </Entity>)
+  } else if(panelId === 3) {
+    const panel = []
+    panel.push(generateModule(0, 0, 0, 'Portal2', ['switch', 'switch', 'button']))
+    panel.push(generateModule(-1, 0, 0, 'Portal1', ['button', 'switch', 'button']))
+    panel.push(generateButton(0.9, 0, '#080', handleSubmit))
+    panel.push(generateFloatingUI(panelId))
+    return (<Entity
+      id={panelId}
+      color="#213033"
+      primitive="a-box"
+      width="2.3"
+      height="0.01"
+      depth="0.6"
+      rotation={{x: 60, y: yRotation, z: 0}}
+      position={{x: xDimension, y: 3.5, z: zDimension}}
+      key={panelNumber}
+      > {panel} </Entity>)
+  }
 
 
 }

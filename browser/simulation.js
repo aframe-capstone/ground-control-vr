@@ -12,7 +12,7 @@ import 'aframe-cubemap-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
 import 'lodash'
-import solution1 from './validation'
+import {solution1,solution2,solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
@@ -44,7 +44,22 @@ export default class Simulation extends React.Component {
           currentState: []
         }
       },
-      testing: false,
+      2: {
+        1: {
+          currentState: []
+        },
+        2: {
+          currentState: []
+        }
+      },
+      3: {
+        1: {
+          currentState: []
+        },
+        2: {
+          currentState: []
+        }
+      },
       timeRemaining: 0
     }
     this.handleClick = this.handleClick.bind(this)
@@ -78,18 +93,28 @@ export default class Simulation extends React.Component {
   }
 
   handleSubmit(e) {
-    if(_.isEqual(this.state[1], solution1)) {
+    let module1 = 1
+    let module2 = 2
+    let solution
+    if(this.state.currentPhase === 1) {
+      solution = solution1
+    } else if (this.state.currentPhase === 2) {
+      solution = solution2
+    } else if(this.state.currentPhase === 3){
+      solution = solution3
+    }
+    if(_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
       let newState = _.cloneDeep(this.state)
-      newState[1][1].currentState = []
-      newState[1][2].currentState = []
+      newState[this.state.currentPhase][module1].currentState = []
+      newState[this.state.currentPhase][module2].currentState = []
       newState.currentPhase++
       this.setState(newState)
     } else {
       this.props.addStrike()
       let newState = _.cloneDeep(this.state)
-      newState[1][1].currentState = []
-      newState[1][2].currentState = []
+      newState[this.state.currentPhase][module1].currentState = []
+      newState[this.state.currentPhase][module2].currentState = []
       newState.strikes++
       this.setState(newState)
     }
@@ -100,6 +125,14 @@ export default class Simulation extends React.Component {
     if(this.state.currentPhase > 1){
       solvedPhase1 = true
     }
+    let solvedPhase2 = false
+    if(this.state.currentPhase > 2){
+      solvedPhase2 = true
+    }
+    let solvedPhase3 = false
+    if(this.state.currentPhase > 3) {
+      solvedPhase3 = true
+    }
     return (
       <Entity >
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
@@ -109,8 +142,8 @@ export default class Simulation extends React.Component {
           position={{x: 0, y: 4, z: 0}}
         />
         {generatePanel(-1.5, 2.5, 90, 1, this.handleClick, 1, this.handleSubmit, solvedPhase1)}
-        {generatePanel(1.5, 2.5, -90, 2)}
-        {generatePanel(0, 0, 0, 3)}
+        {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
+        {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
         {getWarningLightOfColor(this.state.strikes)}
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}

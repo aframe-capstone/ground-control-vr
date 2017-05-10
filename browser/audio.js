@@ -2,7 +2,7 @@ import setupDataBase from './firebase'
 import Tuna from 'tunajs'
 import toBuffer from 'typedarray-to-buffer'
 
-/* global firebase MediaRecorder URL FileReader Blob */
+/* global firebase AudioContext MediaRecorder URL FileReader Blob */
 
 let mediaRecorder
 
@@ -42,6 +42,7 @@ const setUpRecording = isNavigator => {
   navigator.msGetUserMedia)
 
   const audio = document.querySelector('#messageAudioNode')
+  const NASABeep = document.querySelector('#NASABeepAudioNode')
   const driverMessagesDB = setupDataBase('Driver_Messages/')
   const navigatorMessagesDB = setupDataBase('Navigator_Messages/')
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
@@ -74,6 +75,11 @@ const setUpRecording = isNavigator => {
     // audio.src = URL.createObjectURL(new Blob([dataArr]), {type: 'audio/webm'})
     var context = new AudioContext()
     var source = context.createBufferSource()
+
+    source.onended = () => {
+      NASABeep.play()
+    }
+
     var tuna = new Tuna(context)
 
     var chorus = new tuna.Chorus({
@@ -85,16 +91,18 @@ const setUpRecording = isNavigator => {
 
     var filter = new tuna.Filter({
       frequency: 440, //20 to 22050
-      Q: 1, //0.001 to 100
+      Q: 70, //0.001 to 100
       gain: 0, //-40 to 40 (in decibels)
-      filterType: "highpass", //lowpass, highpass, bandpass, lowshelf, highshelf, peaking, notch, allpass
+      filterType: "bandpass", //lowpass, highpass, bandpass, lowshelf, highshelf, peaking, notch, allpass
       bypass: 0
     })
 
-    var moog = new tuna.MoogFilter({
-      cutoff: 0.065,    //0 to 1
-      resonance: 3.5,   //0 to 4
-      bufferSize: 4096  //256 to 16384
+    var overdrive = new tuna.Overdrive({
+      outputGain: 0.5,         //0 to 1+
+      drive: 0.7,              //0 to 1
+      curveAmount: 1,          //0 to 1
+      algorithmIndex: 0,       //0 to 5, selects one of our drive algorithms
+      bypass: 0
     })
 
     source.connect(filter).connect(context.destination)
@@ -118,7 +126,7 @@ const setUpRecording = isNavigator => {
       // TODO: play sound indicator about starting to record
       console.log("RECORDER STARTED")
     }
-    mediaRecorder.onstop = () => {
+    mediaRecorder.onstop = () => {0
       // TODO: play sound indicator about stopping to record
       console.log("RECORDER STOPPED")
     }

@@ -116,7 +116,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       > {panel} </Entity>)
   } else if(panelId === 2) {
     const panel = []
-    panel.push(generateModule(0, 0, 0, 'Ricks Modules...his Penis', ['button', 'switch', 'button']))
+    panel.push(generateModule(0, 0, 0, "Rick's Modules...his Penis", ['button', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Morty is Great', ['switch', 'button', 'switch']))
     panel.push(generateButton(0.9, 0, '#080', handleSubmit))
     panel.push(generateFloatingUI(panelId))

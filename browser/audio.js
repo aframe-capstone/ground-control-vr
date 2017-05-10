@@ -32,10 +32,23 @@ const setUpRecording = isNavigator => {
     mediaRecorder.onstart = () => {
       console.log("RECORDER STARTED")
     }
+
     mediaRecorder.onstop = () => {
       console.log("RECORDER STOPPED")
     }
+
+    window.onbeforeunload = () => {
+      if(isNavigator){
+        navigatorMessagesDB.set({})
+        driverMessagesDB.set({})
+      } else {
+        navigatorMessagesDB.set({})        
+        driverMessagesDB.set({})
+      }
+    }
+
     mediaRecorder.addEventListener('dataavailable', onRecordingReady)
+
   }
 
   const onRecordingReady = (e) => {

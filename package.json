@@ -65,6 +65,7 @@
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "react": "^15.5.4",
+    "react-countdown-clock": "^1.1.0",
     "react-dom": "^15.5.4",
     "react-gif": "^0.1.0",
     "react-redux": "^5.0.4",

@@ -75,6 +75,7 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.4",
     "simple-peer": "^8.1.0",
-    "tunajs": "^1.0.0"
+    "tunajs": "^1.0.0",
+    "typedarray-to-buffer": "^3.1.2"
   }
 }

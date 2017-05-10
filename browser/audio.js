@@ -15,7 +15,7 @@ const startRecording = (app) => {
     console.log('starting to record!')
     var interval = setInterval(() => {
       clearInterval(interval)
-      if(isRecording){
+      if (isRecording){
         console.log('STOPPED RECORDING BECUASE INTERVAL EXSPIRED!')
         mediaRecorder.stop()
         isRecording = false
@@ -115,7 +115,7 @@ const setUpRecording = isNavigator => {
     }
 
     window.onbeforeunload = () => {
-      if(isNavigator){
+      if (isNavigator) {
         navigatorMessagesDB.set({})
         driverMessagesDB.set({})
       } else {

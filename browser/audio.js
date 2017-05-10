@@ -56,7 +56,7 @@ const setUpRecording = isNavigator => {
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia)
 
-  const audio = document.querySelector('audio')
+  const audio = document.querySelector('#messageAudioNode')
   const driverMessagesDB = setupDataBase('Driver_Messages/')
   const navigatorMessagesDB = setupDataBase('Navigator_Messages/')
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)

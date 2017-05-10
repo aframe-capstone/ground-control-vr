@@ -21,7 +21,7 @@ const setUpAudio = isNavigator => {
 
   const gotMedia = stream => {
     let p
-    const simplePeerRef = firebase.database().ref('SimplePeer/')
+    const simplePeerRef = firebase.database().ref('SimplePeer/Nested')
     const setHandlers = p => {
       p.on('close', () => {
         console.log('CLOSING CONNECTION AND EMPTYING DB')
@@ -53,6 +53,7 @@ const setUpAudio = isNavigator => {
 
     if (isNavigator) {
       p = new Peer({ initiator: true, trickle: false, stream: stream })
+      console.log('TYPE OF STREAM')
       setHandlers(p);
       p.on('signal', signalData => {
         simplePeerRef.push(JSON.stringify(signalData))

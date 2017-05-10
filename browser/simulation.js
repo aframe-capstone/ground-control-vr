@@ -81,6 +81,10 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
+  componentWillUnmount() {
+
+  }
+
   handleClick(e) {
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
@@ -122,7 +126,7 @@ export default class Simulation extends React.Component {
 
   render() {
     let solvedPhase1 = false
-    if(this.state.currentPhase > 1){
+    if (this.state.currentPhase > 1) {
       solvedPhase1 = true
     }
     let solvedPhase2 = false

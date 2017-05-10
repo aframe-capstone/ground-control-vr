@@ -5,7 +5,6 @@ import processRadioTransmission from './processRadioTransmission'
 /* global firebase AudioContext MediaRecorder URL FileReader Blob */
 
 let mediaRecorder
-
 var isRecording = false
 
 const startRecording = (app) => {
@@ -73,12 +72,12 @@ const setUpRecording = isNavigator => {
   }
 
   function toArrayBuffer(buf) {
-    var ab = new ArrayBuffer(buf.length)
-    var view = new Uint8Array(ab)
+    var arrayBuff = new ArrayBuffer(buf.length)
+    var view = new Uint8Array(arrayBuff)
     for (var i = 0; i < buf.length; ++i) {
       view[i] = buf[i]
     }
-    return ab
+    return arrayBuff
   }
 
   const playAudio = (dataArr) => {
@@ -87,6 +86,7 @@ const setUpRecording = isNavigator => {
     var context = new AudioContext()
     var source = context.createBufferSource()
 
+    // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
       NASABeep.play()
       context.close()
@@ -94,10 +94,10 @@ const setUpRecording = isNavigator => {
 
     processRadioTransmission(context, source)
 
+    // Transforms ArrayBuffer into AudioBuffer then plays
     context.decodeAudioData(audioArrBuff)
       .then(decodedAudio => {
         source.buffer = decodedAudio
-        console.log('playing decoded audio', decodedAudio)
         source.start()
       })
   }
@@ -105,12 +105,12 @@ const setUpRecording = isNavigator => {
   const gotMedia = stream => {
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
     mediaRecorder.onstart = () => {
-      // TODO: play sound indicator about starting to record
+      // TODO: play sound/visual indicator about starting to record
       console.log("RECORDER STARTED")
     }
 
     mediaRecorder.onstop = () => {
-      // TODO: play sound indicator about stopping to record
+      // TODO: play sound/visual indicator about stopping to record
       console.log("RECORDER STOPPED")
     }
 

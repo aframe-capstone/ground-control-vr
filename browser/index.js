@@ -28,12 +28,14 @@ class App extends React.Component {
   }
 
   selectNavigator(e) {
+    if (this.state.inSim) return // Blocks mysterious event handler from Menu from invoking in other views
     e.stopPropagation()
     e.preventDefault()
     this.setRole(true)
   }
 
   selectDriver(e) {
+    if (this.state.inSim) return // Blocks mysterious event handler from Menu from invoking in other views
     e.stopPropagation()
     e.preventDefault()
     this.setRole(false)
@@ -61,7 +63,6 @@ class App extends React.Component {
 
   setRole(isNavigator) {
     this.setState({ isNavigator: isNavigator, inSim: true })
-    // SETS UP AUDIO Navigator is initiator for signal. Arbritrary decision for this.
     setUpRecording(isNavigator)
   }
 

@@ -105,7 +105,6 @@ const setUpRecording = isNavigator => {
 
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
-      // source.buffer = null
       NASABeep.play()
     }
 

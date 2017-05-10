@@ -17,14 +17,12 @@ export default class Menu extends React.Component {
   }
 
   selectNavigator(e) {
-    console.log("inside selectNavigator")
     e.preventDefault()
     console.log(e)
     this.props.setRole(true)
   }
 
   selectDriver(e) {
-    console.log("inside selectDriver")
     e.preventDefault()
     this.props.setRole(false)
   }

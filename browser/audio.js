@@ -38,6 +38,7 @@ const stopRecording = (app) => {
   }
 }
 
+// Prevents MediaRecorder from cutting off message transmission
 const delayEndRecording = () => {
   var itvl = setInterval(() => {
     console.log('inside Set Interval')

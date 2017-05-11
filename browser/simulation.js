@@ -14,6 +14,7 @@ import {DriverCam} from './cameras'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
+import Failure from './failure'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel} from './panels'
@@ -21,6 +22,13 @@ import {generatePanel} from './panels'
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
+
+const resetClickHandlers = (handleClick) => {
+  var buttons = [].slice.call(document.getElementsByClassName('button'))
+  buttons.forEach((button) => {
+    button.addEventListener('click', handleClick)
+  })
+}
 
 export default class Simulation extends React.Component {
   constructor(props) {
@@ -85,16 +93,17 @@ export default class Simulation extends React.Component {
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
+    e.currentTarget.removeEventListener('click', this.handleClick)
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
     this.setState(nextState)
-    console.log('this is your new state', this.state)
   }
 
   handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
+    resetClickHandlers(this.handleClick)
     const module1 = 1
     const module2 = 2
     let solution
@@ -151,7 +160,7 @@ export default class Simulation extends React.Component {
         {playSwitchOnSound()}
         {playSwitchOffSound()}
         {Sun}
-        {DriverCam(this.state.timeRemaining)}
+        <DriverCam strikes={this.state.strikes} />
       </Entity>
     )
   }

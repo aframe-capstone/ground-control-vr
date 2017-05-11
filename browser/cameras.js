@@ -3,6 +3,7 @@ import {Entity} from 'aframe-react'
 import Timer from './timer'
 import TransmissionIncoming from './transmissionIncoming'
 import RecordingIndicator from './recordingIndicator'
+import Failure from './failure'
 
 const navigatorCam = (<Entity
   position="0 20 0"
@@ -24,6 +25,7 @@ const DriverCam = props => (
       <TransmissionIncoming />
       <RecordingIndicator />
       <Timer />
+      {props.strikes >= 3 && <Failure />}
   </Entity>
   </Entity>
 </Entity>)

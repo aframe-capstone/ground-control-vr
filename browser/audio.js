@@ -9,6 +9,7 @@ let isRecording = false
 let interval
 let audioQueue = []
 var context = new AudioContext()
+var audioSourceIsPlaying = false;
 
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
@@ -62,13 +63,13 @@ const setUpRecording = isNavigator => {
   const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
-  audio.onpause = () =>{
-    console.log('ON PAUSE LISTENER WAS INVOKED')
-    if(audioQueue.length > 0){
-      console.log('from inside ON PAUSE')
-      playAudio(audioQueue.shift())
-    }
-  }
+  // audio.onpause = () =>{
+  //   console.log('ON PAUSE LISTENER WAS INVOKED')
+  //   if(audioQueue.length > 0){
+  //     console.log('from inside ON PAUSE')
+  //     playAudio(audioQueue.shift())
+  //   }
+  // }
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
@@ -79,7 +80,7 @@ const setUpRecording = isNavigator => {
         typedArray[i] = newMessage.charCodeAt(i)
       }
 
-      if(audioQueue.length === 0 && audio.paused){
+      if (audioQueue.length === 0 && !audioSourceIsPlaying){
         console.log('from inside listen for messageandPlay')
         playAudio(typedArray)
       } else {
@@ -101,11 +102,14 @@ const setUpRecording = isNavigator => {
     var audioBuff = toBuffer(dataArr)
     var audioArrBuff = toArrayBuffer(audioBuff)
     var source = context.createBufferSource()
-    console.log('PLAYING AUDIO')
-
+    console.log('Audio source', source)
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
       NASABeep.play()
+      audioSourceIsPlaying = false
+      if (audioQueue.length > 0) {
+        playAudio(audioQueue.shift())
+      }
     }
 
     processRadioTransmission(context, source)
@@ -113,6 +117,7 @@ const setUpRecording = isNavigator => {
     // Transforms ArrayBuffer into AudioBuffer then plays
     context.decodeAudioData(audioArrBuff)
       .then(decodedAudio => {
+        audioSourceIsPlaying = true
         source.buffer = decodedAudio
         console.log('DECODED AUDIO IS ... ', decodedAudio)
         source.start()

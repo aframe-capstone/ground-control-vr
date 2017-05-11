@@ -34,7 +34,7 @@ export default function Rules(props) {
       </Col>
       <Col s={12} l={12} m={12}>
         <div className="card-panel pink lighten-5 center-align">
-          <span className="black-text">4. If you get the inputs wrong, the ALARM SYSTEM will activate, going from <strong>white</strong> to <strong>orange</strong> to <strong id='RED'>RED</strong>. You have 3 strikes to get the configuration right across all panels
+          <span className="black-text">4. If you get the inputs wrong, the ALARM SYSTEM will activate, going from <strong>white</strong> to <strong>orange</strong> to <strong id='RED'>RED</strong>. You have 3 strikes to get the configuration right across all panels. <strong>Press and hold spacebar to talk over the radio.</strong>
           </span>
         </div>
       </Col>

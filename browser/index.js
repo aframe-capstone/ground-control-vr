@@ -80,12 +80,12 @@ class App extends React.Component {
   render() {
     return (
     <div>
-        <Scene>
+      {this.state.isNavigator && <Navigator />}
+      {!this.state.isNavigator && <Scene>
           {loadAllAssets()}
-          {this.state.isNavigator && <Navigator />}
-          {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
-        </Scene>
+          {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}
+        </Scene>}
       </div>
     )
   }

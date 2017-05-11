@@ -6,27 +6,41 @@ import {Entity, Scene} from 'aframe-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe-text-geometry-component'
+import {DriverCam} from './cameras'
 
 const userCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
-  <Entity primitive="a-cursor" events={{}} animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
+  <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
 </Entity>)
+
+const boxes = (props) => (
+  <Entity>
+  <Entity id="boxOne"
+    geometry={{primitive: 'box'}}
+    material={{opacity: 0.6}}
+    animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
+    position={{x: 1, y: 1, z: -3}}
+    events={{click: props.selectNavigator}}>
+    <Entity text={{value: 'NAVIGATE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
+    <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
+            geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
+            material={{color: '#24CAFF'}}/>
+  </Entity>
+  <Entity id="boxTwo"
+    geometry={{primitive: 'box'}}
+    material={{opacity: 0.6}}
+    animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
+    position={{x: -1, y: 1, z: -3}}
+    events={{click: props.selectDriver}}>
+    <Entity text={{value: 'DRIVE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}} />
+    <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
+            geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
+            material={{color: '#24CAFF'}} />
+  </Entity>
+  </Entity>)
 
 export default class Menu extends React.Component {
   constructor(props) {
     super(props)
-  }
-
-  selectNavigator(e) {
-    console.log("inside selectNavigator")
-    e.preventDefault()
-    console.log(e)
-    this.props.setRole(true)
-  }
-
-  selectDriver(e) {
-    console.log("inside selectDriver")
-    e.preventDefault()
-    this.props.setRole(false)
   }
 
   render() {
@@ -39,30 +53,8 @@ export default class Menu extends React.Component {
         <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>
         <a-entity id="GROUND-CONTROL" position="-4 4.5 -4.7" scale='1.5 1.5 1.5' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
 
-        <Entity id="boxOne"
-          geometry={{primitive: 'box'}}
-          material={{opacity: 0.6}}
-          animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          position={{x: 1, y: 1, z: -3}}
-          events={{click: this.selectNavigator.bind(this)}}>
-          <Entity text={{value: 'NAVIGATE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
-          <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
-                  geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
-                  material={{color: '#24CAFF'}}/>
-        </Entity>
-
-        <Entity id="boxTwo"
-          geometry={{primitive: 'box'}}
-          material={{opacity: 0.6}}
-          animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          position={{x: -1, y: 1, z: -3}}
-          events={{click: this.selectDriver.bind(this)}}>
-          <Entity text={{value: 'DRIVE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
-          <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
-                  geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
-                  material={{color: '#24CAFF'}}/>
-        </Entity>
-        {userCam}
+        {!this.props.inSim && boxes(this.props)}
+        {!this.props.inSim && userCam}
       </Entity>)
   }
 }

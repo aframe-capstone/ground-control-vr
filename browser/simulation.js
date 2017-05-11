@@ -11,7 +11,7 @@ import 'aframe-fence-component'
 import 'aframe-cubemap-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
-import 'lodash'
+import _ from 'lodash'
 import {solution1,solution2,solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 
@@ -81,7 +81,13 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
+  componentWillUnmount() {
+
+  }
+
   handleClick(e) {
+    e.preventDefault()
+    e.stopPropagation()
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
@@ -93,17 +99,19 @@ export default class Simulation extends React.Component {
   }
 
   handleSubmit(e) {
-    let module1 = 1
-    let module2 = 2
+    e.preventDefault()
+    e.stopPropagation()
+    const module1 = 1
+    const module2 = 2
     let solution
-    if(this.state.currentPhase === 1) {
+    if (this.state.currentPhase === 1) {
       solution = solution1
     } else if (this.state.currentPhase === 2) {
       solution = solution2
-    } else if(this.state.currentPhase === 3){
+    } else if (this.state.currentPhase === 3) {
       solution = solution3
     }
-    if(_.isEqual(this.state[this.state.currentPhase], solution)) {
+    if (_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
       let newState = _.cloneDeep(this.state)
       newState[this.state.currentPhase][module1].currentState = []
@@ -122,15 +130,15 @@ export default class Simulation extends React.Component {
 
   render() {
     let solvedPhase1 = false
-    if(this.state.currentPhase > 1){
+    if (this.state.currentPhase > 1) {
       solvedPhase1 = true
     }
     let solvedPhase2 = false
-    if(this.state.currentPhase > 2){
+    if (this.state.currentPhase > 2) {
       solvedPhase2 = true
     }
     let solvedPhase3 = false
-    if(this.state.currentPhase > 3) {
+    if (this.state.currentPhase > 3) {
       solvedPhase3 = true
     }
     return (

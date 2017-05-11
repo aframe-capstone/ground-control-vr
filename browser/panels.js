@@ -16,7 +16,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       widgets.push(getWidget(widgetNameSpecifiers.shift(), iterator, initialZCoord, 'red'))
       iterator+=0.3
     }
-    return (<Entity id={moduleId++}
+    return (<Entity id={moduleId++} key={`module${moduleId}`}
       position={{x: initialXCoord, y: initialZCoord, z: initialZCoord}}>
       {generateModuleName(moduleName)}
       { widgets }
@@ -41,30 +41,31 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
   }
 
   const generateRotary = (x, z, color) => {
-    return <Entity ui-rotary color={color} position={{x, y: 0.02, z: z}} >
+    return <Entity key={`slider-${x + '' + y}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
 
   const generateSlider = (x, z, color) => {
-    return <Entity  ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
+    return <Entity  key={`slider-${x + '' + y}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
   const generateButton = (x, z, color, isSubmit=handleFunction) => {
-    return <Entity id={id++} class={"button"} events={{click:isSubmit}} ui-button color={color} position={{x, y: 0.02, z}} >
+    return <Entity id={id++} key={`button-${id}`} class={"button"} events={{click:isSubmit}} ui-button color={color} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
 
   const generateSwitch = (x, z, color) => {
-    return <Entity id={id++} class={"switch"} events={{change: handleFunction}} ui-toggle color={color} position={{x, y: 0.02, z}} >
+    return <Entity id={id++} key={`switch-${id}`} class={"switch"} events={{change: handleFunction}} ui-toggle color={color} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
 
   const generateFloatingUI = (x, y, z) => {
-    return (<a-entity visible={solvedPhase1} id={`panel-${panelId}-ui`} position="0 1.1 -0.97" rotation="-60 0 0" scale="0.3 0.3 0.3">
+    return (
+      <Entity key={`panel-${panelId}-ui`} visible={solvedPhase1} id={`panel-${panelId}-ui`} position="0 1.1 -0.97" rotation="-60 0 0" scale="0.3 0.3 0.3">
         <a-image mixin="image" src="#glow1" scale="5 5 5" position="0 0 -2">
           <a-animation attribute="visible" from="false" to="true" delay="1500" dur="1" fill="both"></a-animation>
         </a-image>
@@ -92,7 +93,8 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
         <a-image mixin="image" src="#text4" position="-2 -2 .03">
           <a-animation attribute="visible" from="false" to="true" delay="1300" dur="1" fill="both"></a-animation>
         </a-image>
-      </a-entity>)
+      </Entity>
+    )
   }
   let id = 1
   let moduleId = 1

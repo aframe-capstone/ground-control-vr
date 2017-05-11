@@ -126,6 +126,7 @@ const setUpRecording = isNavigator => {
         // Displays UI indicator if Driver
         if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'true')
       })
+      .catch(err => console.error('DECODE AUDIO DATA THREW: ', err))
   }
 
   const gotMedia = stream => {

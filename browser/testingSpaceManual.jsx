@@ -141,7 +141,7 @@ export default class Manual extends React.Component{
 
   render(){
     return(
-    <div>
+    <div className="container">
       <Row>
         <Navbar brand='logo' left>
           <NavItem onClick={() => {this.selectTab('rules')}}>Rules</NavItem>

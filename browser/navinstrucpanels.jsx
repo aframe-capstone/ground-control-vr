@@ -5,13 +5,13 @@ export default function Panels(props) {
   console.log('this is your props', props)
   return (
     <div>
-    <Col l={12}>Panel {props.panel.number}</Col>
+    <Col s={12} l={12}>Panel {props.panel.number}</Col>
     <br/>
     {
       props.panel.module.map((element) => (
 
       <div key={element.name} className="module">
-        <Col l={12} className="moduleName">Module Name: {element.name}</Col>
+        <Col s={12} l={12} className="moduleName">Module Name: {element.name}</Col>
         <Table>
           <thead>
             <tr>

@@ -1,6 +1,8 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 import Timer from './timer'
+import TransmissionIncoming from './transmissionIncoming'
+import RecordingIndicator from './recordingIndicator'
 
 const navigatorCam = (<Entity
   position="0 20 0"
@@ -19,22 +21,11 @@ const DriverCam = props => (
     look-controls-enabled="true"
     wasd-controls-enabled="true">
     <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
-    <Entity text={{value: 'INCOMING TRANSMISSION'}}
-      // animation={{
-      //   property: 'material.opacity',
-      //   from: '0',
-      //   to: '1.0',
-      //   loop: 'true',
-      //   ease: 'ease-in',
-      //   direction: 'alternate'}}
-      position={{
-        x: 0.3,
-        y: -0.45,
-        z: -0.6
-      }}/>
+      <TransmissionIncoming />
+      <RecordingIndicator />
       <Timer />
   </Entity>
-</Entity>
+  </Entity>
 </Entity>)
 
 export {DriverCam, navigatorCam}

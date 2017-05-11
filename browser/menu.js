@@ -51,7 +51,7 @@ export default class Menu extends React.Component {
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>
-        <a-entity id="GROUND-CONTROL" position="-4 4.5 -4.7" scale='1.5 1.5 1.5' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
+        <a-entity id="GROUND-CONTROL" position="-4.2 3.5 -4.7" scale='1.5 1.5 1.5' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
 
         {!this.props.inSim && boxes(this.props)}
         {!this.props.inSim && userCam}

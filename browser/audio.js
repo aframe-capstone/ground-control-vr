@@ -72,6 +72,8 @@ const setUpRecording = isNavigator => {
   const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
+  const transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
+  const recordingIndicator = document.querySelector('#recordingIndicator')
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
@@ -104,11 +106,12 @@ const setUpRecording = isNavigator => {
     var audioBuff = toBuffer(dataArr)
     var audioArrBuff = toArrayBuffer(audioBuff)
     var source = context.createBufferSource()
-    console.log('Audio source', source)
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
       NASABeep.play()
       audioSourceIsPlaying = false
+      // Displays UI indicator if Driver
+      if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'false')
       if (audioQueue.length > 0) {
         playAudio(audioQueue.shift())
       }
@@ -121,21 +124,22 @@ const setUpRecording = isNavigator => {
       .then(decodedAudio => {
         audioSourceIsPlaying = true
         source.buffer = decodedAudio
-        console.log('DECODED AUDIO IS ... ', decodedAudio)
         source.start()
+        // Displays UI indicator if Driver
+        if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'true')
       })
   }
 
   const gotMedia = stream => {
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
     mediaRecorder.onstart = () => {
-      // TODO: play sound/visual indicator about starting to record
-      console.log('RECORDER STARTED')
+      // Display recording indicator if driver
+      if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
     }
 
     mediaRecorder.onstop = () => {
-      // TODO: play sound/visual indicator about stopping to record
-      console.log('RECORDER STOPPED')
+      // Display recording indicator if driver
+      if (recordingIndicator) recordingIndicator.setAttribute('visible', 'false')
     }
 
     window.onbeforeunload = () => {

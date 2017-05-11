@@ -68,6 +68,7 @@ const setUpRecording = isNavigator => {
 
   const audio = document.querySelector('#messageAudioNode')
   const NASABeep = document.querySelector('#NASABeepAudioNode')
+  const startRecordingBeep = document.querySelector('#startRecordingBeepAudioNode')
   const roomName = location.hash.substring(1, location.hash.length)
   const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
@@ -135,6 +136,7 @@ const setUpRecording = isNavigator => {
     mediaRecorder.onstart = () => {
       // Display recording indicator if driver
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
+      startRecordingBeep.play()
     }
 
     mediaRecorder.onstop = () => {

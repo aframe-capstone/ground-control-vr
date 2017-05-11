@@ -57,10 +57,12 @@ const loadUIElements = () => (
 
 const loadSoundEffects = () => (
   <Entity primitive="a-assets" key="soundEffects">
-    <audio id="alarm" src="assets/sound/alarmloop.mp3"/>
     <audio id="transmissionBeep" src="assets/sound/NASAtransmissionbeep.mp3"/>
     <audio id="switchOnSound" src="assets/sound/switchOn.mp3"/>
     <audio id="switchOffSound" src="assets/sound/switchOff.mp3"/>
+    <audio id="redAlarm" src="assets/sound/redAlarmLoop.mp3"/>
+    <audio id="orangeAlarm" src="assets/sound/alarmloop.mp3"/>
+    <audio id="startRecordingBeep" src="assets/sound/startRecordingBeep.mp3"/>
   </Entity>
 )
 

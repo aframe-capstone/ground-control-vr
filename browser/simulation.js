@@ -22,6 +22,14 @@ import {generatePanel} from './panels'
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
 
+
+const resetClickHandlers = (handleClick) => {
+  var buttons = [].slice.call(document.getElementsByClassName('button'))
+  buttons.forEach((button) => {
+    button.addEventListener('click', handleClick)
+  })
+}
+
 export default class Simulation extends React.Component {
   constructor(props) {
     super(props)
@@ -85,6 +93,8 @@ export default class Simulation extends React.Component {
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
+    console.log('INSIDE HANDLE CLICK', e)
+    e.currentTarget.removeEventListener('click', this.handleClick)
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
@@ -95,6 +105,7 @@ export default class Simulation extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
+    resetClickHandlers(this.handleClick)
     const module1 = 1
     const module2 = 2
     let solution

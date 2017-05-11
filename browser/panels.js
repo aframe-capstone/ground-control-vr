@@ -1,8 +1,6 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
-
-
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
   const generateModuleName = (name) => {
     return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>
@@ -33,7 +31,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     case 'slider':
       return generateSlider(xVal, zVal, color)
     case 'button':
-      return generateButton(xVal, zVal, color)
+      return generateButton(xVal, zVal, color, 'button')
     default:
       console.error('Hit default case in getWidget switch! Did you pass an invalid widget name?')
       break
@@ -47,12 +45,12 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
   }
 
   const generateSlider = (x, z, color) => {
-    return <Entity  key={`slider-${x + '' + y}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
+    return <Entity key={`slider-${x + '' + y}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
-  const generateButton = (x, z, color, isSubmit=handleFunction) => {
-    return <Entity id={id++} key={`button-${id}`} class={"button"} events={{click:isSubmit}} ui-button color={color} position={{x, y: 0.02, z}} >
+  const generateButton = (x, z, color, className, isSubmit=handleFunction) => {
+    return <Entity id={id++} key={`button-${id}`} class={className} events={{click:isSubmit}} ui-button color={color} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
@@ -103,7 +101,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', handleSubmit))
+    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -120,7 +118,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, "Micro-Verse Battery", ['button', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Quantum Carburetor', ['switch', 'button', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', handleSubmit))
+    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -133,11 +131,11 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       position={{x: xDimension, y: 3.5, z: zDimension}}
       key={panelNumber}
       > {panel} </Entity>)
-  } else if(panelId === 3) {
+  } else if (panelId === 3) {
     const panel = []
     panel.push(generateModule(0, 0, 0, 'C-137', ['switch', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Dark Matter Engine', ['button', 'switch', 'button']))
-    panel.push(generateButton(0.9, 0, '#080', handleSubmit))
+    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -151,7 +149,5 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       key={panelNumber}
       > {panel} </Entity>)
   }
-
-
 }
 export {generatePanel}

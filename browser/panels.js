@@ -116,8 +116,8 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       > {panel} </Entity>)
   } else if(panelId === 2) {
     const panel = []
-    panel.push(generateModule(0, 0, 0, "Rick's Modules...his Penis", ['button', 'switch', 'button']))
-    panel.push(generateModule(-1, 0, 0, 'Morty is Great', ['switch', 'button', 'switch']))
+    panel.push(generateModule(0, 0, 0, "Micro-Verse Battery", ['button', 'switch', 'button']))
+    panel.push(generateModule(-1, 0, 0, 'Quantum Carburetor', ['switch', 'button', 'switch']))
     panel.push(generateButton(0.9, 0, '#080', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
@@ -133,8 +133,8 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       > {panel} </Entity>)
   } else if(panelId === 3) {
     const panel = []
-    panel.push(generateModule(0, 0, 0, 'Portal2', ['switch', 'switch', 'button']))
-    panel.push(generateModule(-1, 0, 0, 'Portal1', ['button', 'switch', 'button']))
+    panel.push(generateModule(0, 0, 0, 'C-137', ['switch', 'switch', 'button']))
+    panel.push(generateModule(-1, 0, 0, 'Dark Matter Engine', ['button', 'switch', 'button']))
     panel.push(generateButton(0.9, 0, '#080', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity

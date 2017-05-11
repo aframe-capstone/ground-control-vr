@@ -101,8 +101,8 @@ export default class Simulation extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
-    let module1 = 1
-    let module2 = 2
+    const module1 = 1
+    const module2 = 2
     let solution
     if (this.state.currentPhase === 1) {
       solution = solution1

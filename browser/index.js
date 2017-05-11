@@ -54,6 +54,7 @@ class App extends React.Component {
   handleKeyUp(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
+
       stopRecording(this)
       break
     default:

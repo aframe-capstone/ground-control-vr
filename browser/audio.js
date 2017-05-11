@@ -32,11 +32,19 @@ const stopRecording = (app) => {
     if (interval) {
       clearInterval(interval)
     }
-    mediaRecorder.stop()
-    isRecording = false
+    delayEndRecording()
   } else {
     console.log('trying to stop recording while not recording or outside sim')
   }
+}
+
+const delayEndRecording = () => {
+  var itvl = setInterval(() => {
+    console.log('inside Set Interval')
+    mediaRecorder.stop()
+    isRecording = false
+    clearInterval(itvl)
+  }, 400)
 }
 
 const setupFileReader = (isNavigator, navigatorMessages, driverMessages) => {
@@ -63,13 +71,6 @@ const setUpRecording = isNavigator => {
   const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
-  // audio.onpause = () =>{
-  //   console.log('ON PAUSE LISTENER WAS INVOKED')
-  //   if(audioQueue.length > 0){
-  //     console.log('from inside ON PAUSE')
-  //     playAudio(audioQueue.shift())
-  //   }
-  // }
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {

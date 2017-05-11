@@ -7,10 +7,10 @@ export default class Timer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      timeRemaining: 180
+      timeRemaining: 300
     }
     this.countdownTimer = this.countdownTimer.bind(this)
-    this.countdown(180)
+    this.countdown(300)
   }
 
   countdown(seconds) {

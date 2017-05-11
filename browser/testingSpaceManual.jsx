@@ -127,19 +127,63 @@ const panel3={
   number: 3
 }
 
+const SPACE_BAR = 32
+
 export default class Manual extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      tabSelected: 'rules'
+      tabSelected: 'rules',
+      sendingmessage: false
     }
+    this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
    selectTab(id){
     this.setState({tabSelected: id})
   }
 
+  handleKeyDown(e) {
+    switch (e.keyCode) {
+    case SPACE_BAR:
+      this.setState({sendingmessage: true})
+      break
+    default:
+      break
+    }
+  }
+
+  handleKeyUp(e) {
+    switch (e.keyCode) {
+    case SPACE_BAR:
+      this.setState({sendingmessage: false})
+      break
+    default:
+      break
+    }
+  }
+    componentWillMount() {
+    document.addEventListener('keydown', this.handleKeyDown.bind(this))
+    document.addEventListener('keyup', this.handleKeyUp.bind(this));
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown.bind(this))
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
+  }
+
   render(){
+    let pushToTalk =(<div className="preloader-wrapper small active">
+            <div className="spinner-layer spinner-green-only">
+              <div className="circle-clipper left">
+                <div className="circle"></div>
+              </div><div className="gap-patch">
+                <div className="circle"></div>
+              </div><div className="circle-clipper right">
+                <div className="circle"></div>
+              </div>
+            </div>
+          </div>)
     return(
     <div className="container">
       <Row>
@@ -148,7 +192,10 @@ export default class Manual extends React.Component{
           <NavItem onClick={() => {this.selectTab('phase1')}}>Panel 1</NavItem>
           <NavItem onClick={() => {this.selectTab('phase2')}}>Panel 2</NavItem>
           <NavItem onClick={() => {this.selectTab('phase3')}}>Panel 3</NavItem>
-        </Navbar>
+        {
+          this.state.sendingmessage === true && pushToTalk
+        }
+         </Navbar>
         {
           this.state.tabSelected === 'rules' && <Rules />
         }

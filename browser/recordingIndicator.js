@@ -3,7 +3,7 @@ import {Entity} from 'aframe-react'
 
 const RecordingIndicator = (props) => {
   return (<Entity id='recordingIndicator'
-    text={{value: 'RECORDING...'}}
+    text={{value: 'RECORDING...', color: 'red'}}
     position={{
       x: 0.6,
       y: 0.35,

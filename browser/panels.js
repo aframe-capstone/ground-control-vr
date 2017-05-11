@@ -50,7 +50,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     </Entity>
   }
   const generateButton = (x, z, color, className, isSubmit=handleFunction) => {
-    return <Entity id={id++} key={`button-${id}`} class={className} events={{click:isSubmit}} ui-button color={color} position={{x, y: 0.02, z}} >
+    return <Entity id={id++} key={`button-${id}`} class={className} events={{click: isSubmit}} ui-button material={{color: color}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }

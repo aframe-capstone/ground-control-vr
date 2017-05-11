@@ -12,7 +12,7 @@ import 'aframe-cubemap-component'
 import Sun from './sun'
 import {DriverCam} from './cameras'
 import _ from 'lodash'
-import {solution1,solution2,solution3} from './validation'
+import {solution1, solution2, solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
@@ -21,12 +21,6 @@ import {generatePanel} from './panels'
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
-
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
 
 export default class Simulation extends React.Component {
   constructor(props) {

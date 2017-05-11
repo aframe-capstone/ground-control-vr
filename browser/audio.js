@@ -72,6 +72,7 @@ const setUpRecording = isNavigator => {
   const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
   const fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
+  const transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
@@ -104,11 +105,12 @@ const setUpRecording = isNavigator => {
     var audioBuff = toBuffer(dataArr)
     var audioArrBuff = toArrayBuffer(audioBuff)
     var source = context.createBufferSource()
-    console.log('Audio source', source)
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
       NASABeep.play()
+
       audioSourceIsPlaying = false
+      transmissionIncomingIndicator.setAttribute('visible', 'false')
       if (audioQueue.length > 0) {
         playAudio(audioQueue.shift())
       }
@@ -121,8 +123,9 @@ const setUpRecording = isNavigator => {
       .then(decodedAudio => {
         audioSourceIsPlaying = true
         source.buffer = decodedAudio
-        console.log('DECODED AUDIO IS ... ', decodedAudio)
         source.start()
+        transmissionIncomingIndicator.setAttribute('visible', 'true')
+        // while playing, display Transmission UI
       })
   }
 

@@ -7,9 +7,9 @@ import processRadioTransmission from './processRadioTransmission'
 let mediaRecorder
 let isRecording = false
 let interval
-let audioQueue = []
+const audioQueue = []
+var audioSourceIsPlaying = false // Used to prevent message overlap
 var context = new AudioContext()
-var audioSourceIsPlaying = false;
 
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
@@ -18,7 +18,7 @@ const startRecording = (app) => {
     mediaRecorder.start()
     interval = setInterval(() => {
       clearInterval(interval)
-      if (isRecording){
+      if (isRecording) {
         mediaRecorder.stop()
         isRecording = false
       }
@@ -29,7 +29,7 @@ const startRecording = (app) => {
 
 const stopRecording = (app) => {
   if (isRecording && app.state.inSim) {
-    if(interval) {
+    if (interval) {
       clearInterval(interval)
     }
     mediaRecorder.stop()
@@ -80,7 +80,7 @@ const setUpRecording = isNavigator => {
         typedArray[i] = newMessage.charCodeAt(i)
       }
 
-      if (audioQueue.length === 0 && !audioSourceIsPlaying){
+      if (audioQueue.length === 0 && !audioSourceIsPlaying) {
         console.log('from inside listen for messageandPlay')
         playAudio(typedArray)
       } else {
@@ -128,12 +128,12 @@ const setUpRecording = isNavigator => {
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
     mediaRecorder.onstart = () => {
       // TODO: play sound/visual indicator about starting to record
-      console.log("RECORDER STARTED")
+      console.log('RECORDER STARTED')
     }
 
     mediaRecorder.onstop = () => {
       // TODO: play sound/visual indicator about stopping to record
-      console.log("RECORDER STOPPED")
+      console.log('RECORDER STOPPED')
     }
 
     window.onbeforeunload = () => {

@@ -7,9 +7,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe-text-geometry-component'
 import {DriverCam} from './cameras'
+import Tutorial from './tutorial'
 
 const userCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
   <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
+  <Tutorial />
 </Entity>)
 
 const boxes = (props) => (
@@ -51,8 +53,7 @@ export default class Menu extends React.Component {
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>
-        <a-entity id="GROUND-CONTROL" position="-4.2 3.5 -4.7" scale='1.5 1.5 1.5' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
-
+        <a-entity id="GROUND-CONTROL" position="-5.78 3.5 -5.5" scale='2 2 2' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
         {!this.props.inSim && boxes(this.props)}
         {!this.props.inSim && userCam}
       </Entity>)

@@ -13,7 +13,7 @@ var context = new AudioContext()
 
 const startRecording = (app) => {
   if (isRecording && app.state.inSim) {
-    console.log('trying to record while already recording or when outside sim')
+    console.log('holding down spacebar')
   } else {
     mediaRecorder.start()
     interval = setInterval(() => {
@@ -41,7 +41,6 @@ const stopRecording = (app) => {
 // Prevents MediaRecorder from cutting off message transmission
 const delayEndRecording = () => {
   var itvl = setInterval(() => {
-    console.log('inside Set Interval')
     mediaRecorder.stop()
     isRecording = false
     clearInterval(itvl)
@@ -68,6 +67,7 @@ const setUpRecording = isNavigator => {
 
   const audio = document.querySelector('#messageAudioNode')
   const NASABeep = document.querySelector('#NASABeepAudioNode')
+  const startRecordingBeep = document.querySelector('#startRecordingBeepAudioNode')
   const roomName = location.hash.substring(1, location.hash.length)
   const driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   const navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
@@ -77,7 +77,6 @@ const setUpRecording = isNavigator => {
 
   const listenForNewMessageAndPlay = (databaseReference) => {
     databaseReference.on('child_added', snapshot => {
-      console.log('I detected a child added')
       var newMessage = snapshot.val()
       var typedArray = new Uint8Array(newMessage.length)
       for (var i=0; i < newMessage.length; i++) {
@@ -85,7 +84,6 @@ const setUpRecording = isNavigator => {
       }
 
       if (audioQueue.length === 0 && !audioSourceIsPlaying) {
-        console.log('from inside listen for messageandPlay')
         playAudio(typedArray)
       } else {
         audioQueue.push(typedArray)
@@ -135,6 +133,7 @@ const setUpRecording = isNavigator => {
     mediaRecorder.onstart = () => {
       // Display recording indicator if driver
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
+      startRecordingBeep.play()
     }
 
     mediaRecorder.onstop = () => {

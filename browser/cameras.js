@@ -25,7 +25,7 @@ const DriverCam = props => (
       <RecordingIndicator />
       <Timer />
   </Entity>
-</Entity>
+  </Entity>
 </Entity>)
 
 export {DriverCam, navigatorCam}

@@ -18,7 +18,6 @@ const UserCam = props => (<Entity id='menuCamera'>
 
 const boxes = (props) => (
   <Entity>
-    <a-video src="#sample-video" width="16" height="9" position="0 0 -20"></a-video>
     <Entity>
       <Entity id="boxOne"
         geometry={{primitive: 'box'}}
@@ -54,8 +53,9 @@ export default class Menu extends React.Component {
   render() {
     return (
       <Entity>
+        {/*<Entity primitive='a-video' src="#sample-video" width="16" height="9" position="0 0 -20"></Entity>*/}
         <Entity primitive='a-sound' src="#menuMusic" loop="true" autoplay="true" position="0 0 0" />
-        <Entity primitive="a-light" type="ambient" color="#445451"/>
+        <Entity primitive="a-light" type="ambient" color="#445451"/>s
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>

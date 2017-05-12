@@ -22,7 +22,7 @@ const loadModels = () => (
   <Entity primitive="a-assets" key="spaceShipAssets">
     <a-asset-item id="sunRaysOne" src="assets/sunrays/sun_rays1.dae" />
     <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
-    <a-asset-item id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
+    <a-asset-item timeout="10000" loaded = {function(){console.log('loadedXX');}} id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
   </Entity>
 )
 
@@ -30,7 +30,7 @@ const loadTextures = () => (
   <Entity key="textures">
     <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
     <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
-    <a-asset-item id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
+    <a-asset-item events = { {loaded:function(){console.log('BUTT')}}} id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
   </Entity>
 )
 

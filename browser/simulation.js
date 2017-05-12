@@ -34,6 +34,7 @@ export default class Simulation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      radius: 0,
       renderCockpit: true,
       cockpit: [],
       strikes: this.props.strikes,
@@ -64,8 +65,13 @@ export default class Simulation extends React.Component {
       },
       timeRemaining: 0
     }
+    this.increaseSunSize = this.increaseSunSize.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  increaseSunSize(){
+    this.setState({ radius: this.state.radius += 2})
   }
 
   playSound() {
@@ -159,8 +165,8 @@ export default class Simulation extends React.Component {
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}
         {playSwitchOffSound()}
-        {Sun}
-        <DriverCam strikes={this.state.strikes} />
+        <Sun radius ={this.state.radius}/>
+        <DriverCam increaseSunSize = {this.increaseSunSize} strikes={this.state.strikes} />
       </Entity>
     )
   }

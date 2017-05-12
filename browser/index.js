@@ -13,6 +13,8 @@ import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './au
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
+import store from './store.jsx'
+import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
 
 const SPACE_BAR = 32
 
@@ -34,6 +36,7 @@ class App extends React.Component {
     e.preventDefault()
     this.setRole(true)
     startSyncingPhaseAndStrikes(true)
+    store.dispatch(setNavigatorStatus(true))
   }
 
   selectDriver(e) {
@@ -42,7 +45,7 @@ class App extends React.Component {
     e.preventDefault()
     this.setRole(false)
     startSyncingPhaseAndStrikes(false)
-    
+    store.dispatch(setDriverStatus(true))
   }
 
   handleKeyDown(e) {
@@ -58,7 +61,6 @@ class App extends React.Component {
   handleKeyUp(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-
       stopRecording(this)
       break
     default:
@@ -96,4 +98,3 @@ class App extends React.Component {
 }
 
 export default App
-// ReactDOM.render(<App />, document.querySelector('#sceneContainer'));

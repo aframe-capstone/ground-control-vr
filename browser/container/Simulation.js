@@ -5,7 +5,9 @@ import {addStrike, addPhase} from '../reducers/strike-phase'
 
 const mapStateToProps = state => ({
   phase: state.phase,
-  strikes: state.strikes
+  strikes: state.strikes,
+  driverStatus: state.driverStatus,
+  navigatorStatus: state.navigatorStatus,
 })
 
 

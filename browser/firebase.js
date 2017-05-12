@@ -1,5 +1,7 @@
 import store from './store.jsx'
-import {setStrike, setPhase} from './reducers/strike-phase.js'
+import {setStrike, setPhase, setDriverStatus, setNavigatorStatus} from './reducers/strike-phase.js'
+import $ from 'jquery'
+
 
 // FIREBASE MODULE
 /* global firebase */
@@ -19,16 +21,19 @@ export const setupDataBase = (referenceString) => firebase.database().ref(refere
 const roomName = location.hash.substring(1, location.hash.length) 
 const strikesDB = setupDataBase(`${roomName}/strikes`)
 const phaseDB = setupDataBase(`${roomName}/phase`)
+const navigatorStatusDB = setupDataBase(`${roomName}/navigatorStatus`)
+const driverStatusDB = setupDataBase(`${roomName}/driverStatus`)
 
 export const startSyncingPhaseAndStrikes = isNavigator => {
   if (!isNavigator) {
-    // DRIVER WRITE ONLY
+    // DRIVER WRITE ONLY for strikes and phases
     const initialState = store.getState()
     let currentStrikes = initialState.strikes
     let currentPhase = initialState.phase
     strikesDB.set(currentStrikes)
     phaseDB.set(currentPhase)
-
+    driverStatusDB.set(true)
+        
     const handleChange = () => {
       let previousStrikes = currentStrikes
       let previousPhase = currentPhase
@@ -47,8 +52,25 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
     }
     const unsubscribe = store.subscribe(handleChange)
     
+    navigatorStatusDB.on('value', (snapshot) => {
+      const navigatorStatus = snapshot.val()
+      if(navigatorStatus){
+        store.dispatch(setNavigatorStatus(true))
+      }
+      else{
+        store.dispatch(setNavigatorStatus(false))
+      }
+    })
+
+    // Set status on exit
+    $(window).on('beforeunload',() => {
+      driverStatusDB.set(false)
+    })
+
   } else {
     // NAVIGATOR READONLY
+    navigatorStatusDB.set(true)
+
     strikesDB.on('value', (snapshot) => {
       const state = store.getState()
       const DBStrikes = snapshot.val()
@@ -73,6 +95,21 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
         // console.log('INCREMENTING PHASE')
         store.dispatch(setPhase(DBPhase))
       }
+    })
+
+    driverStatusDB.on('value', (snapshot) => {
+      const driverStatus = snapshot.val()
+      if(driverStatus){
+        store.dispatch(setDriverStatus(true))
+      }
+      else{
+        store.dispatch(setDriverStatus(false))
+      }
+    })
+
+    // Set status on exit
+    $(window).on('beforeunload',() => {
+      navigatorStatusDB.set(false)      
     })
   }
 }

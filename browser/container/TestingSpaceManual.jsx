@@ -4,7 +4,9 @@ import testingSpaceManual from '../testingSpaceManual.jsx'
 
 const mapStateToProps = state => ({
   phase: state.phase,
-  strikes: state.strikes
+  strikes: state.strikes,
+  driverStatus: state.driverStatus,
+  navigatorStatus: state.navigatorStatus,
 })
 
 

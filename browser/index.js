@@ -88,7 +88,7 @@ class App extends React.Component {
     return (
     <div>
       {this.state.isNavigator && <Navigator />}
-      {!this.state.isNavigator && <Scene vr-mode-ui="enabled: true">
+      {!this.state.isNavigator && <Scene keyboard-shortcuts={{enterVR: false}} vr-mode-ui={{enabled: true}}>
           <ViveControllerLeft />
           <ViveControllerRight />
           {loadAllAssets()}

@@ -21,7 +21,13 @@ const DriverCam = props => (
     primitive="a-camera"
     look-controls-enabled="true"
     wasd-controls-enabled="true">
-    <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
+    <Entity primitive="a-cursor"
+      animation__click={{
+        property: 'scale',
+        startEvents: 'click',
+        from: '0.1 0.1 0.1',
+        to: '1 1 1',
+        dur: 150}}/>
       <TransmissionIncoming />
       <RecordingIndicator />
       <Timer />

@@ -1,15 +1,21 @@
 import React from 'react'
 import {Entity, Animation} from 'aframe-react'
 
-const Sun = (<Entity id="Sun" primitive="a-sphere" material={{
-  opacity: '0.95',
+class Sun extends React.Component {
+
+
+  render(){
+    return(<Entity id="Sun" primitive="a-sphere" material={{
+  opacity: '1',
   transparent: 'true',
   shader: 'flat'}}
-  radius="11"
+  radius={(11 + this.props.radius).toString()}
   position={{x: 1, y: 4, z: 30}}
   color="yellow" >
   <Entity id="sunRays" rotation="0 0 0">
     <Entity collada-model='#sunRaysOne'
+      radius={(11 + this.props.radius).toString()}
+      scale={{x:this.props.radius/4, y:this.props.radius/4,z:this.props.radius/4}}
       animation={{property: 'rotation',
         dur: '120000',
         loop: 'true',
@@ -35,5 +41,6 @@ const Sun = (<Entity id="Sun" primitive="a-sphere" material={{
     intensity=".3"
    />
 </Entity>)
+}}
 
 export default Sun

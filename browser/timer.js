@@ -1,6 +1,7 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
+
 var hasNotBeenInvoked = true
 
 export default class Timer extends React.Component {
@@ -23,6 +24,10 @@ export default class Timer extends React.Component {
   countdownTimer(numberOfSeconds) {
     var timeRemaining = numberOfSeconds
     var timeInterval = setInterval(() => {
+      if(timeRemaining%60 ===0){
+        this.props.increaseSunSize()
+      }
+
       if (timeRemaining < 0) {
         clearInterval(timeInterval)
       }

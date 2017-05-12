@@ -30,7 +30,7 @@ const DriverCam = props => (
         dur: 150}}/>
       <TransmissionIncoming />
       <RecordingIndicator />
-      <Timer />
+      <Timer increaseSunSize = {props.increaseSunSize}/>
       {props.strikes >= 3 && <Failure />}
   </Entity>
   </Entity>

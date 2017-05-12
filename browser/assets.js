@@ -71,7 +71,7 @@ const loadSoundEffects = () => (
 const loadSoundAmbient = () => (
   <Entity primitive="a-assets" key="backgroundSound">
     <audio id="spaceshipAmbience" src="assets/sound/spaceship-ambience.mp3"/>
-    <audio id="menuMusic" src="assets/sound/memory.mp3"/>
+    <audio id="menuMusic" src="assets/sound/memory.wav"/>
     <audio id="machineHumAmbience" src="assets/sound/machine-ambience.mp3"/>
   </Entity>
 )

@@ -4,6 +4,7 @@ import {Button, Icon, Row, Col, NavItem, Navbar} from 'react-materialize'
 import Rules from './rules.jsx'
 import Panels from './navinstrucpanels.jsx'
 
+
 const panel1={
   module:[
     { name: 'Nanomatronic Kilowasher',
@@ -187,16 +188,47 @@ export default class Manual extends React.Component{
           </div>)
     return(
     <div className="container">
+      <link rel='stylesheet' type='text/css' href='aframe.css'/>
+
+
+  <div className= 'informationWidgets' style={{position:'fixed', top:'5px' ,left:'9px'}}>
+        <div className='clock'> <Clock  size={150} seconds={300} /> </div>
+
+        <div className='strikes'>
+            <i id='strike1' style={{color:this.props.strikes<1 ? '#D3D3D3' : 'red'}} className="fa fa-times-circle-o" aria-hidden="true"></i>
+            <i id='strike2' style={{color:this.props.strikes<2 ? '#D3D3D3' : 'red'}}  className="fa fa-times-circle-o" aria-hidden="true"></i>
+            <i id='strike3' style={{color:this.props.strikes<3 ? '#D3D3D3' : 'red'}} className="fa fa-times-circle-o" aria-hidden="true"></i>
+        </div>
+
+
+        <div className='phases'>
+          <i className="fa fa-dot-circle-o" style={{color:this.props.phase !=1 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
+          <i className="fa fa-dot-circle-o" style={{color:this.props.phase!=2 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
+          <i className="fa fa-dot-circle-o" style={{color:this.props.phase !=3 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
+        </div>
+
+</div>
+
+
+
       <Row>
         <Navbar brand='logo' left>
+
           <NavItem onClick={() => {this.selectTab('rules')}}>Rules</NavItem>
           <NavItem onClick={() => {this.selectTab('phase1')}}>Panel 1</NavItem>
           <NavItem onClick={() => {this.selectTab('phase2')}}>Panel 2</NavItem>
           <NavItem onClick={() => {this.selectTab('phase3')}}>Panel 3</NavItem>
+
         {
           this.state.sendingmessage === true && pushToTalk
         }
-         </Navbar>
+
+
+
+      </Navbar>
+
+
+
         {
           this.state.tabSelected === 'rules' && <Rules />
         }
@@ -210,6 +242,12 @@ export default class Manual extends React.Component{
           this.state.tabSelected === 'phase3' && <Panels panel={panel3}/>
         }
       </Row>
+
+
+
+
+
+
     </div>
     )
   }

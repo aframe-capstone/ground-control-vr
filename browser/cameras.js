@@ -4,6 +4,7 @@ import Timer from './timer'
 import TransmissionIncoming from './transmissionIncoming'
 import RecordingIndicator from './recordingIndicator'
 import Failure from './failure'
+import './utils/fps-cursor'
 
 const navigatorCam = (<Entity
   position="0 20 0"
@@ -19,9 +20,10 @@ const DriverCam = props => (
   <Entity fence="width: 3; depth: 4; x0: 0; z0: 1"
     userHeight="0.6"
     primitive="a-camera"
-    look-controls-enabled="true"
+    fps-look-controls
     wasd-controls-enabled="true">
     <Entity primitive="a-cursor"
+      cursor="fuse: true; fuseTimeout: 1000"
       animation__click={{
         property: 'scale',
         startEvents: 'click',

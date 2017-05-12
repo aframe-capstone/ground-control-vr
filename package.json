@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests/*.spec.js --compilers js:babel-register",
-    "start": "node setup.js & webpack -w & nodemon app.js",
+    "start": "webpack -w & nodemon app.js",
     "build": "webpack -w"
   },
   "repository": {

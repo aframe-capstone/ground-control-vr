@@ -1,6 +1,7 @@
 const PASSING = 'PASSING'
 const FAILING = 'FAILING'
-
+const SET_STRIKE = 'SET_STRIKE'
+const SET_PHASE = 'SET_PHASE'
 // #### INITIAL STATE #### //
 const initialPhaseStrike  = {
   phase: 1,
@@ -17,6 +18,15 @@ export const addPhase = () => ({
   type: PASSING
 })
 
+export const setStrike = strikes => ({
+  type: SET_STRIKE,
+  strikes
+})
+
+export const setPhase = phase => ({
+  type: SET_PHASE,
+  phase
+})
 
 // #### REDUCER #### //
 
@@ -26,13 +36,22 @@ export default function (state = initialPhaseStrike, action) {
   switch(action.type) {
     case PASSING:
       newState.phase ++;
-      return newState
+      break;
 
     case FAILING:
       newState.strikes ++;
-      return newState
+      break;
 
+    case SET_PHASE:
+      newState.phase = action.phase
+      break;
+
+    case SET_STRIKE:
+      newState.strikes = action.strikes
+      break;
+      
     default:
       return state
   }
+  return newState
 }

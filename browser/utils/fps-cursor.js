@@ -30,7 +30,7 @@
       this.setupMouseControls()
       this.setupHMDControls()
       this.attachEventListeners()
-      this.ßbindFunctions()
+      this.bindFunctions()
       this.sceneEl.addBehavior(this)
       this.previousPosition = new THREE.Vector3()
       this.deltaPosition = new THREE.Vector3()

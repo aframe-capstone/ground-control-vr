@@ -5,7 +5,7 @@ import {Button, Icon, Row, Col, NavItem, Navbar} from 'react-materialize'
 export default function Rules(props) {
   return (
   <div>
-    <link rel='stylesheet' type='text/css' href='aframe.css'/>
+    
     <div className="section no-pad-bot pink lighten-5" id="index-banner">
       <div className="container">
         <h1 className="header center  pink-text text-darken-3">Welcome to the Future</h1>

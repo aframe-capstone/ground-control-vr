@@ -190,6 +190,28 @@ export default class Manual extends React.Component{
           </div>)
     return(
     <div className="container">
+      <link rel='stylesheet' type='text/css' href='aframe.css'/>
+
+
+  <div className= 'informationWidgets' style={{position:'fixed', top:'5px' ,left:'9px'}}>
+        <div className='clock'> <Clock  size={150} seconds={300} /> </div>
+
+        <div className='strikes'>
+            <i id='strike1' style={{color:this.props.strikes<1 ? '#D3D3D3' : 'red'}} className="fa fa-times-circle-o" aria-hidden="true"></i>
+            <i id='strike2' style={{color:this.props.strikes<2 ? '#D3D3D3' : 'red'}}  className="fa fa-times-circle-o" aria-hidden="true"></i>
+            <i id='strike3' style={{color:this.props.strikes<3 ? '#D3D3D3' : 'red'}} className="fa fa-times-circle-o" aria-hidden="true"></i>
+        </div>
+
+
+        <div className='phases'>
+          <i className="fa fa-dot-circle-o" style={{color:this.props.phase !=1 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
+          <i className="fa fa-dot-circle-o" style={{color:this.props.phase!=2 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
+          <i className="fa fa-dot-circle-o" style={{color:this.props.phase !=3 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
+        </div>
+
+</div>
+
+
 
       <Row>
         <Navbar brand='logo' left>
@@ -203,7 +225,10 @@ export default class Manual extends React.Component{
           this.state.sendingmessage === true && pushToTalk
         }
 
+
+
       </Navbar>
+
 
 
         {
@@ -220,9 +245,9 @@ export default class Manual extends React.Component{
         }
       </Row>
 
-      <div className= 'informationWidgets' style={{position:'fixed', top:'-10px' ,left:'12px'}}>
-        <Clock  size={150} seconds={300} />
-      </div>
+
+
+
 
 
     </div>

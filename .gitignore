@@ -3,3 +3,5 @@ bundle.js
 public/bundle.js.map
 *.js.map
 *.DS_Store
+.project-env
+.env

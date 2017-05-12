@@ -4,12 +4,12 @@ import {setStrike, setPhase} from './reducers/strike-phase.js'
 // FIREBASE MODULE
 /* global firebase */
 var config = {
-  apiKey: "AIzaSyCao3V8b2INzVjRy8ZzTsSXBP-z3gZSJiI",
-  authDomain: "testing-firebase-5f787.firebaseapp.com",
-  databaseURL: "https://testing-firebase-5f787.firebaseio.com",
-  projectId: "testing-firebase-5f787",
-  storageBucket: "testing-firebase-5f787.appspot.com",
-  messagingSenderId: "930281689218"
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID
 }
 
 firebase.initializeApp(config)

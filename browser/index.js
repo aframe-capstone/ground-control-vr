@@ -13,6 +13,7 @@ import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './au
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
+import {ViveControllerLeft, ViveControllerRight} from './viveController'
 import store from './store.jsx'
 import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
 
@@ -87,7 +88,9 @@ class App extends React.Component {
     return (
     <div>
       {this.state.isNavigator && <Navigator />}
-      {!this.state.isNavigator && <Scene>
+      {!this.state.isNavigator && <Scene vr-mode-ui="enabled: true">
+          <ViveControllerLeft />
+          <ViveControllerRight />
           {loadAllAssets()}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
           {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}

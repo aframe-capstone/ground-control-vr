@@ -22,6 +22,8 @@ const loadModels = () => (
   <Entity primitive="a-assets" key="spaceShipAssets">
     <a-asset-item id="sunRaysOne" src="assets/sunrays/sun_rays1.dae" />
     <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
+    <a-asset-item id="viveObj" src="assets/vive/vive.obj" />
+    <a-asset-item id="viveMtl" src="assets/vive/vive.mtl" />
     <a-asset-item timeout="10000" loaded = {function(){console.log('loadedXX');}} id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
   </Entity>
 )

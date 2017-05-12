@@ -4,6 +4,7 @@ import {Button, Icon, Row, Col, NavItem, Navbar} from 'react-materialize'
 import Rules from './rules.jsx'
 import Panels from './navinstrucpanels.jsx'
 
+
 const panel1={
   module:[
     { name: 'Nanomatronic Kilowasher',
@@ -186,16 +187,22 @@ export default class Manual extends React.Component{
           </div>)
     return(
     <div className="container">
+
       <Row>
         <Navbar brand='logo' left>
+
           <NavItem onClick={() => {this.selectTab('rules')}}>Rules</NavItem>
           <NavItem onClick={() => {this.selectTab('phase1')}}>Panel 1</NavItem>
           <NavItem onClick={() => {this.selectTab('phase2')}}>Panel 2</NavItem>
           <NavItem onClick={() => {this.selectTab('phase3')}}>Panel 3</NavItem>
+
         {
           this.state.sendingmessage === true && pushToTalk
         }
-         </Navbar>
+
+      </Navbar>
+
+
         {
           this.state.tabSelected === 'rules' && <Rules />
         }
@@ -209,6 +216,12 @@ export default class Manual extends React.Component{
           this.state.tabSelected === 'phase3' && <Panels panel={panel3}/>
         }
       </Row>
+
+      <div className= 'informationWidgets' style={{position:'fixed', top:'-10px' ,left:'10px'}}>
+        <Clock  size={150} seconds={300} />
+      </div>
+
+
     </div>
     )
   }

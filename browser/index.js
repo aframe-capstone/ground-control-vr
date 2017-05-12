@@ -13,6 +13,7 @@ import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './au
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
+import {ViveControllerLeft, ViveControllerRight} from './viveController'
 
 const SPACE_BAR = 32
 
@@ -42,7 +43,7 @@ class App extends React.Component {
     e.preventDefault()
     this.setRole(false)
     startSyncingPhaseAndStrikes(false)
-    
+
   }
 
   handleKeyDown(e) {
@@ -86,6 +87,8 @@ class App extends React.Component {
     <div>
       {this.state.isNavigator && <Navigator />}
       {!this.state.isNavigator && <Scene>
+          <ViveControllerLeft />
+          <ViveControllerRight />
           {loadAllAssets()}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
           {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}

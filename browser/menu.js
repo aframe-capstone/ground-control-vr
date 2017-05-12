@@ -9,9 +9,11 @@ import 'aframe-text-geometry-component'
 import {DriverCam} from './cameras'
 import Tutorial from './tutorial'
 
-const userCam = (<Entity primitive="a-camera" look-controls-enabled="true" wasd-controls-enabled="true">
+const UserCam = props => (<Entity id='menuCamera'>
+  <Entity primitive="a-camera" wasd-controls-enabled="true">
   <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
   <Tutorial />
+</Entity>
 </Entity>)
 
 const boxes = (props) => (
@@ -55,7 +57,7 @@ export default class Menu extends React.Component {
         <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/>
         <a-entity id="GROUND-CONTROL" position="-5.78 3.5 -5.5" scale='2 2 2' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
         {!this.props.inSim && boxes(this.props)}
-        {!this.props.inSim && userCam}
+        {!this.props.inSim && <UserCam />}
       </Entity>)
   }
 }

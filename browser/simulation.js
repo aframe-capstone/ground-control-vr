@@ -148,7 +148,6 @@ export default class Simulation extends React.Component {
       <Entity >
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />
         <Entity
-          static-body
           obj-model={{obj: '#cockpit', mtl: '#cockpitMaterial'}}
           position={{x: 0, y: 4, z: 0}}
         />

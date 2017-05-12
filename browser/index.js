@@ -12,6 +12,7 @@ import Navigator from './navigator'
 import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
+import { startSyncingPhaseAndStrikes } from './firebase'
 
 const SPACE_BAR = 32
 
@@ -32,6 +33,7 @@ class App extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.setRole(true)
+    startSyncingPhaseAndStrikes(true)
   }
 
   selectDriver(e) {
@@ -39,6 +41,8 @@ class App extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.setRole(false)
+    startSyncingPhaseAndStrikes(false)
+    
   }
 
   handleKeyDown(e) {

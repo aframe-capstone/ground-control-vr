@@ -173,6 +173,8 @@ export default class Manual extends React.Component{
   }
 
   render(){
+    console.log('STRIKES: ', this.props.strikes)
+    console.log('PHASE: ', this.props.phase)
     let pushToTalk =(<div className="preloader-wrapper small active">
             <div className="spinner-layer spinner-green-only">
               <div className="circle-clipper left">

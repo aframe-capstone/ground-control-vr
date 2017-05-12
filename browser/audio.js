@@ -1,4 +1,4 @@
-import setupDataBase from './firebase'
+import { setupDataBase } from './firebase'
 import toBuffer from 'typedarray-to-buffer'
 import processRadioTransmission from './processRadioTransmission'
 

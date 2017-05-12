@@ -53,7 +53,7 @@ export default class Menu extends React.Component {
   render() {
     return (
       <Entity>
-        {/*<Entity primitive='a-video' src="#sample-video" width="16" height="9" position="0 0 -20"></Entity>*/}
+        {/*<Entity primitive='a-video' src="#sample-video" width="16" height="9" position="0 0 -20"/>*/}
         <Entity primitive='a-sound' src="#menuMusic" loop="true" autoplay="true" position="0 0 0" />
         <Entity primitive="a-light" type="ambient" color="#445451"/>s
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>

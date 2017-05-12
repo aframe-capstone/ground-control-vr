@@ -38,10 +38,10 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
 
       if (previousStrikes !== currentStrikes) {
         strikesDB.set(currentStrikes)
-        console.log('Strikes changed from', previousStrikes, 'to', currentStrikes)
+        // console.log('Strikes changed from', previousStrikes, 'to', currentStrikes)
       }
       if(previousPhase !== currentPhase) {
-        console.log('Phase changed from', previousPhase, 'to', currentPhase)    
+        // console.log('Phase changed from', previousPhase, 'to', currentPhase)    
         phaseDB.set(currentPhase)
       }
     }
@@ -53,10 +53,10 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
       const state = store.getState()
       const DBStrikes = snapshot.val()
       let currentStrikes = state.strikes
-      console.log('CURRENT STRIKES: ', currentStrikes)
-      console.log('DB STRIKES: ', DBStrikes)
+      // console.log('CURRENT STRIKES: ', currentStrikes)
+      // console.log('DB STRIKES: ', DBStrikes)
       if(currentStrikes !== DBStrikes){
-        console.log('INCREMENTING STRIKES')
+        // console.log('INCREMENTING STRIKES')
         store.dispatch(setStrike(DBStrikes))
       }
     })
@@ -65,12 +65,12 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
     phaseDB.on('value', (snapshot) => {
       const state = store.getState()
       let currentPhase = state.phase
-      console.log('CURRENT PHASE: ', currentPhase)
+      // console.log('CURRENT PHASE: ', currentPhase)
       const DBPhase = snapshot.val()
-      console.log('DB PHASE: ', DBPhase)
+      // console.log('DB PHASE: ', DBPhase)
 
       if(currentPhase !== DBPhase){
-        console.log('INCREMENTING PHASE')
+        // console.log('INCREMENTING PHASE')
         store.dispatch(setPhase(DBPhase))
       }
     })

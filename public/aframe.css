@@ -6,3 +6,34 @@
   .a-html{
     position: static;
   }
+
+.informationWidgets{
+  width: 20%;
+  float: right;
+}
+
+.clock{
+  display: block;
+  height: 175px;
+}
+
+.strikes{
+  display:block;
+}
+
+
+.fa-times-circle-o{
+  font-size: 50px;
+  color: #D3D3D3;
+}
+
+.phases{
+  display: block;
+}
+
+.fa-dot-circle-o{
+  font-size: 50px;
+  line-height: 50px;
+  color:#D3D3D3;
+
+}

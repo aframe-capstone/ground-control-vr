@@ -174,6 +174,9 @@ export default class Manual extends React.Component{
   }
 
   render(){
+    console.log('STRIKES: ', this.props.strikes)
+    console.log('PHASE: ', this.props.phase)
+    console.log(this.state)
     let pushToTalk =(<div className="preloader-wrapper small active">
             <div className="spinner-layer spinner-green-only">
               <div className="circle-clipper left">
@@ -217,7 +220,7 @@ export default class Manual extends React.Component{
         }
       </Row>
 
-      <div className= 'informationWidgets' style={{position:'fixed', top:'-10px' ,left:'10px'}}>
+      <div className= 'informationWidgets' style={{position:'fixed', top:'-10px' ,left:'12px'}}>
         <Clock  size={150} seconds={300} />
       </div>
 

@@ -5,7 +5,7 @@ const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedCo
   return (<Entity
             id='submit-button'
             key={`submit-button`}
-            class={className}
+            class={`${className} selectable`}
             scale={{x: 1.2, y: 1.2, z: 1.2}}
             events={{click: handleSubmit}}
             ui-button={{color, pressedColor}}
@@ -53,24 +53,24 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
   // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
 
   const generateRotary = (x, z, color) => {
-    return <Entity key={`slider-${x}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
+    return <Entity class='selectable' key={`slider-${x}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
 
   const generateSlider = (x, z, color) => {
-    return <Entity key={`slider-${x}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
+    return <Entity class='selectable' key={`slider-${x}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
   const generateButton = (x, z, color, className, isSubmit=handleFunction, pressedColor='#009', baseColor) => {
-    return <Entity id={id++} key={`button-${id}`} class={className} events={{click: isSubmit}} ui-button={{color, baseColor, pressedColor}} position={{x, y: 0.02, z}} >
+    return <Entity class={`${className} selectable`} id={id++} key={`button-${id}`} events={{click: isSubmit}} ui-button={{color, baseColor, pressedColor}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
 
   const generateSwitch = (x, z, color) => {
-    return <Entity id={id++} key={`switch-${id}`} class={"switch"} events={{change: handleFunction}} ui-toggle color={color} position={{x, y: 0.02, z}} >
+    return <Entity class={`switch selectable`} id={id++} key={`switch-${id}`} events={{change: handleFunction}} ui-toggle color={color} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }

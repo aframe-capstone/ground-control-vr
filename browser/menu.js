@@ -9,7 +9,7 @@ import 'aframe-text-geometry-component'
 import {DriverCam} from './cameras'
 import Tutorial from './tutorial'
 
-const UserCam = props => (<Entity id='menuCamera' position='0, 0, 0'>
+const UserCam = props => (<Entity id='menuCamera' position='0 0 0'>
   <a-entity id="daydream" daydream-controller raycaster="objects: .selectable; recursive: true">
     <a-cone id='ray' color='cyan' position='0 0 -2' rotation='-90 0 0' radius-bottom='0.005' radius-top='0.001' height='4' />
     <a-box id='position-guide' visible='false' position='0 0 -2' />

@@ -29,25 +29,25 @@ document.addEventListener('buttondown', function() {
   console.log('EMITTING BUTTONDOWN')
   console.log('my raycaster', remote.components.raycaster)
   console.log(remote.components.raycaster.intersectedEls)
-  remote.components.raycaster.intersectedEls.forEach(el => el.emit('click'))
+  remote.components.raycaster.intersectedEls[0].emit('click')
 })
 
 document.addEventListener('click', function() {
   console.log('I HEARD CLICK')
 })
 
-document.addEventListener('raycaster-intersected', function(e) {
-  console.log('INTERSECTED!')
-  console.log(e)
-  console.log(e.el)
-  console.log(e.intersection)
-})
-
-document.addEventListener('raycaster-intersected-cleared', function(e) {
-  console.log('STOPPED INTERSECTING')
-  console.log(e)
-  console.log(e.el)
-})
+// document.addEventListener('raycaster-intersected', function(e) {
+//   console.log('INTERSECTED!')
+//   console.log(e)
+//   console.log(e.el)
+//   console.log(e.intersection)
+// })
+//
+// document.addEventListener('raycaster-intersected-cleared', function(e) {
+//   console.log('STOPPED INTERSECTING')
+//   console.log(e)
+//   console.log(e.el)
+// })
 
 class App extends React.Component {
   constructor(props) {

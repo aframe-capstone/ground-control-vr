@@ -99,10 +99,11 @@ export default class Simulation extends React.Component {
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
-    e.currentTarget.removeEventListener('click', this.handleClick)
+    // e.currentTarget.removeEventListener('click', this.handleClick)
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
+    console.log('NEW STATE', nextState)
     this.setState(nextState)
   }
 

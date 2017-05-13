@@ -60,20 +60,20 @@ const loadUIElements = () => (
 
 const loadSoundEffects = () => (
   <Entity primitive="a-assets" key="soundEffects">
-    <audio id="transmissionBeep" src="assets/sound/NASAtransmissionbeep.mp3"/>
-    <audio id="switchOnSound" src="assets/sound/switchOn.mp3"/>
-    <audio id="switchOffSound" src="assets/sound/switchOff.mp3"/>
-    <audio id="redAlarm" src="assets/sound/redAlarmLoop.mp3"/>
-    <audio id="orangeAlarm" src="assets/sound/alarmloop.mp3"/>
-    <audio id="startRecordingBeep" src="assets/sound/startRecordingBeep.mp3"/>
+    <audio id="transmissionBeep" src="assets/sound/NASAtransmissionbeep.wav"/>
+    <audio id="switchOnSound" src="assets/sound/switchOn.wav"/>
+    <audio id="switchOffSound" src="assets/sound/switchOff.wav"/>
+    <audio id="redAlarm" src="assets/sound/redAlarmLoop.wav"/>
+    <audio id="orangeAlarm" src="assets/sound/alarmloop.wav"/>
+    <audio id="startRecordingBeep" src="assets/sound/startRecordingBeep.wav"/>
   </Entity>
 )
 
 const loadSoundAmbient = () => (
   <Entity primitive="a-assets" key="backgroundSound">
-    <audio id="spaceshipAmbience" src="assets/sound/spaceship-ambience.mp3"/>
-    <audio id="menuMusic" src="assets/sound/memory.mp3"/>
-    <audio id="machineHumAmbience" src="assets/sound/machine-ambience.mp3"/>
+    <audio id="spaceshipAmbience" src="assets/sound/spaceship-ambience.wav"/>
+    <audio id="menuMusic" src="assets/sound/memory.wav"/>
+    <audio id="machineHumAmbience" src="assets/sound/machine-ambience.wav"/>
   </Entity>
 )
 

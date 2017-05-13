@@ -37,6 +37,10 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       break
     }
   }
+// panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+  const generateSubmitButton = (x, y, z, color, id, handleSubmitFn, baseColor, pressedColor) => {
+    return generateButton(0.9, 0, '#080', 'submitButton', handleSubmitFn)
+  }
 
   const generateRotary = (x, z, color) => {
     return <Entity key={`slider-${x + '' + y}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
@@ -101,7 +105,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+    // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -118,7 +122,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, "Micro-Verse Battery", ['button', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Quantum Carburetor', ['switch', 'button', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+    // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -135,7 +139,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'C-137', ['switch', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Dark Matter Engine', ['button', 'switch', 'button']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+    // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}

@@ -49,8 +49,8 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
-  const generateButton = (x, z, color, className, isSubmit=handleFunction) => {
-    return <Entity id={id++} key={`button-${id}`} class={className} events={{click: isSubmit}} ui-button material={{color: color}} position={{x, y: 0.02, z}} >
+  const generateButton = (x, z, color, className, isSubmit=handleFunction, pressedColor='#009', baseColor) => {
+    return <Entity id={id++} key={`button-${id}`} class={className} events={{click: isSubmit}} ui-button={{color, baseColor, pressedColor}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
@@ -97,11 +97,11 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
   let id = 1
   let moduleId = 1
 
-  if(panelId === 1) {
+  if (panelId === 1) {
     const panel = []
     panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit, '#900'))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -114,11 +114,11 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       position={{x: xDimension, y: 3.5, z: zDimension}}
       key={panelNumber}
       > {panel} </Entity>)
-  } else if(panelId === 2) {
+  } else if (panelId === 2) {
     const panel = []
-    panel.push(generateModule(0, 0, 0, "Micro-Verse Battery", ['button', 'switch', 'button']))
+    panel.push(generateModule(0, 0, 0, 'Micro-Verse Battery', ['button', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Quantum Carburetor', ['switch', 'button', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit, '#900'))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -135,7 +135,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'C-137', ['switch', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Dark Matter Engine', ['button', 'switch', 'button']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit, '#900'))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}

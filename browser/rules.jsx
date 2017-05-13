@@ -1,11 +1,11 @@
 import React from 'react'
-import {Button, Icon, Row, Col, NavItem, Navbar} from 'react-materialize'
+import {Button, Icon, Row, Col, NavItem, Navbar, Footer} from 'react-materialize'
 
 
 export default function Rules(props) {
   return (
   <div>
-    
+
     <div className="section no-pad-bot pink lighten-5" id="index-banner">
       <div className="container">
         <h1 className="header center  pink-text text-darken-3">Welcome to the Future</h1>
@@ -23,7 +23,7 @@ export default function Rules(props) {
         <div className="card-panel pink lighten-5 center-align">
           <span className="black-text">1. Each Galactic Hyperion XL5 spacecraft is outfitted with <strong>3 control panels</strong>, each with <strong>2 modules</strong> consisting of <strong>3 widgets</strong> and a <strong>submit button.</strong>
             <br></br>
-          <span>See reference below examples of the different widgets</span>
+          <span>See reference at the bottom for examples of the different widgets</span>
         </span>
         </div>
       </Col>
@@ -71,6 +71,14 @@ export default function Rules(props) {
       <img src="assets/widgets/switch.jpg" />
     </Col>
   </div>
+
+  <Footer>
+    <h3>Example Panel</h3>
+    <img src='assets/panels/panelExample.png'/>
+  </Footer>
+
+
+
 </div>
 
   )

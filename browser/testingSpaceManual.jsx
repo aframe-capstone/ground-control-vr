@@ -1,132 +1,9 @@
 import React from 'react'
 import Clock from 'react-countdown-clock'
-import {Button, Icon, Row, Col, NavItem, Navbar} from 'react-materialize'
+import {Button, Icon, Row, Col, NavItem, Navbar, Footer} from 'react-materialize'
 import Rules from './rules.jsx'
 import Panels from './navinstrucpanels.jsx'
-
-
-const panel1={
-  module:[
-    { name: 'Nanomatronic Kilowasher',
-      subset: [{
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 1,
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 2
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 3
-      }]
-    }
-  ,
-      {name: 'Gravitron Emitter',
-      subset: [{
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 4
-      },
-      {
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 5
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 6
-      }]
-    }
-  ],
-  number: 1
-}
-
-const panel2={
-  module:[
-    { name: 'Quantum Carburetor',
-      subset: [{
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 1,
-      },
-      {
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 3
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 5
-      }]
-    }
-  ,
-      {name: 'Micro-Verse Battery',
-      subset: [{
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 6
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 4
-      },
-      {
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 2
-      }]
-    }
-  ],
-  number: 2
-}
-
-const panel3={
-  module:[
-    { name: 'Dark Matter Engine',
-      subset: [{
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 5,
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 3
-      },
-      {
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 1
-      }]
-    }
-  ,
-      {name: 'C-137',
-      subset: [{
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 2
-      },
-      {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 4
-      },
-      {
-        widget: 'Button',
-        action: 'Press 1x',
-        order: 6
-      }]
-    }
-  ],
-  number: 3
-}
+import {panel1, panel2, panel3} from './panelData.js'
 
 const SPACE_BAR = 32
 
@@ -175,6 +52,10 @@ export default class Manual extends React.Component{
 
   render(){
     console.log('PROPS: ', this.props)
+    console.log(this.props.driverStatus, 'driverStatus');
+    console.log(this.props.strikes, 'strikes');
+    console.log(this.props.phase, 'phase');
+
     let pushToTalk =(<div className="preloader-wrapper small active">
             <div className="spinner-layer spinner-green-only">
               <div className="circle-clipper left">
@@ -192,9 +73,12 @@ export default class Manual extends React.Component{
 
 
   <div className= 'informationWidgets' style={{position:'fixed', top:'5px' ,left:'9px'}}>
-        <div className='clock'> <Clock  size={150} seconds={300} /> </div>
+        <div className='clock'>
+          { this.props.driverStatus && this.props.navigatorStatus ? <Clock  size={150} seconds={300}/> : null}
+        </div>
 
         <div className='strikes'>
+        <h5>Strikes</h5>
             <i id='strike1' style={{color:this.props.strikes<1 ? '#D3D3D3' : 'red'}} className="fa fa-times-circle-o" aria-hidden="true"></i>
             <i id='strike2' style={{color:this.props.strikes<2 ? '#D3D3D3' : 'red'}}  className="fa fa-times-circle-o" aria-hidden="true"></i>
             <i id='strike3' style={{color:this.props.strikes<3 ? '#D3D3D3' : 'red'}} className="fa fa-times-circle-o" aria-hidden="true"></i>
@@ -202,6 +86,7 @@ export default class Manual extends React.Component{
 
 
         <div className='phases'>
+          <h5>Phases</h5>
           <i className="fa fa-dot-circle-o" style={{color:this.props.phase !=1 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
           <i className="fa fa-dot-circle-o" style={{color:this.props.phase!=2 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
           <i className="fa fa-dot-circle-o" style={{color:this.props.phase !=3 ? '#D3D3D3' : 'green'}} aria-hidden="true"></i>
@@ -242,12 +127,6 @@ export default class Manual extends React.Component{
           this.state.tabSelected === 'phase3' && <Panels panel={panel3}/>
         }
       </Row>
-
-
-
-
-
-
     </div>
     )
   }

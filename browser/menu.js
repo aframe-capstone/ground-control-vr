@@ -64,4 +64,4 @@ export default class Menu extends React.Component {
         {!this.props.inSim && <UserCam />}
       </Entity>)
   }
-}s
+}

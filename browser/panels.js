@@ -1,6 +1,19 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
+const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedColor) => {
+  return (<Entity
+            id='submit-button'
+            key={`submit-button`}
+            class={className}
+            scale={{x: 1.2, y: 1.2, z: 1.2}}
+            events={{click: handleSubmit}}
+            ui-button={{color, pressedColor}}
+            position={{x, y, z}} >
+    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
+  </Entity>)
+}
+
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
   const generateModuleName = (name) => {
     return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>
@@ -37,15 +50,16 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       break
     }
   }
+  // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
 
   const generateRotary = (x, z, color) => {
-    return <Entity key={`slider-${x + '' + y}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
+    return <Entity key={`slider-${x}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
 
   const generateSlider = (x, z, color) => {
-    return <Entity key={`slider-${x + '' + y}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
+    return <Entity key={`slider-${x}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>
   }
@@ -101,7 +115,6 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit, '#900'))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -118,7 +131,6 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'Micro-Verse Battery', ['button', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Quantum Carburetor', ['switch', 'button', 'switch']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit, '#900'))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -135,7 +147,6 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     const panel = []
     panel.push(generateModule(0, 0, 0, 'C-137', ['switch', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Dark Matter Engine', ['button', 'switch', 'button']))
-    panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit, '#900'))
     panel.push(generateFloatingUI(panelId))
     return (<Entity
       id={panelId}
@@ -150,4 +161,4 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       > {panel} </Entity>)
   }
 }
-export {generatePanel}
+export {generatePanel, generateSubmitButton}

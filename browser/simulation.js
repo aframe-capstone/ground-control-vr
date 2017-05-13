@@ -17,7 +17,7 @@ import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './so
 import Failure from './failure'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
-import {generatePanel} from './panels'
+import {generatePanel, generateSubmitButton} from './panels'
 
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
@@ -160,6 +160,7 @@ export default class Simulation extends React.Component {
         {generatePanel(-1.5, 2.5, 90, 1, this.handleClick, 1, this.handleSubmit, solvedPhase1)}
         {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
+        {generateSubmitButton(0, 3.31, 4.2, 'green', 'submit-button', this.handleSubmit, '#900')}
         {getWarningLightOfColor(this.state.strikes)}
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}

@@ -18,29 +18,32 @@ const UserCam = props => (<Entity id='menuCamera'>
 
 const boxes = (props) => (
   <Entity>
-  <Entity id="boxOne"
-    geometry={{primitive: 'box'}}
-    material={{opacity: 0.6}}
-    animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-    position={{x: 1, y: 1, z: -3}}
-    events={{click: props.selectNavigator}}>
-    <Entity text={{value: 'NAVIGATE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
-    <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
-            geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
-            material={{color: '#24CAFF'}}/>
+    <Entity>
+      <Entity id="boxOne"
+        geometry={{primitive: 'box'}}
+        material={{opacity: 0.6}}
+        animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
+        position={{x: 1, y: 1, z: -3}}
+        events={{click: props.selectNavigator}}>
+        <Entity text={{value: 'NAVIGATE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}}/>
+        <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
+                geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
+                material={{color: '#24CAFF'}}/>
+      </Entity>
+      <Entity id="boxTwo"
+        geometry={{primitive: 'box'}}
+        material={{opacity: 0.6}}
+        animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
+        position={{x: -1, y: 1, z: -3}}
+        events={{click: props.selectDriver}}>
+        <Entity text={{value: 'DRIVE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}} />
+        <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
+                geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
+                material={{color: '#24CAFF'}} />
+      </Entity>
+    </Entity>
   </Entity>
-  <Entity id="boxTwo"
-    geometry={{primitive: 'box'}}
-    material={{opacity: 0.6}}
-    animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-    position={{x: -1, y: 1, z: -3}}
-    events={{click: props.selectDriver}}>
-    <Entity text={{value: 'DRIVE!', align: 'center'}} scale={{x: 5, y: 5, z: 5}} position={{x: 0, y: 1, z: 0}} />
-    <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
-            geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
-            material={{color: '#24CAFF'}} />
-  </Entity>
-  </Entity>)
+  )
 
 export default class Menu extends React.Component {
   constructor(props) {
@@ -50,6 +53,7 @@ export default class Menu extends React.Component {
   render() {
     return (
       <Entity>
+        {/*<Entity primitive='a-video' src="#sample-video" width="16" height="9" position="0 0 -20"></Entity>*/}
         <Entity primitive='a-sound' src="#menuMusic" loop="true" autoplay="true" position="0 0 0" />
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
@@ -60,4 +64,4 @@ export default class Menu extends React.Component {
         {!this.props.inSim && <UserCam />}
       </Entity>)
   }
-}
+}s

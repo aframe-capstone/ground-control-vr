@@ -54,7 +54,6 @@ document.addEventListener('buttondown', function() {
     if (isPressed) simulateSpaceBarPress(true)
     clearInterval(interval)
   }, 100) // Tenth of a second to make sure we catch start of recorded sentence
-  console.log('EMITTING BUTTONDOWN')
   remote.components.raycaster.intersectedEls && remote.components.raycaster.intersectedEls[0].emit('click')
 })
 

@@ -1,5 +1,7 @@
 /* global Event */
 
+/* Handles initialization of audio recording/playback for driver when using a Daydream VR headset */
+
 const setUpDayDreamAudio = () => {
   const simulateSpaceBarPress = (isDown) => {
     if (isDown) {

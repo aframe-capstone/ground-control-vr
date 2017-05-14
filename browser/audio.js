@@ -12,9 +12,9 @@ const audioQueue = []
 var audioSourceIsPlaying = false // Used to prevent message overlap
 var context = new AudioContext()
 
-const startRecording = (app) => {
-  if (isRecording && app.state.inSim) {
-    console.log('holding down spacebar')
+const startRecording = () => {
+  console.log('RECORDING! my media recorder in this block is', mediaRecorder)
+  if (isRecording) { // FIX THIS
   } else {
     mediaRecorder.start()
     interval = setInterval(() => {
@@ -28,8 +28,8 @@ const startRecording = (app) => {
   }
 }
 
-const stopRecording = (app) => {
-  if (isRecording && app.state.inSim) {
+const stopRecording = () => {
+  if (isRecording) {
     if (interval) {
       clearInterval(interval)
     }
@@ -64,7 +64,7 @@ const setUpRecording = isNavigator => {
   navigator.getUserMedia = (navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||
-  navigator.msGetUserMedia)
+  navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia)
 
   const audio = document.querySelector('#messageAudioNode')
   const NASABeep = document.querySelector('#NASABeepAudioNode')
@@ -107,7 +107,7 @@ const setUpRecording = isNavigator => {
     var source = context.createBufferSource()
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
-      NASABeep.play()
+      NASABeep && NASABeep.play() // bulletproofing for VR headset
       audioSourceIsPlaying = false
       // Displays UI indicator if Driver
       if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'false')
@@ -131,11 +131,13 @@ const setUpRecording = isNavigator => {
   }
 
   const gotMedia = stream => {
+
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
+    console.log('INSIDE GOT MEDIA MY MEDIARECORDER IS', mediaRecorder)
     mediaRecorder.onstart = () => {
       // Display recording indicator if driver
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
-      startRecordingBeep.play()
+      startRecordingBeep && startRecordingBeep.play() // bulletproofing for VR headset
     }
 
     mediaRecorder.onstop = () => {
@@ -152,7 +154,7 @@ const setUpRecording = isNavigator => {
         driverMessagesDB.set({})
       }
     })
-
+    console.log('MEDIARECORDER', mediaRecorder)
     mediaRecorder.addEventListener('dataavailable', onRecordingReady)
   }
 

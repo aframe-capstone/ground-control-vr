@@ -20,34 +20,53 @@ import 'aframe-daydream-controller-component'
 
 const SPACE_BAR = 32
 
+/* global Event */
+
+const simulateSpaceBarPress = (isDown) => {
+  if (isDown) {
+    var e = new Event('keydown')
+    e.key=' '
+    e.keyCode=e.key.charCodeAt(0)
+    e.which=e.keyCode
+    e.altKey=false
+    e.ctrlKey=true
+    e.shiftKey=false
+    e.metaKey=false
+    document.dispatchEvent(e)
+  } else {
+    var ev = new Event('keyup')
+    ev.key=' '
+    ev.keyCode=ev.key.charCodeAt(0)
+    ev.which=ev.keyCode
+    ev.altKey=false
+    ev.ctrlKey=true
+    ev.shiftKey=false
+    ev.metaKey=false
+    document.dispatchEvent(ev)
+  }
+}
+
 document.addEventListener('buttondown', function() {
   var remote = document.querySelector('#daydream')
-  // var ray = document.querySelector('#ray')
-  // console.log('REMOTE IS', remote)
-  // console.log(remote.components)
-  // console.log('RAY IS', ray)
+  var interval = setInterval(() => {
+    var isPressed = document.querySelector('#daydream').components['daydream-controller'].controller.buttons[0].pressed
+    console.log('isPressed', isPressed)
+    if (isPressed) simulateSpaceBarPress(true)
+    clearInterval(interval)
+  }, 100) // Tenth of a second to make sure we catch start of recorded sentence
   console.log('EMITTING BUTTONDOWN')
-  console.log('my raycaster', remote.components.raycaster)
-  console.log(remote.components.raycaster.intersectedEls)
-  remote.components.raycaster.intersectedEls[0].emit('click')
+  remote.components.raycaster.intersectedEls && remote.components.raycaster.intersectedEls[0].emit('click')
+})
+
+document.addEventListener('buttonup', function() {
+  simulateSpaceBarPress(false)
+  console.log('I HEARD BUTTON UP')
+  // end recording
 })
 
 document.addEventListener('click', function() {
   console.log('I HEARD CLICK')
 })
-
-// document.addEventListener('raycaster-intersected', function(e) {
-//   console.log('INTERSECTED!')
-//   console.log(e)
-//   console.log(e.el)
-//   console.log(e.intersection)
-// })
-//
-// document.addEventListener('raycaster-intersected-cleared', function(e) {
-//   console.log('STOPPED INTERSECTING')
-//   console.log(e)
-//   console.log(e.el)
-// })
 
 class App extends React.Component {
   constructor(props) {
@@ -82,7 +101,7 @@ class App extends React.Component {
   handleKeyDown(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-      startRecording(this)
+      startRecording()
       break
     default:
       break
@@ -92,7 +111,7 @@ class App extends React.Component {
   handleKeyUp(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-      stopRecording(this)
+      stopRecording()
       break
     default:
       break

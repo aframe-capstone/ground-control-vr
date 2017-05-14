@@ -13,7 +13,6 @@ var audioSourceIsPlaying = false // Used to prevent message overlap
 var context = new AudioContext()
 
 const startRecording = () => {
-  console.log('RECORDING! my media recorder in this block is', mediaRecorder)
   if (isRecording) { // FIX THIS
   } else {
     mediaRecorder.start()
@@ -131,9 +130,7 @@ const setUpRecording = isNavigator => {
   }
 
   const gotMedia = stream => {
-
     mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
-    console.log('INSIDE GOT MEDIA MY MEDIARECORDER IS', mediaRecorder)
     mediaRecorder.onstart = () => {
       // Display recording indicator if driver
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
@@ -154,7 +151,6 @@ const setUpRecording = isNavigator => {
         driverMessagesDB.set({})
       }
     })
-    console.log('MEDIARECORDER', mediaRecorder)
     mediaRecorder.addEventListener('dataavailable', onRecordingReady)
   }
 

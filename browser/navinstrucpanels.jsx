@@ -4,36 +4,29 @@ import {Button, Icon, Row, Col, NavItem, Navbar, Table} from 'react-materialize'
 export default function Panels(props) {
   console.log('this is your props', props)
   return (
-    <div>
-    <Col s={12} l={12}>Panel {props.panel.number}</Col>
-    <br/>
+    <div style={{display:'flex', paddingTop:'20px'}}>
     {
       props.panel.module.map((element) => (
 
-      <div key={element.name} className="module">
-        <Col s={12} l={12} className="moduleName">Module Name: {element.name}</Col>
-        <Table>
-          <thead>
-            <tr>
-              <th data-field="id">Type of Widget</th>
-              <th data-field="name">Instructions</th>
-              <th data-field="price">Order</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div key={element.name} className="widget" style={{flex:1}}>
+        <Col s={12} l={12} className="moduleName">{element.name}</Col>
+          <div style={{display:'flex'}} className='header-container'>
+            <div style={{flex:1}} data-field="id">Type of Widget</div>
+              <div style={{flex:1}} data-field="name">Instructions</div>
+              <div style={{flex:1}} data-field="price">Order</div>
+          </div>
             {
               element.subset.map((sub) =>
               (
-                  <tr key={sub.order}>
-                    <td>{sub.widget}</td>
-                    <td>{sub.action}</td>
-                    <td>{sub.order}</td>
-                  </tr>
+                  <div style={{display:'flex'}} className='row-container'>
+                    <div className='fields' style={{flex:1}}>{sub.widget}</div>
+                    <div className='fields' style={{flex:1}}>{sub.action}</div>
+                    <div className='fields' style={{flex:1}}>{sub.order}</div>
+                  </div>
                 )
               )
             }
-          </tbody>
-        </Table>
+
       </div>
       ))
     }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import testingSpaceManual from '../testingSpaceManual.jsx'
+import NavConsole from '../navConsole.jsx'
 
 const mapStateToProps = state => ({
   phase: state.phase,
@@ -14,6 +14,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-const TestingSpaceManualContainer = connect(mapStateToProps, mapDispatchToProps)(testingSpaceManual)
+const NavConsoleContainer = connect(mapStateToProps, mapDispatchToProps)(NavConsole)
 
-export default TestingSpaceManualContainer
+export default NavConsoleContainer

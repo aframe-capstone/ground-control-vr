@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Manual from './SpaceShipManual.md.jsx'
-import Clock from 'react-countdown-clock'
-import TestingSpaceManual from './container/TestingSpaceManual.jsx'
+//import Clock from 'react-countdown-clock'
+import NavConsole from './container/NavConsole.jsx'
 
 export default class Navigator extends React.Component{
   constructor(props){
@@ -13,7 +12,7 @@ export default class Navigator extends React.Component{
 render(){
     return (
     <div>
-      <TestingSpaceManual/>
+      <NavConsole/>
     </div>
     )
   }

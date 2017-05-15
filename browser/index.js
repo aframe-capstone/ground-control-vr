@@ -27,8 +27,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      inSim: false,
-      isNavigator: false
+      menu: true,
+      isNavigator: null,
     }
     this.setRole = this.setRole.bind(this)
     this.selectNavigator = this.selectNavigator.bind(this)
@@ -36,7 +36,7 @@ class App extends React.Component {
   }
 
   selectNavigator(e) {
-    if (this.state.inSim) return // Blocks mysterious event handler from Menu from invoking in other views
+    if (!this.state.menu) return // Blocks mysterious event handler from Menu from invoking in other views
     e.stopPropagation()
     e.preventDefault()
     this.setRole(true)
@@ -45,7 +45,7 @@ class App extends React.Component {
   }
 
   selectDriver(e) {
-    if (this.state.inSim) return // Blocks mysterious event handler from Menu from invoking in other views
+    if (!this.state.menu) return // Blocks mysterious event handler from Menu from invoking in other views
     e.stopPropagation()
     e.preventDefault()
     this.setRole(false)
@@ -74,7 +74,7 @@ class App extends React.Component {
   }
 
   setRole(isNavigator) {
-    this.setState({ isNavigator: isNavigator, inSim: true })
+    this.setState({ isNavigator: isNavigator, menu: false })
     setUpRecording(isNavigator)
   }
 
@@ -89,18 +89,45 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-    <div>
-      {this.state.isNavigator && <Navigator />}
-      {!this.state.isNavigator && 
-        <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
-          {loadAllAssets()}
-          {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
-          {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}
-        </Scene>}
-      </div>
-    )
+    // MENU
+    if(this.state.menu){
+      return (
+        <div>
+          <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
+            {loadAllAssets()}
+            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>
+          </Scene>
+        </div>
+      )
+    }
+    // NAVIGATOR
+    // document.getElementById('boxTwo').click()
+    else if(this.state.isNavigator){
+      return (
+        <div>
+          <Navigator />
+        </div>
+      )
+    }
+    // DRIVER
+    else if(!this.state.isNavigator){
+      // document.getElementById('boxOne').click()
+      return (
+        <div>
+          <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
+            {loadAllAssets()}
+            <SimulationContainer />
+          </Scene>
+        </div>
+      )
+      // ERROR
+    } else {
+      return (
+        <div>ERROR: Can't have menu be true and isNavigator be set to a value</div>
+      )
+    }
   }
+
 }
 
 export default App

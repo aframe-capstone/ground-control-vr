@@ -117,12 +117,10 @@ class App extends React.Component {
     // MENU
     if(this.state.gameState === MENU){
       return (
-        <div>
           <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
             {loadAllAssets()}
             <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>
           </Scene>
-        </div>
       )
     }
     // NAVIGATOR
@@ -130,32 +128,23 @@ class App extends React.Component {
     else if(this.state.isNavigator){
       if(this.state.gameState === INTRO){
         return(
-          <div>
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState}/>
             </Scene>
-          </div>
         )
       }
       else if(this.state.gameState === INSTRUCTIONS){
         return(
-          <div>
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.generalInstructions} goToNextState={this.goToNextState}/>
             </Scene>
-          </div>
         )
       }
       else if(this.state.gameState === INGAME){
         return (
-          <div>
-            <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
-              {loadAllAssets()}
-              <Navigator/>
-            </Scene>
-          </div>
+            <Navigator/>
         )
       }
     }
@@ -164,32 +153,26 @@ class App extends React.Component {
     else if(!this.state.isNavigator){
       if(this.state.gameState === INTRO){
         return (
-          <div>
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.driverIntro} goToNextState={this.goToNextState}/>
             </Scene>
-          </div>
         )
       }
       else if(this.state.gameState === INSTRUCTIONS){
         return (
-          <div>
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.generalInstructions} goToNextState={this.goToNextState}/>
             </Scene>
-          </div>
         )
       }
       else if(this.state.gameState === INGAME){
         return (
-          <div>
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <SimulationContainer />
             </Scene>
-          </div>
         )
       }
     // ERROR

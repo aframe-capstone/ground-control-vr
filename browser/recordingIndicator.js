@@ -5,12 +5,12 @@ const RecordingIndicator = (props) => {
   return (<Entity id='recordingIndicator'
     text={{value: 'RECORDING...', color: 'red'}}
     position={{
-      x: 0.6,
-      y: 0.35,
+      x: 0.32,
+      y: 0.05,
       z: -0.6
     }}
     visible='false'
-    scale={{x: 1.5, y: 1.5, z: 1.5}}
+    scale={{x: 1.2, y: 1.2, z: 1.2}}
   />)
 }
 

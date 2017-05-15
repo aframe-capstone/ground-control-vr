@@ -1,6 +1,6 @@
 import React from 'react'
-import Rules from '../rules.jsx'
-import Panels from '../navinstrucpanels.jsx'
+import Rules from './rules.jsx'
+import Panels from './navinstrucpanels.jsx'
 import {panel1, panel2, panel3} from '../panelData.js'
 
 

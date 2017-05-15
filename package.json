@@ -72,6 +72,7 @@
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "react": "^15.5.4",
+    "react-activity": "^1.1.2",
     "react-countdown-clock": "^1.1.0",
     "react-dazzle": "^1.2.4",
     "react-dom": "^15.5.4",

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import NavConsole from '../navConsole.jsx'
+import NavConsole from '../navComponents/navConsole.jsx'
 
 const mapStateToProps = state => ({
   phase: state.phase,

@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import Simulation from './simulation'
 import SimulationContainer from './container/Simulation'
 import Menu from './menu'
-import Navigator from './navigator'
+import Navigator from './navComponents/navigator'
 import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
@@ -16,7 +16,7 @@ import { startSyncingPhaseAndStrikes } from './firebase'
 import {ViveControllerLeft, ViveControllerRight} from './viveController'
 import store from './store.jsx'
 import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
-import 'aframe-daydream-controller-component'
+//import controllerComponent from 'aframe-daydream-controller-component'
 import setUpDayDreamAudio from './utils/headset'
 
 const SPACE_BAR = 32
@@ -91,7 +91,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      {this.state.isNavigator && <Navigator />}
+      {this.state.isNavigator && <Navigator/>}
       {!this.state.isNavigator && <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
           {loadAllAssets()}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}

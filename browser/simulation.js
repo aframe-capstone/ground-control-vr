@@ -15,6 +15,7 @@ import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 import Failure from './failure'
+import {setUpRecording} from './audio' 
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel, generateSubmitButton} from './panels'
@@ -100,8 +101,8 @@ export default class Simulation extends React.Component {
     this.stopInteriorRender()
   }
 
-  componentWillUnmount() {
-
+  componentDidMount() {
+    setUpRecording(this.isNavigator)
   }
 
   handleClick(e) {

@@ -102,7 +102,7 @@ export default class Simulation extends React.Component {
   }
 
   componentDidMount() {
-    setUpRecording(this.isNavigator)
+    setUpRecording(this.props.isNavigator)
   }
 
   handleClick(e) {

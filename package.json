@@ -34,6 +34,7 @@
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.6.1",
+    "css-loader": "^0.28.1",
     "enzyme": "^2.8.2",
     "esdoc": "^0.5.2",
     "eslint-config-standard": "^10.2.1",
@@ -42,6 +43,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^3.3.0",
     "sinon": "^2.2.0",
+    "style-loader": "^0.17.0",
     "supertest": "^3.0.0",
     "webpack": "^2.4.1"
   },
@@ -70,6 +72,7 @@
     "pg-hstore": "^2.3.2",
     "react": "^15.5.4",
     "react-countdown-clock": "^1.1.0",
+    "react-dazzle": "^1.2.4",
     "react-dom": "^15.5.4",
     "react-gif": "^0.1.0",
     "react-global-events": "^1.0.2",

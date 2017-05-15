@@ -92,7 +92,8 @@ class App extends React.Component {
     return (
     <div>
       {this.state.isNavigator && <Navigator />}
-      {!this.state.isNavigator && <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
+      {!this.state.isNavigator && 
+        <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
           {loadAllAssets()}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
           {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}

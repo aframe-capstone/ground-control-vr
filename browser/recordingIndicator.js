@@ -5,7 +5,7 @@ const RecordingIndicator = (props) => {
   return (<Entity id='recordingIndicator'
     text={{value: 'RECORDING...', color: 'red'}}
     position={{
-      x: 0.32,
+      x: 0.36,
       y: 0.05,
       z: -0.6
     }}

@@ -23,6 +23,17 @@ import {generatePanel, generateSubmitButton} from './panels'
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
 
+const setButtonPressedColor = (currentTarget) => {
+  if (currentTarget.className === 'button selectable') {
+    currentTarget.childNodes[1].setAttribute('material', {color: 'blue'})
+  }
+}
+
+const resetButtonPressedColors = () => {
+  const buttons = document.querySelectorAll('.button.selectable')
+  buttons.forEach(button => button.childNodes[1].setAttribute('material', {color: 'red'}))
+}
+
 const resetClickHandlers = (handleClick) => {
   var buttons = [].slice.call(document.getElementsByClassName('button'))
   buttons.forEach((button) => {
@@ -100,6 +111,7 @@ export default class Simulation extends React.Component {
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
     // e.currentTarget.removeEventListener('click', this.handleClick)
+    setButtonPressedColor(e.currentTarget)
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
@@ -110,7 +122,8 @@ export default class Simulation extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     e.stopPropagation()
-    resetClickHandlers(this.handleClick)
+    // resetClickHandlers(this.handleClick)
+    resetButtonPressedColors()
     const module1 = 1
     const module2 = 2
     let solution

@@ -16,8 +16,12 @@ import { startSyncingPhaseAndStrikes } from './firebase'
 import {ViveControllerLeft, ViveControllerRight} from './viveController'
 import store from './store.jsx'
 import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
+import 'aframe-daydream-controller-component'
+import setUpDayDreamAudio from './utils/headset'
 
 const SPACE_BAR = 32
+
+setUpDayDreamAudio()
 
 class App extends React.Component {
   constructor(props) {
@@ -52,7 +56,7 @@ class App extends React.Component {
   handleKeyDown(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-      startRecording(this)
+      startRecording()
       break
     default:
       break
@@ -62,7 +66,7 @@ class App extends React.Component {
   handleKeyUp(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-      stopRecording(this)
+      stopRecording()
       break
     default:
       break
@@ -89,8 +93,6 @@ class App extends React.Component {
     <div>
       {this.state.isNavigator && <Navigator />}
       {!this.state.isNavigator && <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
-          <ViveControllerLeft />
-          <ViveControllerRight />
           {loadAllAssets()}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}
           {(!this.state.isNavigator && this.state.inSim) && <SimulationContainer />}

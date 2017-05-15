@@ -15,16 +15,21 @@ const processRadioTransmission = (audioContext, audioSource) => {
 
   // Distorts audio
   var overdrive = new tuna.Overdrive({
-    outputGain: 0.1, //0 to 1+
-    drive: 1, //0 to 1
-    curveAmount: 0.65, //0 to 1
-    algorithmIndex: 2, //0 to 5, selects one of our drive algorithms
+    outputGain: 0,
+    drive: 1,
+    curveAmount: 0.65,
+    algorithmIndex: 2,
     bypass: 0
   })
 
+  var gainNode = audioContext.createGain()
+  gainNode.gain.value = 0.05 // CHANGE THIS TO MODULATE NAVIGATOR VOLUME
+
   // Chains WebAudio nodes together to return processed audio buffer
   filter.connect(overdrive)
-  audioSource.connect(overdrive).connect(audioContext.destination)
+  audioSource.connect(overdrive)
+  overdrive.connect(gainNode)
+  gainNode.connect(audioContext.destination)
 }
 
 export default processRadioTransmission

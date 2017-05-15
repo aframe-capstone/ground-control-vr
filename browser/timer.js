@@ -24,7 +24,7 @@ export default class Timer extends React.Component {
   countdownTimer(numberOfSeconds) {
     var timeRemaining = numberOfSeconds
     var timeInterval = setInterval(() => {
-      if(timeRemaining%60 ===0){
+      if (timeRemaining % 60 === 0){
         this.props.increaseSunSize()
       }
 
@@ -39,8 +39,8 @@ export default class Timer extends React.Component {
   render() {
     return (<Entity text={{value: `Time till impact ${this.state.timeRemaining}`}}
       position={{
-        x: 0.35,
-        y: 0.45,
+        x: 0.3,
+        y: 0.15,
         z: -0.6
       }}/>)
   }

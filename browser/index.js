@@ -19,7 +19,9 @@ import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
 import 'aframe-daydream-controller-component'
 import setUpDayDreamAudio from './utils/headset'
 
-const SPACE_BAR = 32
+// AFRAME IMPORT SIDEFFECTS FILE. Import one time then import that file in other places
+
+const SPACE_BAR = 32 // TODO: MOVE TO CONSTANTS.js file
 
 setUpDayDreamAudio()
 
@@ -53,6 +55,7 @@ class App extends React.Component {
     store.dispatch(setDriverStatus(true))
   }
 
+  // TODO: make if
   handleKeyDown(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
@@ -79,15 +82,18 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    // TODO: Move these to refs below
     document.addEventListener('keydown', this.handleKeyDown.bind(this))
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
+    document.addEventListener('keyup', this.handleKeyUp.bind(this))
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
-    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this))
   }
 
+  // TODO: Use refs or register event listeners on div at top
+  // registered right on tags --> onKeyUp=this.handleKeyDown.bind(this)
   render() {
     return (
     <div>

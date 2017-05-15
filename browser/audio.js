@@ -10,19 +10,19 @@ let isRecording = false
 let interval
 const audioQueue = []
 var audioSourceIsPlaying = false // Used to prevent message overlap
-var context = new AudioContext()
+var context = new AudioContext() // TODO: separate file for audio context imported by others look at REACT & WebAudio libraries
 
 const startRecording = () => {
   if (isRecording) { // FIX THIS
   } else {
     mediaRecorder.start()
-    interval = setInterval(() => {
+    interval = setInterval(() => { // TODO: USE TIMEOUT or GET RID OF TIMEOUT?
       clearInterval(interval)
       if (isRecording) {
         mediaRecorder.stop()
         isRecording = false
       }
-    }, 5000)
+    }, 5000) // TODO: remove timer
     isRecording = true
   }
 }
@@ -40,7 +40,7 @@ const stopRecording = () => {
 
 // Prevents MediaRecorder from cutting off message transmission
 const delayEndRecording = () => {
-  var itvl = setInterval(() => {
+  var itvl = setInterval(() => { // TIMEOUT NOT INTERVAL
     mediaRecorder.stop()
     isRecording = false
     clearInterval(itvl)
@@ -48,7 +48,7 @@ const delayEndRecording = () => {
 }
 
 const setupFileReader = (isNavigator, navigatorMessages, driverMessages) => {
-  const fileReader = new FileReader()
+  const fileReader = new FileReader() // TODO: messagesReference instead of both nav and driver messages
   fileReader.onloadend = () => {
     if (isNavigator) {
       navigatorMessages.push(fileReader.result)
@@ -65,7 +65,7 @@ const setUpRecording = isNavigator => {
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia)
 
-  const audio = document.querySelector('#messageAudioNode')
+  // const audio = document.querySelector('#messageAudioNode') Delete this?
   const NASABeep = document.querySelector('#NASABeepAudioNode')
   const startRecordingBeep = document.querySelector('#startRecordingBeepAudioNode')
   const roomName = location.hash.substring(1, location.hash.length)
@@ -83,7 +83,7 @@ const setUpRecording = isNavigator => {
         typedArray[i] = newMessage.charCodeAt(i)
       }
 
-      if (audioQueue.length === 0 && !audioSourceIsPlaying) {
+      if (audioQueue.length === 0 && !audioSourceIsPlaying) { // QueueAudio function
         playAudio(typedArray)
       } else {
         audioQueue.push(typedArray)
@@ -109,7 +109,7 @@ const setUpRecording = isNavigator => {
       NASABeep && NASABeep.play() // bulletproofing for VR headset
       audioSourceIsPlaying = false
       // Displays UI indicator if Driver
-      if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'false')
+      if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'false') // refactor to props with redux state
       if (audioQueue.length > 0) {
         playAudio(audioQueue.shift())
       }
@@ -124,7 +124,7 @@ const setUpRecording = isNavigator => {
         source.buffer = decodedAudio
         source.start()
         // Displays UI indicator if Driver
-        if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'true')
+        if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'true') // refactor to props with redux state
       })
       .catch(err => console.error('DECODE AUDIO DATA THREW: ', err))
   }
@@ -135,14 +135,15 @@ const setUpRecording = isNavigator => {
       // Display recording indicator if driver
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
       startRecordingBeep && startRecordingBeep.play() // bulletproofing for VR headset
+      // Dispatch an event back to React to start recording
     }
 
     mediaRecorder.onstop = () => {
-      // Display recording indicator if driver
+      // Hide recording indicator if driver
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'false')
     }
 
-    $(window).on('beforeunload', () => {
+    $(window).on('beforeunload', () => { // Can we get rid of jQuery with addEventListener instead of on
       if (isNavigator) {
         navigatorMessagesDB.set({})
         driverMessagesDB.set({})
@@ -156,7 +157,7 @@ const setUpRecording = isNavigator => {
 
   const convertAudioToBinary = (event) => {
     var audioData = event.data
-    fileReader.readAsBinaryString(audioData)
+    fileReader.readAsBinaryString(audioData) // move elements being closed over to arguments
   }
 
   const onRecordingReady = (e) => {
@@ -168,7 +169,9 @@ const setUpRecording = isNavigator => {
   } else {
     listenForNewMessageAndPlay(navigatorMessagesDB)
   }
-  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
+  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) }) // refactor to promise syntax
 }
+
+// In general, even stuff like onEnd onStart can be promisified. Anything with finite start and end can be promisified.
 
 export {setUpRecording, mediaRecorder, startRecording, stopRecording}

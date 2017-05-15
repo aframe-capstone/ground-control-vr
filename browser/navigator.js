@@ -8,7 +8,6 @@ export default class Navigator extends React.Component{
     super(props)
   }
 
-
 render(){
     return (
     <div>
@@ -16,5 +15,4 @@ render(){
     </div>
     )
   }
-
 }

@@ -1,15 +1,7 @@
 import React from 'react'
 import { Entity } from 'aframe-react'
 
-// const generateWarningLight = (hexCode, strikes) => {
-//   console.log('HEX CODE: ', hexCode);
-
-// }
-
 export const getWarningLightOfColor = strikes => {
-  console.log('GET WARNING LIGHT OF COLOR');
-  console.log('STRIKES: ', strikes);
-  console.log('TYPE OF STRIJES:', typeof strikes)
   switch (strikes) {
     case 2:
       return (

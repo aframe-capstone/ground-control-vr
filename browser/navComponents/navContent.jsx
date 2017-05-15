@@ -4,13 +4,13 @@ import Rules from '../rules.jsx'
 import Panels from '../navinstrucpanels.jsx'
 import {panel1, panel2, panel3} from '../panelData.js'
 
-
+// TODO: replace with React Router? phase/1/2/3
 export default class  NavigationBar extends React.Component{
   constructor(props){
     super(props)
   }
 
-render(){
+render() {
 
 return(
 <div>
@@ -19,7 +19,7 @@ return(
   }
 
   {
-    this.props.tabSelected === 'phase1' && <Panels  panel={panel1}/>
+    this.props.tabSelected === 'phase1' && <Panels panel={panel1}/>
   }
   {
     this.props.tabSelected === 'phase2' && <Panels panel={panel2}/>

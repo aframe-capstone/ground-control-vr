@@ -5,7 +5,6 @@ import 'babel-polyfill'
 import {Entity, Scene, Animation} from 'aframe-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Peer from 'simple-peer'
 import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import 'aframe-cubemap-component'
@@ -23,6 +22,18 @@ import {generatePanel, generateSubmitButton} from './panels'
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
 
+const setButtonPressedColor = (currentTarget) => {
+  console.log('setting triggered color')
+  if (currentTarget.className === 'button selectable') {
+    console.log('found button selectable')
+    console.log(currentTarget.components)
+    console.log('UI BUTTON', currentTarget.getAttribute('ui-button'))
+    currentTarget.setAttribute('ui-button', 'color', 'blue')
+  }
+}
+
+ // DEBOUNCE --> call it on a func and it will return a func that only gets called once within time window
+ // Throttle --> func and timer, only called with a particular frequency
 const resetClickHandlers = (handleClick) => {
   var buttons = [].slice.call(document.getElementsByClassName('button'))
   buttons.forEach((button) => {
@@ -35,11 +46,10 @@ export default class Simulation extends React.Component {
     super(props)
     this.state = {
       radius: 0,
-      renderCockpit: true,
       cockpit: [],
       strikes: this.props.strikes,
       currentPhase: this.props.phase,
-      1: {
+      1: { // panels: number: module: currentlyClicked on button
         1: {
           currentState: []
         },
@@ -63,14 +73,11 @@ export default class Simulation extends React.Component {
           currentState: []
         }
       },
-      timeRemaining: 0
+      timeRemaining: 300
     }
-    this.increaseSunSize = this.increaseSunSize.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  increaseSunSize(){
+  increaseSunSize = () => {
     this.setState({ radius: this.state.radius += 2})
   }
 
@@ -78,36 +85,36 @@ export default class Simulation extends React.Component {
 
   }
 
-  stopInteriorRender() {
-    this.setState({renderCockpit: false})
-  }
+  // stopInteriorRender() {
+  //   this.setState({renderCockpit: false})
+  // }
 
   componentWillMount() {
-    if (this.state.renderCockpit) {
+    // if (this.state.renderCockpit) {
       // Set interior's state here?
-    }
-    this.stopInteriorRender()
+    // }
+    // this.stopInteriorRender()
   }
 
   componentWillUnmount() {
 
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
+    setButtonPressedColor(e.currentTarget)
     // e.currentTarget.removeEventListener('click', this.handleClick)
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
-    console.log('NEW STATE', nextState)
     this.setState(nextState)
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault()
     e.stopPropagation()
     resetClickHandlers(this.handleClick)
@@ -121,6 +128,7 @@ export default class Simulation extends React.Component {
     } else if (this.state.currentPhase === 3) {
       solution = solution3
     }
+    // TODO: RENAME PHASE TO PANEL
     if (_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
       let newState = _.cloneDeep(this.state)
@@ -151,6 +159,7 @@ export default class Simulation extends React.Component {
     if (this.state.currentPhase > 3) {
       solvedPhase3 = true
     }
+    // TODO: GENERATE PANEL should be a component of its own. onPanelChange. Farm out state to sub-components
     return (
       <Entity >
         <Entity cubemap='folder: assets/skybox/nebula-skybox/' />

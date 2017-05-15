@@ -1,6 +1,7 @@
 const BUTTON_SOLUTION = 'button selectable'
 const SWITCH_SOLUTION = 'switch selectable'
 
+// TODO: Solution equals a series of keys that reflect each panel/module pattern
 export const solution1 = {
   1: {
     currentState: [{buttonId: '1', typeOfwidget: BUTTON_SOLUTION}, {buttonId: '2', typeOfwidget: BUTTON_SOLUTION}, {buttonId: '3', typeOfwidget: BUTTON_SOLUTION}]

@@ -11,7 +11,7 @@ import Menu from './menu'
 import Navigator from './navigator'
 import Intro from './intro.jsx'
 import introText from './introText.js'
-import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
+import {mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
@@ -144,7 +144,7 @@ class App extends React.Component {
       }
       else if(this.state.gameState === INGAME){
         return (
-            <Navigator/>
+            <Navigator isNavigator={this.state.isNavigator}/>
         )
       }
     }
@@ -171,7 +171,7 @@ class App extends React.Component {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <SimulationContainer />
+              <SimulationContainer isNavigator={this.state.isNavigator} />
             </Scene>
         )
       }

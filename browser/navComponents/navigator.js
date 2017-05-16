@@ -11,7 +11,7 @@ export default class Navigator extends React.Component{
 render(){
     return (
     <div>
-      <NavConsole/>
+      <NavConsole spaceBarDown={this.props.spaceBarDown}/>
     </div>
     )
   }

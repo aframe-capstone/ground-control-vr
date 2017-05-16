@@ -9,8 +9,6 @@ export default class  NavigationBar extends React.Component{
     super(props)
   }
 
-
-
 render(){
 
 return(

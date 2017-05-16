@@ -28,7 +28,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       inSim: false,
-      isNavigator: false
+      isNavigator: false,
+      spaceBarDown:false
     }
     this.setRole = this.setRole.bind(this)
     this.selectNavigator = this.selectNavigator.bind(this)
@@ -91,7 +92,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      {this.state.isNavigator && <Navigator/>}
+      {this.state.isNavigator && <Navigator spaceBarDown={this.spaceBarDown} />}
       {!this.state.isNavigator && <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
           {loadAllAssets()}
           {!this.state.inSim && <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>}

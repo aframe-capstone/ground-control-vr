@@ -15,7 +15,7 @@ export default class NavConsole extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      sendingmessage:false,
+      spaceBarDown:false,
       height: window.innerHeight,
       tabSelected:'rules',
     }
@@ -31,7 +31,7 @@ export default class NavConsole extends React.Component{
   handleKeyDown(e){
     switch (e.keyCode) {
     case SPACE_BAR:
-      this.setState({sendingmessage: true})
+      this.setState({spaceBarDown: true})
       break
     default:
       break
@@ -41,7 +41,7 @@ export default class NavConsole extends React.Component{
   handleKeyUp(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-      this.setState({sendingmessage: false})
+      this.setState({spaceBarDown: false})
       break
     default:
       break
@@ -51,27 +51,18 @@ export default class NavConsole extends React.Component{
 updateDimensions() {
      this.setState({height: window.innerHeight});
  }
+
  componentWillMount() {
      this.updateDimensions();
-     document.addEventListener('keydown', this.handleKeyDown.bind(this))
  }
  componentDidMount(){
      window.addEventListener("resize", this.updateDimensions.bind(this));
  }
  componentWillUnmount() {
      window.removeEventListener("resize", this.updateDimensions.bind(this));
-     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
  }
 
-  componentWillMount() {
-    document.addEventListener('keydown', this.handleKeyDown.bind(this))
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
-  }
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown.bind(this))
-    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
-  }
 
 
 
@@ -114,7 +105,7 @@ updateDimensions() {
             <NavContent tabSelected={this.state.tabSelected}/>
           </div>
 
-            {this.state.sendingmessage ? <div style={{background:'black'}}>
+            {this.props.spaceBarDown ? <div style={{background:'black'}}>
               <div className="loader"></div>
               <div style={{fontSize:'15px', fontColor:'red'}}> Message Recording...</div>
             </div> : null}

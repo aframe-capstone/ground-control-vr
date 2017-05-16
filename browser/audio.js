@@ -29,9 +29,7 @@ const setUpRecording = isNavigator => {
   const roomName = location.hash.substring(1, location.hash.length)
   setUpReferences(roomName, isNavigator)
   registerDatabaseEventListeners(isNavigator)
-  navigator.getUserMedia({ audio: true })
-    .then(stream => gotMedia(stream))
-    .catch(err => { console.error(err) })
+  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
 }
 
 const gotMedia = stream => {
@@ -68,22 +66,17 @@ const delayEndRecording = () => {
   }, 400)
 }
 
-const setupFileReader = (isNavigator, navigatorMessages, driverMessages) => {
+const setupFileReader = (isNavigator) => {
   fileReader = new FileReader()
   fileReader.onloadend = () => {
     if (isNavigator) {
-      navigatorMessages.push(fileReader.result)
+      navigatorMessagesDB.push(fileReader.result)
     } else {
-      driverMessages.push(fileReader.result)
+      driverMessagesDB.push(fileReader.result)
     }
   }
   return fileReader
 }
-
-const getMediaFromUser = () => (navigator.getUserMedia ||
-  navigator.webkitGetUserMedia ||
-  navigator.mozGetUserMedia ||
-  navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia)
 
 const listenForNewMessageAndPlay = (databaseReference) => {
   databaseReference.on('child_added', snapshot => {
@@ -182,12 +175,18 @@ const getUserMedia = () => {
 }
 
 const getFileReader = (isNavigator) => {
-  fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
+  fileReader = setupFileReader(isNavigator)
 }
 
 const getDataBaseReferences = (roomName) => {
   driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
   navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
 }
+
+const getMediaFromUser = () => (navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia)
+
 
 export {setUpRecording, mediaRecorder, startRecording, stopRecording}

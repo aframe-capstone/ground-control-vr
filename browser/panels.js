@@ -52,7 +52,6 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       break
     }
   }
-  // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
 
   const generateRotary = (x, z, color) => (<Entity class='selectable' key={`slider-${x}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />

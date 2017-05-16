@@ -1,5 +1,11 @@
 import React from 'react'
+<<<<<<< HEAD
 import Clock from 'react-countdown-clock'
+=======
+
+//just use this file, not the ones in documentation -ob
+
+>>>>>>> 8e90235884363e9d126b383736666b7930a66868
 export default class Manual extends React.Component{
   constructor(props){
     super(props)

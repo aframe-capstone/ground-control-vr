@@ -19,6 +19,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>
   }
 
+<<<<<<< HEAD
   const generateModule = (initialXCoord, initialYCoord, initialZCoord, moduleName, widgetNameSpecifiers) => {
     const widgets = []
     let iterator = 0
@@ -51,6 +52,30 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     }
   }
   // panel.push(generateButton(0.9, 0, '#080', 'submitButton', handleSubmit))
+=======
+const generateModule = (initialXCoord, initialYCoord, initialZCoord, name) => {
+  const widgets = []
+  let iterator = 0
+  let length = initialXCoord + 3
+  for (var i = initialXCoord; i < length; i++) {
+    widgets.push(generateLever(iterator, initialZCoord, 'red'))
+    iterator+=0.3
+  }
+  // id can be just name
+  return (<Entity id={`${name}`}
+    position={{x: initialXCoord, y: initialZCoord, z: initialZCoord}}>
+    {generateModuleName(name)}
+    { widgets }
+  </Entity>)
+}
+
+// x and z could just be numbers - ob
+const generateButton = (x, z, color) => {
+  return <Entity ui-button color={color} position={{x: `${x}`, y: 0.02, z: `${z}`}} >
+    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
+  </Entity>
+}
+>>>>>>> 8e90235884363e9d126b383736666b7930a66868
 
   const generateRotary = (x, z, color) => {
     return <Entity class='selectable' key={`slider-${x}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
@@ -69,6 +94,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     </Entity>
   }
 
+<<<<<<< HEAD
   const generateSwitch = (x, z, color) => {
     return <Entity class={`switch selectable`} id={id++} key={`switch-${id}`} events={{change: handleFunction}} ui-toggle color={color} position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
@@ -162,3 +188,8 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
   }
 }
 export {generatePanel, generateSubmitButton}
+=======
+
+//could be default export - ob
+export {generatePanel}
+>>>>>>> 8e90235884363e9d126b383736666b7930a66868

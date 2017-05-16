@@ -2,15 +2,15 @@ import { setupDataBase } from './firebase'
 import toBuffer from 'typedarray-to-buffer'
 import processRadioTransmission from './processRadioTransmission'
 import $ from 'jquery'
+import audioContext from './audioContext'
 
-/* global firebase AudioContext MediaRecorder location URL FileReader Blob */
+/* global firebase MediaRecorder location URL FileReader Blob */
 
 let mediaRecorder
 let isRecording = false
 let interval
 const audioQueue = []
 var audioSourceIsPlaying = false // Used to prevent message overlap
-var context = new AudioContext()
 
 const startRecording = () => {
   if (isRecording) { // FIX THIS
@@ -98,7 +98,7 @@ const setUpRecording = isNavigator => {
   const playAudio = (dataArr) => {
     var audioBuff = toBuffer(dataArr)
     var audioArrBuff = toArrayBuffer(audioBuff)
-    var source = context.createBufferSource()
+    var source = audioContext.createBufferSource()
     // Event listener to play 'NASA Beep' at end of transmission
     source.onended = () => {
       NASABeep && NASABeep.play() // bulletproofing for VR headset
@@ -110,10 +110,10 @@ const setUpRecording = isNavigator => {
       }
     }
 
-    processRadioTransmission(context, source)
+    processRadioTransmission(audioContext, source)
 
     // Transforms ArrayBuffer into AudioBuffer then plays
-    context.decodeAudioData(audioArrBuff)
+    audioContext.decodeAudioData(audioArrBuff)
       .then(decodedAudio => {
         audioSourceIsPlaying = true
         source.buffer = decodedAudio

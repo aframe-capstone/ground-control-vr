@@ -122,31 +122,32 @@ export default class Simulation extends React.Component {
     e.stopPropagation()
     // resetClickHandlers(this.handleClick)
     resetButtonPressedColors()
-    const module1 = 1
-    const module2 = 2
-    let solution
-    if (this.state.currentPhase === 1) {
-      solution = solution1
-    } else if (this.state.currentPhase === 2) {
-      solution = solution2
-    } else if (this.state.currentPhase === 3) {
-      solution = solution3
-    }
-    if (_.isEqual(this.state[this.state.currentPhase], solution)) {
-      this.props.addPhase()
-      let newState = _.cloneDeep(this.state)
-      newState[this.state.currentPhase][module1].currentState = []
-      newState[this.state.currentPhase][module2].currentState = []
-      newState.currentPhase++
-      this.setState(newState)
-    } else {
-      this.props.addStrike()
-      let newState = _.cloneDeep(this.state)
-      newState[this.state.currentPhase][module1].currentState = []
-      newState[this.state.currentPhase][module2].currentState = []
-      newState.strikes++
-      this.setState(newState)
-    }
+    this.setState({currentPhase: 4})
+    // const module1 = 1
+    // const module2 = 2
+    // let solution
+    // if (this.state.currentPhase === 1) {
+    //   solution = solution1
+    // } else if (this.state.currentPhase === 2) {
+    //   solution = solution2
+    // } else if (this.state.currentPhase === 3) {
+    //   solution = solution3
+    // }
+    // if (_.isEqual(this.state[this.state.currentPhase], solution)) {
+    //   this.props.addPhase()
+    //   let newState = _.cloneDeep(this.state)
+    //   newState[this.state.currentPhase][module1].currentState = []
+    //   newState[this.state.currentPhase][module2].currentState = []
+    //   newState.currentPhase++
+    //   this.setState(newState)
+    // } else {
+    //   this.props.addStrike()
+    //   let newState = _.cloneDeep(this.state)
+    //   newState[this.state.currentPhase][module1].currentState = []
+    //   newState[this.state.currentPhase][module2].currentState = []
+    //   newState.strikes++
+    //   this.setState(newState)
+    // }
   }
 
   setTimeLeft(bool) {
@@ -182,7 +183,7 @@ export default class Simulation extends React.Component {
         {playSwitchOnSound()}
         {playSwitchOffSound()}
         <Sun radius ={this.state.radius}/>
-        <DriverCam increaseSunSize ={this.increaseSunSize} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
+        <DriverCam increaseSunSize ={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
       </Entity>
     )
   }

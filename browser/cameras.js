@@ -4,6 +4,7 @@ import Timer from './timer'
 import TransmissionIncoming from './transmissionIncoming'
 import RecordingIndicator from './recordingIndicator'
 import Failure from './failure'
+import Success from './success.jsx'
 import './utils/fps-cursor'
 
 const navigatorCam = (<Entity
@@ -21,8 +22,13 @@ export default class DriverCam extends React.Component {
   }
   
   render(){
-    console.log('STATE: ', this.state)
-    console.log('PROPS: ', this.props)
+    let endGameScreen
+    if(this.props.phase > 3) {
+      endGameScreen = <Success/>
+    } 
+    else if(this.props.strikes >= 3 || this.props.timeLeft === false) {
+      endGameScreen = <Failure/>
+    }
     return (
       <Entity id='driverCamera' position="0 2.5 2" >
         <a-entity id="daydream" daydream-controller raycaster="objects: .selectable; recursive: true">
@@ -45,8 +51,7 @@ export default class DriverCam extends React.Component {
           <TransmissionIncoming />
           <RecordingIndicator />
           <Timer increaseSunSize={this.props.increaseSunSize} setTimeLeft={this.props.setTimeLeft}/>
-          {this.props.strikes >= 3 && <Failure />}
-          {this.props.timeLeft === false && <Failure />}
+          {endGameScreen && endGameScreen}
       </Entity>
       </Entity>
     )

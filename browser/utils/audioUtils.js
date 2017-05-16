@@ -9,8 +9,14 @@ const toArrayBuffer = (buf) => {
   return arrayBuff
 }
 
-const convertDataStreamToAudioArrayBuffer = (dataArr) => {
-  return toArrayBuffer(toBuffer(dataArr))
+const convertBinaryToTypedArray = (binaryMessage) => {
+  const typedArray = new Uint8Array(binaryMessage.length)
+  for (let i = 0; i < binaryMessage.length; i++) {
+    typedArray[i] = binaryMessage.charCodeAt(i)
+  }
+  return typedArray
 }
 
-export {convertDataStreamToAudioArrayBuffer}
+const convertDataStreamToAudioArrayBuffer = (dataArr) => toArrayBuffer(toBuffer(dataArr))
+
+export {convertDataStreamToAudioArrayBuffer, convertBinaryToTypedArray}

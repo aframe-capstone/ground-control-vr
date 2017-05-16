@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button, Icon, Row, Col, NavItem, Navbar, Table} from 'react-materialize'
 
 export default function Panels(props) {
   console.log('this is your props', props)
@@ -9,7 +8,7 @@ export default function Panels(props) {
       props.panel.module.map((element) => (
 
       <div key={element.name} className="widget" style={{flex:1}}>
-        <Col s={12} l={12} className="moduleName">{element.name}</Col>
+        <div s={12} l={12} className="moduleName">{element.name}</div>
           <div style={{display:'flex'}} className='header-container'>
             <div style={{flex:1}} data-field="id">Type of Widget</div>
               <div style={{flex:1}} data-field="name">Instructions</div>

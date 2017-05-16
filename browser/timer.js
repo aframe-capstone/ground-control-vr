@@ -8,10 +8,10 @@ export default class Timer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      timeRemaining: 10
+      timeRemaining: 300
     }
     this.countdownTimer = this.countdownTimer.bind(this)
-    this.countdown(10)
+    this.countdown(300)
   }
 
   countdown(seconds) {
@@ -21,20 +21,31 @@ export default class Timer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if(this.interval) {
+      clearInterval(this.interval)
+      this.interval = null
+    }
+  }
+  
   countdownTimer(numberOfSeconds) {
     var timeRemaining = numberOfSeconds
-    var timeInterval = setInterval(() => {
+    var interval = setInterval(() => {
       if (timeRemaining % 60 === 0){
         this.props.increaseSunSize()
       }
 
       if (timeRemaining <= 1) {
-        clearInterval(timeInterval)
+        clearInterval(interval)
+        this.interval = null
         this.props.setTimeLeft(false)
       }
-      timeRemaining--
-      this.setState({timeRemaining})
+      else{
+        timeRemaining--
+        this.setState({timeRemaining})
+      }
     }, 1000)
+    this.interval = interval
   }
 
   render() {

@@ -6,10 +6,15 @@ import { Entity } from 'aframe-react'
 
 // }
 
-export const getWarningLightOfColor = (strikes, timeLeft) => {
+export const getWarningLightOfColor = (strikes, timeLeft, success) => {
   // console.log('GET WARNING LIGHT OF COLOR');
   // console.log('STRIKES: ', strikes);
-  // console.log('TYPE OF STRIJES:', typeof strikes)
+  // console.log('TYPE OF STRIJES:', typeof strikes
+  if(success) {
+    return (<Entity id="successLight" position={'0 5.3 0.4'} primitive="a-cone" geometry={{ radiusBottom: 0.21, radiusTop: 0.33, height: 0.3 }} opacity="0.4" transparent>
+      <Entity primitive="a-light" type="hemisphere" position="0, 0, 0" intensity='5'/>
+    </Entity>)
+  }
   if(!timeLeft) return
   switch (strikes) {
     case 2:

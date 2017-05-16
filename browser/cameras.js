@@ -50,8 +50,7 @@ export default class DriverCam extends React.Component {
             dur: 150}}/> */}
           <TransmissionIncoming />
           <RecordingIndicator />
-          <Timer increaseSunSize={this.props.increaseSunSize} setTimeLeft={this.props.setTimeLeft}/>
-          {endGameScreen && endGameScreen}
+          {endGameScreen ? endGameScreen : <Timer phase={this.props.phase} increaseSunSize={this.props.increaseSunSize} setTimeLeft={this.props.setTimeLeft}/>}
       </Entity>
       </Entity>
     )

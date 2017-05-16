@@ -113,7 +113,7 @@ export default class Simulation extends React.Component {
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
-    console.log('NEW STATE', nextState)
+    // console.log('NEW STATE', nextState)
     this.setState(nextState)
   }
 
@@ -122,32 +122,31 @@ export default class Simulation extends React.Component {
     e.stopPropagation()
     // resetClickHandlers(this.handleClick)
     resetButtonPressedColors()
-    this.setState({currentPhase: 4})
-    // const module1 = 1
-    // const module2 = 2
-    // let solution
-    // if (this.state.currentPhase === 1) {
-    //   solution = solution1
-    // } else if (this.state.currentPhase === 2) {
-    //   solution = solution2
-    // } else if (this.state.currentPhase === 3) {
-    //   solution = solution3
-    // }
-    // if (_.isEqual(this.state[this.state.currentPhase], solution)) {
-    //   this.props.addPhase()
-    //   let newState = _.cloneDeep(this.state)
-    //   newState[this.state.currentPhase][module1].currentState = []
-    //   newState[this.state.currentPhase][module2].currentState = []
-    //   newState.currentPhase++
-    //   this.setState(newState)
-    // } else {
-    //   this.props.addStrike()
-    //   let newState = _.cloneDeep(this.state)
-    //   newState[this.state.currentPhase][module1].currentState = []
-    //   newState[this.state.currentPhase][module2].currentState = []
-    //   newState.strikes++
-    //   this.setState(newState)
-    // }
+    const module1 = 1
+    const module2 = 2
+    let solution
+    if (this.state.currentPhase === 1) {
+      solution = solution1
+    } else if (this.state.currentPhase === 2) {
+      solution = solution2
+    } else if (this.state.currentPhase === 3) {
+      solution = solution3
+    }
+    if (_.isEqual(this.state[this.state.currentPhase], solution)) {
+      this.props.addPhase()
+      let newState = _.cloneDeep(this.state)
+      newState[this.state.currentPhase][module1].currentState = []
+      newState[this.state.currentPhase][module2].currentState = []
+      newState.currentPhase++
+      this.setState(newState)
+    } else {
+      this.props.addStrike()
+      let newState = _.cloneDeep(this.state)
+      newState[this.state.currentPhase][module1].currentState = []
+      newState[this.state.currentPhase][module2].currentState = []
+      newState.strikes++
+      this.setState(newState)
+    }
   }
 
   setTimeLeft(bool) {
@@ -178,12 +177,14 @@ export default class Simulation extends React.Component {
         {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
         {generateSubmitButton(0, 3.31, 4.2, 'green', 'submit-button', this.handleSubmit, '#900')}
-        {getWarningLightOfColor(this.state.strikes, this.state.timeLeft)}
+        {this.state.currentPhase >= 3 ? 
+          getWarningLightOfColor(null, null, true) :
+          getWarningLightOfColor(this.state.strikes, this.state.timeLeft)} 
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}
         {playSwitchOffSound()}
         <Sun radius ={this.state.radius}/>
-        <DriverCam increaseSunSize ={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
+        <DriverCam increaseSunSize={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
       </Entity>
     )
   }

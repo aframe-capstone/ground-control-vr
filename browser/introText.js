@@ -12,7 +12,7 @@ const introText = {
 
   navigatorIntro: `Hello Operator!\n
   We have received a transmission from a pilot whose ship has malfunctioned and is drifting toward the sun.\n
-  It's up to you to help him fix his ship.\n
+  It's up to you to help them fix their ship.\n
   Use the diagrams to help the pilot fix all three panels.\n
   *Click Text Anywhere To Continue*`,
 

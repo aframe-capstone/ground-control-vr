@@ -18,6 +18,7 @@ import Failure from './failure'
 import {setUpRecording} from './audio'
 import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
 import stopDefaultAndPropagation from './utils/events'
+import {MODULE_ONE, MODULE_TWO} from './utils/constants'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel, generateSubmitButton} from './panels'
@@ -89,8 +90,7 @@ export default class Simulation extends React.Component {
   handleSubmit(e) {
     stopDefaultAndPropagation(e)
     resetButtonPressedColors()
-    const module1 = 1
-    const module2 = 2
+
     let solution
     if (this.state.currentPhase === 1) {
       solution = solution1
@@ -101,19 +101,21 @@ export default class Simulation extends React.Component {
     }
     if (_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
-      const newState = _.cloneDeep(this.state)
-      newState[this.state.currentPhase][module1].currentState = []
-      newState[this.state.currentPhase][module2].currentState = []
+      const newState = this.cloneAndResetCurrentState()
       newState.currentPhase++
       this.setState(newState)
     } else {
       this.props.addStrike()
-      const newState = _.cloneDeep(this.state)
-      newState[this.state.currentPhase][module1].currentState = []
-      newState[this.state.currentPhase][module2].currentState = []
-      newState.strikes++
+      const newState = this.cloneAndResetCurrentState()
       this.setState(newState)
     }
+  }
+
+  cloneAndResetCurrentState() {
+    const newState = _.cloneDeep(this.state)
+    newState[this.state.currentPhase][MODULE_ONE].currentState = []
+    newState[this.state.currentPhase][MODULE_TWO].currentState = []
+    return newState
   }
 
   render() {

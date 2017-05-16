@@ -3,13 +3,12 @@ import toBuffer from 'typedarray-to-buffer'
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
 
-/* global firebase MediaRecorder location URL FileReader Blob */
+let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
+let isRecording = false // prevents user from triggering startRecording()
+const audioQueue = [] // queues 'radio transmissions' to prevent overlapping audio if many small messages are received
+let audioSourceIsPlaying = false // Used to prevent message overlap
 
-let mediaRecorder
-let isRecording = false
-let interval
-const audioQueue = []
-var audioSourceIsPlaying = false // Used to prevent message overlap
+/* global firebase MediaRecorder location URL FileReader Blob */
 
 const startRecording = () => {
   if (isRecording) {
@@ -53,11 +52,13 @@ const setupFileReader = (isNavigator, navigatorMessages, driverMessages) => {
   return fileReader
 }
 
-const setUpRecording = isNavigator => {
-  navigator.getUserMedia = (navigator.getUserMedia ||
+const getMediaFromUser = () => (navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia)
+
+const setUpRecording = isNavigator => {
+  navigator.getUserMedia = getMediaFromUser()
 
   const audio = document.querySelector('#messageAudioNode')
   const NASABeep = document.querySelector('#NASABeepAudioNode')

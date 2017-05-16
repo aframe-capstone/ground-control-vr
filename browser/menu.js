@@ -7,18 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe-text-geometry-component'
 import {DriverCam} from './cameras'
-import Tutorial from './tutorial'
-
-const UserCam = props => (<Entity id='menuCamera' position='0 0 0'>
-  <a-entity id="daydream" daydream-controller raycaster="objects: .selectable; recursive: true">
-    <a-cone id='ray' color='cyan' position='0 0 -2' rotation='-90 0 0' radius-bottom='0.005' radius-top='0.001' height='4' />
-    <a-box id='position-guide' visible='false' position='0 0 -2' />
-  </a-entity>
-  <Entity primitive="a-camera" wasd-controls-enabled="true">
-  {/* <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/> */}
-  <Tutorial />
-</Entity>
-</Entity>)
+import UserCam from './userCam.jsx'
 
 const boxes = (props) => (
   <Entity>
@@ -51,9 +40,14 @@ const boxes = (props) => (
   </Entity>
   )
 
+
+
 export default class Menu extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      isDesktop : true
+    }
   }
 
   render() {
@@ -67,7 +61,7 @@ export default class Menu extends React.Component {
         {/* <Entity rotation='-90 0 0' particle-system={{preset: 'snow', particleCount: 4000}}/> */}
         <a-entity id="GROUND-CONTROL" position="-5.78 3.5 -5.5" scale='2 2 2' text-geometry="value: GROUND CONTROL; font: #moduleFont" />
         {!this.props.inSim && boxes(this.props)}
-        {!this.props.inSim && <UserCam />}
+        {!this.props.inSim && <UserCam isDesktop={this.props.isDesktop}/>}
       </Entity>)
   }
 }

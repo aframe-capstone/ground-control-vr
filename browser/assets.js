@@ -33,7 +33,7 @@ const loadTextures = () => (
   <Entity key="textures">
     <img id="panelTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
     <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
-    <a-asset-item events = { {loaded:function(){console.log('BUTT')}}} id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
+    <a-asset-item id="cockpitMaterial" src="assets/cockpit/cockpit-05_obj.mtl" />
   </Entity>
 )
 

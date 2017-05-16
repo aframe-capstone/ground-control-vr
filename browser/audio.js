@@ -15,6 +15,7 @@ let transmissionIncomingIndicator // HUD indicator of incoming message
 let recordingIndicator // HUD indicator of recording in process
 let driverMessagesDB
 let navigatorMessagesDB
+let timeOut
 
 /* global firebase MediaRecorder location URL FileReader Blob */
 
@@ -40,9 +41,13 @@ const gotMedia = stream => {
 const startRecording = () => {
   if (!mediaRecorder) return // prevents triggering recorder while outside simulation
   if (!isRecording) {
+    console.log('inside start recording')
     mediaRecorder.start()
-    setTimeout(() => {
+    if (timeOut) clearTimeout(timeOut)
+    timeOut = setTimeout(() => {
+      console.log('inside timeout for start recording')
       if (isRecording) {
+        console.log('inside CB for start recording stopping recorder')
         mediaRecorder.stop()
         isRecording = false
       }
@@ -56,7 +61,7 @@ const stopRecording = () => {
   if (isRecording) {
     delayEndRecording()
   } else {
-    console.error('trying to stop recording while not recording or outside sim')
+    console.log('trying to stop recording while not recording or outside sim')
   }
 }
 
@@ -154,7 +159,8 @@ const registerOnExitMessageClearListener = (isNavigator) => {
 const registerMediaRecorderEventListeners = (mediaRecorderInstance) => {
   mediaRecorderInstance.onstart = () => {
     toggleHUDIndicatorVisible(recordingIndicator, true)
-    startRecordingBeep && startRecordingBeep.play() // bulletproofing for VR headset
+    console.log('starting to record')
+    if (startRecordingBeep) startRecordingBeep.play() // bulletproofing for VR headset
   }
   mediaRecorderInstance.onstop = () => {
     toggleHUDIndicatorVisible(recordingIndicator, false)

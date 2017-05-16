@@ -12,7 +12,6 @@ import Navigator from './navComponents/navigator'
 import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
 import Intro from './intro.jsx'
 import introText from './introText.js'
-import {mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
@@ -184,7 +183,6 @@ class App extends React.Component {
         <div>ERROR: Shouldn't be able to get to this combination of state values.</div>
       )
     }
->>>>>>> 8e46b78091e8e770f053972021d8671a0706ba2f
   }
 
 }

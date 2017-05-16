@@ -90,7 +90,10 @@ export default class Simulation extends React.Component {
   handleSubmit(e) {
     stopDefaultAndPropagation(e)
     resetButtonPressedColors()
+    this.checkSolution(this.whichSolutionToCheck())
+  }
 
+  whichSolutionToCheck() {
     let solution
     if (this.state.currentPhase === 1) {
       solution = solution1
@@ -99,6 +102,10 @@ export default class Simulation extends React.Component {
     } else if (this.state.currentPhase === 3) {
       solution = solution3
     }
+    return solution
+  }
+
+  checkSolution(solution) {
     if (_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
       const newState = this.cloneAndResetCurrentState()
@@ -107,6 +114,7 @@ export default class Simulation extends React.Component {
     } else {
       this.props.addStrike()
       const newState = this.cloneAndResetCurrentState()
+      newState.strikes++
       this.setState(newState)
     }
   }

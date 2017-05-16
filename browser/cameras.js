@@ -15,46 +15,40 @@ const navigatorCam = (<Entity
   wasd-controls-enabled="false">
 </Entity>)
 
-export default class DriverCam extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-  
-  render(){
-    let endGameScreen
-    if(this.props.phase > 3) {
-      endGameScreen = <Success/>
-    } 
-    else if(this.props.strikes >= 3 || this.props.timeLeft === false) {
-      endGameScreen = <Failure/>
-    }
-    return (
-      <Entity id='driverCamera' position="0 2.5 2" >
-        <a-entity id="daydream" daydream-controller raycaster="objects: .selectable; recursive: true">
-          <a-cone id='ray' color='cyan' position='0 0 -2' rotation='-90 0 0' radius-bottom='0.005' radius-top='0.001' height='4' />
-          <a-box id='position-guide' visible='false' position='0 0 -2' />
-        </a-entity>
-      <Entity fence="width: 3; depth: 4; x0: 0; z0: 1"
+// REMOVED USER HEIGHT IN CAMERA HERE
+const DriverCam = props => {
 
-        primitive="a-camera"
-        fps-look-controls
-        wasd-controls-enabled="true">
-        {/* <Entity primitive="a-cursor"
-          cursor="fuse: true; fuseTimeout: 1000"
-          animation__click={{
-            property: 'scale',
-            startEvents: 'click',
-            from: '0.1 0.1 0.1',
-            to: '1 1 1',
-            dur: 150}}/> */}
-          <TransmissionIncoming />
-          <RecordingIndicator />
-          {endGameScreen ? endGameScreen : <Timer phase={this.props.phase} increaseSunSize={this.props.increaseSunSize} setTimeLeft={this.props.setTimeLeft}/>}
-      </Entity>
-      </Entity>
-    )
+  let endGameScreen
+  if(this.props.phase > 3) {
+    endGameScreen = <Success/>
+  } 
+  else if(this.props.strikes >= 3 || this.props.timeLeft === false) {
+    endGameScreen = <Failure/>
   }
+
+  return (
+    <Entity id='driverCamera' position="0 2.5 2" >
+      <a-entity id="daydream" daydream-controller raycaster="objects: .selectable; recursive: true">
+        <a-cone id='ray' color='cyan' position='0 0 -2' rotation='-90 0 0' radius-bottom='0.005' radius-top='0.001' height='4' />
+        <a-box id='position-guide' visible='false' position='0 0 -2' />
+      </a-entity>
+    <Entity fence="width: 3; depth: 4; x0: 0; z0: 0"
+      primitive="a-camera"
+      fps-look-controls
+      wasd-controls-enabled="true">
+      {/* <Entity primitive="a-cursor"
+        cursor="fuse: true; fuseTimeout: 1000"
+        animation__click={{
+          property: 'scale',
+          startEvents: 'click',
+          from: '0.1 0.1 0.1',
+          to: '1 1 1',
+          dur: 150}}/> */}
+        <TransmissionIncoming />
+        <RecordingIndicator />
+        {endGameScreen ? endGameScreen : <Timer phase={this.props.phase} increaseSunSize={this.props.increaseSunSize} setTimeLeft={this.props.setTimeLeft}/>}
+    </Entity>
+    </Entity>
+  )
 }
-
 export {DriverCam, navigatorCam}

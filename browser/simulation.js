@@ -13,9 +13,12 @@ import Sun from './sun'
 import {DriverCam} from './cameras'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
-import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
+import {SpaceshipAmbience} from './soundEffects'
 import Failure from './failure'
-import {setUpRecording} from './audio' 
+import {setUpRecording} from './audio'
+import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
+import stopDefaultAndPropagation from './utils/events'
+import {MODULE_ONE, MODULE_TWO} from './utils/constants'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel, generateSubmitButton} from './panels'
@@ -23,24 +26,6 @@ import {generatePanel, generateSubmitButton} from './panels'
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
-
-const setButtonPressedColor = (currentTarget) => {
-  if (currentTarget.className === 'button selectable') {
-    currentTarget.childNodes[1].setAttribute('material', {color: 'blue'})
-  }
-}
-
-const resetButtonPressedColors = () => {
-  const buttons = document.querySelectorAll('.button.selectable')
-  buttons.forEach(button => button.childNodes[1].setAttribute('material', {color: 'red'}))
-}
-
-const resetClickHandlers = (handleClick) => {
-  var buttons = [].slice.call(document.getElementsByClassName('button'))
-  buttons.forEach((button) => {
-    button.addEventListener('click', handleClick)
-  })
-}
 
 export default class Simulation extends React.Component {
   constructor(props) {
@@ -103,27 +88,24 @@ export default class Simulation extends React.Component {
   }
 
   handleClick(e) {
-    e.preventDefault()
-    e.stopPropagation()
+    stopDefaultAndPropagation(e)
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
-    // e.currentTarget.removeEventListener('click', this.handleClick)
     setButtonPressedColor(e.currentTarget)
     const typeOfwidget = e.currentTarget.className
-    let nextState = _.cloneDeep(this.state)
+    const nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
-    // console.log('NEW STATE', nextState)
     this.setState(nextState)
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    // resetClickHandlers(this.handleClick)
+    stopDefaultAndPropagation(e)
     resetButtonPressedColors()
-    const module1 = 1
-    const module2 = 2
+    this.checkSolution(this.whichSolutionToCheck())
+  }
+
+  whichSolutionToCheck() {
     let solution
     if (this.state.currentPhase === 1) {
       solution = solution1
@@ -132,18 +114,18 @@ export default class Simulation extends React.Component {
     } else if (this.state.currentPhase === 3) {
       solution = solution3
     }
+    return solution
+  }
+
+  checkSolution(solution) {
     if (_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
-      let newState = _.cloneDeep(this.state)
-      newState[this.state.currentPhase][module1].currentState = []
-      newState[this.state.currentPhase][module2].currentState = []
+      const newState = this.cloneAndResetCurrentState()
       newState.currentPhase++
       this.setState(newState)
     } else {
       this.props.addStrike()
-      let newState = _.cloneDeep(this.state)
-      newState[this.state.currentPhase][module1].currentState = []
-      newState[this.state.currentPhase][module2].currentState = []
+      const newState = this.cloneAndResetCurrentState()
       newState.strikes++
       this.setState(newState)
     }
@@ -151,6 +133,17 @@ export default class Simulation extends React.Component {
 
   setTimeLeft(bool) {
     this.setState({timeLeft:bool})
+  }
+
+  cloneAndResetCurrentState() {
+    const newState = _.cloneDeep(this.state)
+    newState[this.state.currentPhase][MODULE_ONE].currentState = []
+    newState[this.state.currentPhase][MODULE_TWO].currentState = []
+    return newState
+  }
+
+  componentDidMount() {
+    setUpRecording(this.props.isNavigator)
   }
 
   render() {
@@ -180,9 +173,7 @@ export default class Simulation extends React.Component {
         {this.state.currentPhase >= 3 ? 
           getWarningLightOfColor(null, null, true) :
           getWarningLightOfColor(this.state.strikes, this.state.timeLeft)} 
-        {playSpaceshipAmbience()}
-        {playSwitchOnSound()}
-        {playSwitchOffSound()}
+        <SpaceshipAmbience />
         <Sun radius ={this.state.radius}/>
         <DriverCam increaseSunSize={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
       </Entity>

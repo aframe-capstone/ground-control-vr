@@ -15,7 +15,6 @@ import {mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
-import {ViveControllerLeft, ViveControllerRight} from './viveController'
 import store from './store.jsx'
 import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
 import 'aframe-daydream-controller-component'
@@ -33,8 +32,9 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      gameState: INSTRUCTIONS,
+      gameState: MENU,
       isNavigator: false,
+      isDesktop: true
     }
     this.setRole = this.setRole.bind(this)
     this.selectNavigator = this.selectNavigator.bind(this)
@@ -105,6 +105,11 @@ class App extends React.Component {
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this))
     document.addEventListener('keyup', this.handleKeyUp.bind(this));
+    if(screen.width < 1000) {
+      this.setState({
+        isDesktop: false
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -118,7 +123,7 @@ class App extends React.Component {
       return (
           <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
             {loadAllAssets()}
-            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>
+            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole} isDesktop={this.state.isDesktop}/>
           </Scene>
       )
     }
@@ -129,7 +134,7 @@ class App extends React.Component {
         return(
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState}/>
+              <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       }
@@ -137,7 +142,7 @@ class App extends React.Component {
         return(
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.generalInstructions} goToNextState={this.goToNextState}/>
+              <Intro text={introText.generalInstructions} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       }

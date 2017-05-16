@@ -79,7 +79,7 @@ updateDimensions() {
 
             {this.props.spaceBarDown ? <div id='indicator' style={{background:'none'}}>
               <div className="loader"></div>
-              <div style={{fontSize:'15px', fontColor:'red'}}> Message Recording...</div>
+              <div style={{fontSize:'15px', color:'red'}}> Message Recording...</div>
             </div> : null}
         </div>
         <div className='row3'>

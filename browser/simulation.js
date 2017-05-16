@@ -60,15 +60,31 @@ export default class Simulation extends React.Component {
           currentState: []
         }
       },
-      timeRemaining: 0
+      timeLeft: true
     }
     this.increaseSunSize = this.increaseSunSize.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.setTimeLeft = this.setTimeLeft.bind(this)
   }
 
-  increaseSunSize() {
-    this.setState({radius: this.state.radius += 2})
+  increaseSunSize(){
+    this.setState({ radius: this.state.radius += 2})
+  }
+
+  stopInteriorRender() {
+    this.setState({renderCockpit: false})
+  }
+
+  componentWillMount() {
+    if (this.state.renderCockpit) {
+      // Set interior's state here?
+    }
+    this.stopInteriorRender()
+  }
+
+  componentDidMount() {
+    setUpRecording(this.props.isNavigator)
   }
 
   handleClick(e) {
@@ -115,6 +131,10 @@ export default class Simulation extends React.Component {
     }
   }
 
+  setTimeLeft(bool) {
+    this.setState({timeLeft:bool})
+  }
+
   cloneAndResetCurrentState() {
     const newState = _.cloneDeep(this.state)
     newState[this.state.currentPhase][MODULE_ONE].currentState = []
@@ -150,10 +170,12 @@ export default class Simulation extends React.Component {
         {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
         {generateSubmitButton(0, 3.62, 4.44, 'green', 'submit-button', this.handleSubmit, '#900')}
-        {getWarningLightOfColor(this.state.strikes)}
+        {this.state.currentPhase >= 3 ? 
+          getWarningLightOfColor(null, null, true) :
+          getWarningLightOfColor(this.state.strikes, this.state.timeLeft)} 
         <SpaceshipAmbience />
         <Sun radius ={this.state.radius}/>
-        <DriverCam increaseSunSize = {this.increaseSunSize} strikes={this.state.strikes} />
+        <DriverCam increaseSunSize={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
       </Entity>
     )
   }

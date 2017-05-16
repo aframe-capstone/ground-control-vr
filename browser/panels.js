@@ -2,8 +2,7 @@ import React from 'react'
 import {Entity} from 'aframe-react'
 import FloatingUIPanel from './floatingUIPanel'
 
-const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedColor) => {
-  return (<Entity
+const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedColor) => (<Entity
             id='submit-button'
             key={`submit-button`}
             rotation={{x: -90, y: 0, z: 0}}
@@ -14,7 +13,6 @@ const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedCo
             position={{x, y, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>)
-}
 
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
   const generateModuleName = (name) => (<Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>)

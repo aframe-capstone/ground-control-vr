@@ -155,7 +155,7 @@ export default class Simulation extends React.Component {
         {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
         {generateSubmitButton(0, 3.62, 4.44, 'green', 'submit-button', this.handleSubmit, '#900')}
-        {this.state.currentPhase >= 3
+        {this.state.currentPhase > 3
           ? getWarningLightOfColor(null, null, true)
           : getWarningLightOfColor(this.state.strikes, this.state.timeLeft)}
         <SpaceshipAmbience />

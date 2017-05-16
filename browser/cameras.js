@@ -17,12 +17,10 @@ const navigatorCam = (<Entity
 
 // REMOVED USER HEIGHT IN CAMERA HERE
 const DriverCam = props => {
-
   let endGameScreen
-  if(props.phase > 3) {
+  if (props.phase > 3) {
     endGameScreen = <Success/>
-  } 
-  else if(props.strikes >= 3 || props.timeLeft === false) {
+  } else if (props.strikes >= 3 || props.timeLeft === false) {
     endGameScreen = <Failure/>
   }
 

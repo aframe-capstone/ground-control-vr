@@ -65,7 +65,7 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>)
 
-  const generateFloatingUI = (panelId) => (<FloatingUIPanel panelId={panelId} visible={solvedPhase1} />)
+  const generateFloatingUI = (panelId) => (<FloatingUIPanel panelId={panelId} isVisible={solvedPhase1} />)
 
   let id = 1
   let moduleId = 1

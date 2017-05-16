@@ -17,6 +17,7 @@ import {SpaceshipAmbience} from './soundEffects'
 import Failure from './failure'
 import {setUpRecording} from './audio'
 import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
+import stopDefaultAndPropagation from './utils/events'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel, generateSubmitButton} from './panels'
@@ -74,8 +75,7 @@ export default class Simulation extends React.Component {
   }
 
   handleClick(e) {
-    e.preventDefault()
-    e.stopPropagation()
+    stopDefaultAndPropagation(e)
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
@@ -87,9 +87,7 @@ export default class Simulation extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    // resetClickHandlers(this.handleClick)
+    stopDefaultAndPropagation(e)
     resetButtonPressedColors()
     const module1 = 1
     const module2 = 2

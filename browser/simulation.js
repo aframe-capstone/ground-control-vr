@@ -13,7 +13,7 @@ import Sun from './sun'
 import {DriverCam} from './cameras'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
-import {playSpaceshipAmbience} from './soundEffects'
+import {SpaceshipAmbience} from './soundEffects'
 import Failure from './failure'
 import {setUpRecording} from './audio'
 import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
@@ -143,7 +143,7 @@ export default class Simulation extends React.Component {
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
         {generateSubmitButton(0, 3.31, 4.2, 'green', 'submit-button', this.handleSubmit, '#900')}
         {getWarningLightOfColor(this.state.strikes)}
-        {playSpaceshipAmbience()}
+        <SpaceshipAmbience />
         <Sun radius ={this.state.radius}/>
         <DriverCam increaseSunSize = {this.increaseSunSize} strikes={this.state.strikes} />
       </Entity>

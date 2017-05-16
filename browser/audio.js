@@ -1,8 +1,7 @@
 import { setupDataBase } from './firebase'
-
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
-import convertAudioToBinary from './utils/audioUtils'
+import {convertDataStreamToAudioArrayBuffer} from './utils/audioUtils'
 
 let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
 let fileReader // Globally available fileReader instance to convert binary string audio to buffer
@@ -18,6 +17,27 @@ let driverMessagesDB
 let navigatorMessagesDB
 
 /* global firebase MediaRecorder location URL FileReader Blob */
+
+const setUpRecording = isNavigator => {
+  navigator.getUserMedia = getMediaFromUser()
+
+  const roomName = location.hash.substring(1, location.hash.length)
+  driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
+  navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
+  fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
+  transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
+  recordingIndicator = document.querySelector('#recordingIndicator')
+
+  registerDatabaseEventListeners(isNavigator)
+
+  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
+}
+
+const gotMedia = stream => {
+  mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
+  registerMediaRecorderEventListeners(mediaRecorder)
+}
+
 
 const startRecording = () => {
   if (!isRecording) {
@@ -49,7 +69,7 @@ const delayEndRecording = () => {
 }
 
 const setupFileReader = (isNavigator, navigatorMessages, driverMessages) => {
-  const fileReader = new FileReader()
+  fileReader = new FileReader()
   fileReader.onloadend = () => {
     if (isNavigator) {
       navigatorMessages.push(fileReader.result)
@@ -84,8 +104,13 @@ const onRecordingReady = (e) => {
   convertAudioToBinary(e)
 }
 
-const toggleHUDIndicator = (indicatorName, turnOn) => {
+const convertAudioToBinary = (event) => {
+  const audioData = event.data
+  fileReader.readAsBinaryString(audioData)
+}
 
+const toggleHUDIndicatorVisible = (indicatorElement, turnOn) => {
+  if (indicatorElement) indicatorElement.setAttribute('visible', turnOn)
 }
 
 const playAudio = (dataArr) => {
@@ -96,45 +121,35 @@ const playAudio = (dataArr) => {
     NASABeep && NASABeep.play() // bulletproofing for VR headset
     audioSourceIsPlaying = false
     // Displays UI indicator if Driver
-    if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'false')
+    toggleHUDIndicatorVisible(transmissionIncomingIndicator, false)
     if (audioQueue.length > 0) playAudio(audioQueue.shift())
-
+  }
+    // Transforms ArrayBuffer into AudioBuffer then plays
   processRadioTransmission(audioContext, source)
 
-    // Transforms ArrayBuffer into AudioBuffer then plays
   audioContext.decodeAudioData(audioArrBuff)
     .then(decodedAudio => {
       audioSourceIsPlaying = true
       source.buffer = decodedAudio
       source.start()
       // Displays UI indicator if Driver
-      if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'true')
+      toggleHUDIndicatorVisible(transmissionIncomingIndicator, true)
     })
     .catch(err => console.error('DECODE AUDIO DATA THREW: ', err))
 }
 
-const setUpRecording = isNavigator => {
-  navigator.getUserMedia = getMediaFromUser()
 
-  const roomName = location.hash.substring(1, location.hash.length)
-  driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
-  navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
-  fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
-  transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
-  recordingIndicator = document.querySelector('#recordingIndicator')
 
-  registerEventListeners(isNavigator)
-
-  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
-}
-
-const registerEventListeners = (isNavigator) => {
+const registerDatabaseEventListeners = (isNavigator) => {
   if (isNavigator) {
     listenForNewMessageAndPlay(driverMessagesDB)
   } else {
     listenForNewMessageAndPlay(navigatorMessagesDB)
   }
+  registerOnExitMessageClearListener(isNavigator)
+}
 
+const registerOnExitMessageClearListener = (isNavigator) => {
   window.addEventListener('beforeunload', () => {
     if (isNavigator) {
       navigatorMessagesDB.set({})
@@ -146,20 +161,15 @@ const registerEventListeners = (isNavigator) => {
   })
 }
 
-const gotMedia = stream => {
-  mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
-  mediaRecorder.onstart = () => {
-    // Display recording indicator if driver
-    if (recordingIndicator) recordingIndicator.setAttribute('visible', 'true')
+const registerMediaRecorderEventListeners = (mediaRecorderInstance) => {
+  mediaRecorderInstance.onstart = () => {
+    toggleHUDIndicatorVisible(recordingIndicator, true)
     startRecordingBeep && startRecordingBeep.play() // bulletproofing for VR headset
   }
-
-  mediaRecorder.onstop = () => {
-    // Display recording indicator if driver
-    if (recordingIndicator) recordingIndicator.setAttribute('visible', 'false')
+  mediaRecorderInstance.onstop = () => {
+    toggleHUDIndicatorVisible(recordingIndicator, false)
   }
-
-  mediaRecorder.addEventListener('dataavailable', onRecordingReady)
+  mediaRecorderInstance.addEventListener('dataavailable', onRecordingReady)
 }
 
 export {setUpRecording, mediaRecorder, startRecording, stopRecording}

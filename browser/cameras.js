@@ -19,10 +19,10 @@ const navigatorCam = (<Entity
 const DriverCam = props => {
 
   let endGameScreen
-  if(this.props.phase > 3) {
+  if(props.phase > 3) {
     endGameScreen = <Success/>
   } 
-  else if(this.props.strikes >= 3 || this.props.timeLeft === false) {
+  else if(props.strikes >= 3 || props.timeLeft === false) {
     endGameScreen = <Failure/>
   }
 
@@ -46,7 +46,7 @@ const DriverCam = props => {
           dur: 150}}/> */}
         <TransmissionIncoming />
         <RecordingIndicator />
-        {endGameScreen ? endGameScreen : <Timer phase={this.props.phase} increaseSunSize={this.props.increaseSunSize} setTimeLeft={this.props.setTimeLeft}/>}
+        {endGameScreen ? endGameScreen : <Timer phase={props.phase} increaseSunSize={props.increaseSunSize} setTimeLeft={props.setTimeLeft}/>}
     </Entity>
     </Entity>
   )

@@ -3,7 +3,6 @@ import {Entity} from 'aframe-react'
 import Tutorial from './tutorial'
 import React from 'react'
 
-
 const UserCam = (props) => {
   return (
     <Entity id='menuCamera' position='0 0 0'>
@@ -15,11 +14,9 @@ const UserCam = (props) => {
         {
           props.isDesktop === true && (<Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>)
         }
-        <Tutorial />
       </Entity>
     </Entity>
   )
 }
-
 
 export default UserCam

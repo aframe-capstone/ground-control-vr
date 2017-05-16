@@ -5,16 +5,19 @@ export const panel1={
         widget: 'Switch',
         action: 'Toggle 1x',
         order: 1,
+        position:'Left'
       },
       {
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 2
+        order: 2,
+        position:'Middle'
       },
       {
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 3
+        order: 3,
+        position:'Right'
       }]
     }
   ,
@@ -22,17 +25,20 @@ export const panel1={
       subset: [{
         widget: 'Button',
         action: 'Press 1x',
-        order: 4
+        order: 4,
+        position:'Left'
       },
       {
         widget: 'Button',
         action: 'Press 1x',
-        order: 5
+        order: 5,
+        position:'Middle'
       },
       {
-        widget: 'Switch',
-        action: 'Toggle 1x',
-        order: 6
+        widget: 'Button',
+        action: 'Press 1x',
+        order: 6,
+        position:'Right'
       }]
     }
   ],
@@ -46,16 +52,19 @@ export const panel2={
         widget: 'Switch',
         action: 'Toggle 1x',
         order: 1,
+        position:'Left'
       },
       {
         widget: 'Button',
         action: 'Press 1x',
-        order: 3
+        order: 3,
+        position:'Middle'
       },
       {
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 5
+        order: 5,
+        position:'Right'
       }]
     }
   ,
@@ -63,17 +72,20 @@ export const panel2={
       subset: [{
         widget: 'Button',
         action: 'Press 1x',
-        order: 6
+        order: 6,
+        position:'Left'
       },
       {
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 4
+        order: 4,
+        position:'Middle'
       },
       {
         widget: 'Button',
         action: 'Press 1x',
-        order: 2
+        order: 2,
+        position:'Right'
       }]
     }
   ],
@@ -87,16 +99,19 @@ export const panel3={
         widget: 'Button',
         action: 'Press 1x',
         order: 5,
+        position:'Left'
       },
       {
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 3
+        order: 3,
+        position:'Middle'
       },
       {
         widget: 'Button',
         action: 'Press 1x',
-        order: 1
+        order: 1,
+        position:'Right'
       }]
     }
   ,
@@ -104,17 +119,20 @@ export const panel3={
       subset: [{
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 2
+        order: 2,
+        position:'Left'
       },
       {
         widget: 'Switch',
         action: 'Toggle 1x',
-        order: 4
+        order: 4,
+        position:'Middle'
       },
       {
         widget: 'Button',
         action: 'Press 1x',
-        order: 6
+        order: 6,
+        position:'Right'
       }]
     }
   ],

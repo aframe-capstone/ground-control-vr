@@ -62,7 +62,7 @@ updateDimensions() {
               <div> Time until Impact</div>
               { this.props.driverStatus && this.props.navigatorStatus ?<CountDown/> : null}
            </div>
-            <div className='widget-black' id='navbar'style={{flex:4}}>
+            <div className='widget-black' id='navbar'style={{flex:4, textAlign:'left'}}>
               <NavigationBar tabSelected={this.state.tabSelected} selectTab={this.selectTab}/>
             </div>
             <div className='widget' id='strikesphase' style={{flex:1}}>

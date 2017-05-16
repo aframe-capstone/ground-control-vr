@@ -62,6 +62,11 @@ body{
   vertical-align: bottom;
 }
 
+.table{
+  text-align: center;
+}
+
+
 .tab{
   cursor:pointer;
   display: block;

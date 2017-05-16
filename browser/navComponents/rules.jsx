@@ -11,6 +11,7 @@ export default function Rules(props) {
         <div className='instructions-paragraph'>
           <ol>
             <li>There are three panels on board the ship</li>
+            <li>Solve each panel in the order of panel 1 to panel 3</li>
             <li>Each panel has two named modules, with three widgets (buttons or switches)</li>
             <li>Instruct the pilot on what to do for each panel by reading the docs for that panel</li>
             <li>Tell the pilot to press buttons and flip switches in the right order</li>

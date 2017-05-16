@@ -28,6 +28,8 @@ const INGAME = 4
 
 setUpDayDreamAudio()
 
+/* global screen */
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -63,13 +65,11 @@ class App extends React.Component {
   goToNextState(e) {
     e.stopPropagation()
     e.preventDefault()
-    if(this.state.gameState === INTRO){
+    if (this.state.gameState === INTRO) {
       this.setGameState(INSTRUCTIONS)
-    }
-    else if(this.state.gameState === INSTRUCTIONS){
+    } else if (this.state.gameState === INSTRUCTIONS) {
       this.setGameState(INGAME)
-    }
-    else{
+    } else {
       console.error('ERROR: should not have called goToNextState in the state your in.')
     }
   }
@@ -104,8 +104,8 @@ class App extends React.Component {
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this))
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
-    if(screen.width < 1000) {
+    document.addEventListener('keyup', this.handleKeyUp.bind(this))
+    if (screen.width < 1000) {
       this.setState({
         isDesktop: false
       })
@@ -114,12 +114,12 @@ class App extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
-    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this))
   }
 
   render() {
     // MENU
-    if(this.state.gameState === MENU){
+    if (this.state.gameState === MENU) {
       return (
           <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
             {loadAllAssets()}
@@ -129,17 +129,17 @@ class App extends React.Component {
     }
     // NAVIGATOR
     // document.getElementById('boxOne').click()
-    else if(this.state.isNavigator){
-      if(this.state.gameState === INTRO){
-        return(
+    else if (this.state.isNavigator){
+      if (this.state.gameState === INTRO){
+        return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       }
-      else if(this.state.gameState === INSTRUCTIONS){
-        return(
+      else if (this.state.gameState === INSTRUCTIONS){
+        return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.generalInstructions} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
-const FloatingUIPanel = (props) => (<Entity key={`panel-${props.panelId}-ui`} visible={props.solvedPhase1} id={`panel-${props.panelId}-ui`} position="0 1.1 -0.97" rotation="-60 0 0" scale="0.3 0.3 0.3">
+const FloatingUIPanel = (props) => (<Entity key={`panel-${props.panelId}-ui`} visible={props.isVisible} id={`panel-${props.panelId}-ui`} position="0 1.1 -0.97" rotation="-60 0 0" scale="0.3 0.3 0.3">
       <a-image mixin="image" src="#glow1" scale="5 5 5" position="0 0 -2">
         <a-animation attribute="visible" from="false" to="true" delay="1500" dur="1" fill="both"></a-animation>
       </a-image>

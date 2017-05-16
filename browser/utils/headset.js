@@ -35,7 +35,7 @@ const setUpDayDreamAudio = () => {
       if (isPressed) simulateSpaceBarPress(true) // Triggers start of recording
       clearInterval(interval)
     }, 100) // Tenth of a second to make sure we catch start of recorded sentence
-    remote.components.raycaster.intersectedEls && remote.components.raycaster.intersectedEls[0].emit('click')
+    remote.components.raycaster.intersectedEls.length && remote.components.raycaster.intersectedEls[0].emit('click')
   })
 
   document.addEventListener('buttonup', function() {

@@ -14,6 +14,7 @@ import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 import Failure from './failure'
+import {setUpRecording} from './audio'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel, generateSubmitButton} from './panels'
@@ -34,6 +35,16 @@ const setButtonPressedColor = (currentTarget) => {
 
  // DEBOUNCE --> call it on a func and it will return a func that only gets called once within time window
  // Throttle --> func and timer, only called with a particular frequency
+  if (currentTarget.className === 'button selectable') {
+    currentTarget.childNodes[1].setAttribute('material', {color: 'blue'})
+  }
+}
+
+const resetButtonPressedColors = () => {
+  const buttons = document.querySelectorAll('.button.selectable')
+  buttons.forEach(button => button.childNodes[1].setAttribute('material', {color: 'red'}))
+}
+
 const resetClickHandlers = (handleClick) => {
   var buttons = [].slice.call(document.getElementsByClassName('button'))
   buttons.forEach((button) => {
@@ -96,8 +107,8 @@ export default class Simulation extends React.Component {
     // this.stopInteriorRender()
   }
 
-  componentWillUnmount() {
-
+  componentDidMount() {
+    setUpRecording(this.props.isNavigator)
   }
 
   handleClick = (e) => {
@@ -108,6 +119,7 @@ export default class Simulation extends React.Component {
     const buttonId = e.currentTarget.id
     setButtonPressedColor(e.currentTarget)
     // e.currentTarget.removeEventListener('click', this.handleClick)
+    setButtonPressedColor(e.currentTarget)
     const typeOfwidget = e.currentTarget.className
     let nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
@@ -117,7 +129,8 @@ export default class Simulation extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    resetClickHandlers(this.handleClick)
+    // resetClickHandlers(this.handleClick)
+    resetButtonPressedColors()
     const module1 = 1
     const module2 = 2
     let solution

@@ -16,6 +16,7 @@ import {solution1, solution2, solution3} from './validation'
 import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
 import Failure from './failure'
 import {setUpRecording} from './audio'
+import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import {generatePanel, generateSubmitButton} from './panels'
@@ -23,24 +24,6 @@ import {generatePanel, generateSubmitButton} from './panels'
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
 import {getWarningLightOfColor} from './strike'
-
-const setButtonPressedColor = (currentTarget) => {
-  if (currentTarget.className === 'button selectable') {
-    currentTarget.childNodes[1].setAttribute('material', {color: 'blue'})
-  }
-}
-
-const resetButtonPressedColors = () => {
-  const buttons = document.querySelectorAll('.button.selectable')
-  buttons.forEach(button => button.childNodes[1].setAttribute('material', {color: 'red'}))
-}
-
-const resetClickHandlers = (handleClick) => {
-  var buttons = [].slice.call(document.getElementsByClassName('button'))
-  buttons.forEach((button) => {
-    button.addEventListener('click', handleClick)
-  })
-}
 
 export default class Simulation extends React.Component {
   constructor(props) {
@@ -86,21 +69,6 @@ export default class Simulation extends React.Component {
     this.setState({ radius: this.state.radius += 2})
   }
 
-  playSound() {
-
-  }
-
-  stopInteriorRender() {
-    this.setState({renderCockpit: false})
-  }
-
-  componentWillMount() {
-    if (this.state.renderCockpit) {
-      // Set interior's state here?
-    }
-    this.stopInteriorRender()
-  }
-
   componentDidMount() {
     setUpRecording(this.props.isNavigator)
   }
@@ -114,9 +82,8 @@ export default class Simulation extends React.Component {
     // e.currentTarget.removeEventListener('click', this.handleClick)
     setButtonPressedColor(e.currentTarget)
     const typeOfwidget = e.currentTarget.className
-    let nextState = _.cloneDeep(this.state)
+    const nextState = _.cloneDeep(this.state)
     nextState[panelId][moduleId].currentState.push({buttonId: buttonId, typeOfwidget: typeOfwidget})
-    console.log('NEW STATE', nextState)
     this.setState(nextState)
   }
 

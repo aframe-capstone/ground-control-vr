@@ -17,14 +17,12 @@ const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedCo
 }
 
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
-  const generateModuleName = (name) => {
-    return <Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>
-  }
+  const generateModuleName = (name) => (<Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>)
 
   const generateModule = (initialXCoord, initialYCoord, initialZCoord, moduleName, widgetNameSpecifiers) => {
     const widgets = []
     let iterator = 0
-    let length = initialXCoord + 3
+    const length = initialXCoord + 3
     for (var i = initialXCoord; i < length; i++) {
       widgets.push(getWidget(widgetNameSpecifiers.shift(), iterator, initialZCoord, 'red'))
       iterator+=0.3

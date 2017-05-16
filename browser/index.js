@@ -33,7 +33,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      gameState: MENU,
+      gameState: INSTRUCTIONS,
       isNavigator: false,
     }
     this.setRole = this.setRole.bind(this)

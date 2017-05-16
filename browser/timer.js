@@ -28,8 +28,9 @@ export default class Timer extends React.Component {
         this.props.increaseSunSize()
       }
 
-      if (timeRemaining < 0) {
+      if (timeRemaining <= 1) {
         clearInterval(timeInterval)
+        this.props.setTimeLeft(false)
       }
       timeRemaining--
       this.setState({timeRemaining})

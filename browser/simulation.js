@@ -75,19 +75,16 @@ export default class Simulation extends React.Component {
           currentState: []
         }
       },
-      timeRemaining: 0
+      timeLeft: true
     }
     this.increaseSunSize = this.increaseSunSize.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.setTimeLeft = this.setTimeLeft.bind(this)
   }
 
   increaseSunSize(){
     this.setState({ radius: this.state.radius += 2})
-  }
-
-  playSound() {
-
   }
 
   stopInteriorRender() {
@@ -152,6 +149,10 @@ export default class Simulation extends React.Component {
     }
   }
 
+  setTimeLeft(bool) {
+    this.setState({timeLeft:bool})
+  }
+
   render() {
     let solvedPhase1 = false
     if (this.state.currentPhase > 1) {
@@ -176,12 +177,12 @@ export default class Simulation extends React.Component {
         {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
         {generateSubmitButton(0, 3.31, 4.2, 'green', 'submit-button', this.handleSubmit, '#900')}
-        {getWarningLightOfColor(this.state.strikes)}
+        {getWarningLightOfColor(this.state.strikes, this.state.timeLeft)}
         {playSpaceshipAmbience()}
         {playSwitchOnSound()}
         {playSwitchOffSound()}
         <Sun radius ={this.state.radius}/>
-        <DriverCam increaseSunSize = {this.increaseSunSize} strikes={this.state.strikes} />
+        <DriverCam increaseSunSize ={this.increaseSunSize} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
       </Entity>
     )
   }

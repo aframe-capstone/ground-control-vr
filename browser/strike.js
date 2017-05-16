@@ -6,10 +6,11 @@ import { Entity } from 'aframe-react'
 
 // }
 
-export const getWarningLightOfColor = strikes => {
-  console.log('GET WARNING LIGHT OF COLOR');
-  console.log('STRIKES: ', strikes);
-  console.log('TYPE OF STRIJES:', typeof strikes)
+export const getWarningLightOfColor = (strikes, timeLeft) => {
+  // console.log('GET WARNING LIGHT OF COLOR');
+  // console.log('STRIKES: ', strikes);
+  // console.log('TYPE OF STRIJES:', typeof strikes)
+  if(!timeLeft) return
   switch (strikes) {
     case 2:
       return (

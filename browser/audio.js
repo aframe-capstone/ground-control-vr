@@ -38,6 +38,7 @@ const gotMedia = stream => {
 }
 
 const startRecording = () => {
+  if (!mediaRecorder) return // prevents triggering recorder while outside simulation
   if (!isRecording) {
     mediaRecorder.start()
     setTimeout(() => {
@@ -51,6 +52,7 @@ const startRecording = () => {
 }
 
 const stopRecording = () => {
+  if (!mediaRecorder) return // prevents triggering recorder while outside simulation
   if (isRecording) {
     delayEndRecording()
   } else {

@@ -1,7 +1,7 @@
 import { setupDataBase } from './firebase'
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
-import {convertDataStreamToAudioArrayBuffer} from './utils/audioUtils'
+import {convertDataStreamToAudioArrayBuffer, convertBinaryToTypedArray} from './utils/audioUtils'
 
 let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
 let fileReader // Globally available fileReader instance to convert binary string audio to buffer
@@ -81,10 +81,7 @@ const setupFileReader = (isNavigator) => {
 const listenForNewMessageAndPlay = (databaseReference) => {
   databaseReference.on('child_added', snapshot => {
     const newMessage = snapshot.val()
-    const typedArray = new Uint8Array(newMessage.length)
-    for (let i = 0; i < newMessage.length; i++) {
-      typedArray[i] = newMessage.charCodeAt(i)
-    }
+    const typedArray = convertBinaryToTypedArray(newMessage)
     if (audioQueue.length === 0 && !audioSourceIsPlaying) {
       playAudio(typedArray)
     } else {
@@ -187,6 +184,5 @@ const getMediaFromUser = () => (navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia)
-
 
 export {setUpRecording, mediaRecorder, startRecording, stopRecording}

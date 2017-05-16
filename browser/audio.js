@@ -16,8 +16,7 @@ const startRecording = () => {
   if (isRecording) { // FIX THIS
   } else {
     mediaRecorder.start()
-    interval = setInterval(() => {
-      clearInterval(interval)
+    setTimeout(() => {
       if (isRecording) {
         mediaRecorder.stop()
         isRecording = false
@@ -29,9 +28,6 @@ const startRecording = () => {
 
 const stopRecording = () => {
   if (isRecording) {
-    if (interval) {
-      clearInterval(interval)
-    }
     delayEndRecording()
   } else {
     console.log('trying to stop recording while not recording or outside sim')
@@ -40,10 +36,9 @@ const stopRecording = () => {
 
 // Prevents MediaRecorder from cutting off message transmission
 const delayEndRecording = () => {
-  var itvl = setInterval(() => {
+  setTimeout(() => {
     mediaRecorder.stop()
     isRecording = false
-    clearInterval(itvl)
   }, 400)
 }
 

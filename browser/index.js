@@ -36,8 +36,8 @@ class App extends React.Component {
     this.state = {
       inSim: false,
       spaceBarDown:false,
-      gameState: INGAME,
-      isNavigator: true,
+      gameState: MENU,
+      isNavigator: false,
     }
     this.setRole = this.setRole.bind(this)
     this.selectNavigator = this.selectNavigator.bind(this)

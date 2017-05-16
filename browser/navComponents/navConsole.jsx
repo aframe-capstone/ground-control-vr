@@ -40,6 +40,7 @@ updateDimensions() {
  }
 
  render(){
+   console.log(this.props, 'props');
     let pushToTalk =(<div className="preloader-wrapper small active">
             <div className="spinner-layer spinner-green-only">
               <div className="circle-clipper left">

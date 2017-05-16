@@ -96,7 +96,6 @@ class App extends React.Component {
 
   setRole(isNavigator) {
     this.setState({ isNavigator: isNavigator, gameState: INTRO })
-    setUpRecording(isNavigator)
   }
 
   setGameState(state) {

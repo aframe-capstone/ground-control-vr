@@ -1,7 +1,8 @@
 import { setupDataBase } from './firebase'
-import toBuffer from 'typedarray-to-buffer'
+
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
+import convertAudioToBinary from './utils/audioUtils'
 
 let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
 let fileReader // Globally available fileReader instance to convert binary string audio to buffer
@@ -66,9 +67,9 @@ const getMediaFromUser = () => (navigator.getUserMedia ||
 
 const listenForNewMessageAndPlay = (databaseReference) => {
   databaseReference.on('child_added', snapshot => {
-    var newMessage = snapshot.val()
-    var typedArray = new Uint8Array(newMessage.length)
-    for (var i=0; i < newMessage.length; i++) {
+    const newMessage = snapshot.val()
+    const typedArray = new Uint8Array(newMessage.length)
+    for (let i = 0; i < newMessage.length; i++) {
       typedArray[i] = newMessage.charCodeAt(i)
     }
     if (audioQueue.length === 0 && !audioSourceIsPlaying) {
@@ -79,29 +80,24 @@ const listenForNewMessageAndPlay = (databaseReference) => {
   })
 }
 
-const toArrayBuffer = (buf) => {
-  var arrayBuff = new ArrayBuffer(buf.length)
-  var view = new Uint8Array(arrayBuff)
-  for (var i = 0; i < buf.length; ++i) {
-    view[i] = buf[i]
-  }
-  return arrayBuff
+const onRecordingReady = (e) => {
+  convertAudioToBinary(e)
+}
+
+const toggleHUDIndicator = (indicatorName, turnOn) => {
+
 }
 
 const playAudio = (dataArr) => {
-  var audioBuff = toBuffer(dataArr)
-  var audioArrBuff = toArrayBuffer(audioBuff)
-  var source = audioContext.createBufferSource()
+  const audioArrBuff = convertDataStreamToAudioArrayBuffer(dataArr)
+  const source = audioContext.createBufferSource()
   // Event listener to play 'NASA Beep' at end of transmission
   source.onended = () => {
     NASABeep && NASABeep.play() // bulletproofing for VR headset
     audioSourceIsPlaying = false
     // Displays UI indicator if Driver
     if (transmissionIncomingIndicator) transmissionIncomingIndicator.setAttribute('visible', 'false')
-    if (audioQueue.length > 0) {
-      playAudio(audioQueue.shift())
-    }
-  }
+    if (audioQueue.length > 0) playAudio(audioQueue.shift())
 
   processRadioTransmission(audioContext, source)
 
@@ -117,15 +113,6 @@ const playAudio = (dataArr) => {
     .catch(err => console.error('DECODE AUDIO DATA THREW: ', err))
 }
 
-const convertAudioToBinary = (event) => {
-  const audioData = event.data
-  fileReader.readAsBinaryString(audioData)
-}
-
-const onRecordingReady = (e) => {
-  convertAudioToBinary(e)
-}
-
 const setUpRecording = isNavigator => {
   navigator.getUserMedia = getMediaFromUser()
 
@@ -136,6 +123,12 @@ const setUpRecording = isNavigator => {
   transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
   recordingIndicator = document.querySelector('#recordingIndicator')
 
+  registerEventListeners(isNavigator)
+
+  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
+}
+
+const registerEventListeners = (isNavigator) => {
   if (isNavigator) {
     listenForNewMessageAndPlay(driverMessagesDB)
   } else {
@@ -151,8 +144,6 @@ const setUpRecording = isNavigator => {
       driverMessagesDB.set({})
     }
   })
-
-  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
 }
 
 const gotMedia = stream => {

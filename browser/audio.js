@@ -18,26 +18,26 @@ let navigatorMessagesDB
 
 /* global firebase MediaRecorder location URL FileReader Blob */
 
+const setUpReferences = (roomName, isNavigator) => {
+  getUserMedia()
+  getDataBaseReferences(roomName)
+  getFileReader(isNavigator)
+  getAudioAndHUDNodes()
+}
+
 const setUpRecording = isNavigator => {
-  navigator.getUserMedia = getMediaFromUser()
-
   const roomName = location.hash.substring(1, location.hash.length)
-  driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
-  navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
-  fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
-  transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
-  recordingIndicator = document.querySelector('#recordingIndicator')
-
+  setUpReferences(roomName, isNavigator)
   registerDatabaseEventListeners(isNavigator)
-
-  navigator.getUserMedia({ audio: true }, gotMedia, err => { console.error(err) })
+  navigator.getUserMedia({ audio: true })
+    .then(stream => gotMedia(stream))
+    .catch(err => { console.error(err) })
 }
 
 const gotMedia = stream => {
   mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
   registerMediaRecorderEventListeners(mediaRecorder)
 }
-
 
 const startRecording = () => {
   if (!isRecording) {
@@ -138,8 +138,6 @@ const playAudio = (dataArr) => {
     .catch(err => console.error('DECODE AUDIO DATA THREW: ', err))
 }
 
-
-
 const registerDatabaseEventListeners = (isNavigator) => {
   if (isNavigator) {
     listenForNewMessageAndPlay(driverMessagesDB)
@@ -170,6 +168,26 @@ const registerMediaRecorderEventListeners = (mediaRecorderInstance) => {
     toggleHUDIndicatorVisible(recordingIndicator, false)
   }
   mediaRecorderInstance.addEventListener('dataavailable', onRecordingReady)
+}
+
+/* SETUP */
+
+const getAudioAndHUDNodes = () => {
+  transmissionIncomingIndicator = document.querySelector('#transmissionIncomingIndicator')
+  recordingIndicator = document.querySelector('#recordingIndicator')
+}
+
+const getUserMedia = () => {
+  navigator.getUserMedia = getMediaFromUser()
+}
+
+const getFileReader = (isNavigator) => {
+  fileReader = setupFileReader(isNavigator, navigatorMessagesDB, driverMessagesDB)
+}
+
+const getDataBaseReferences = (roomName) => {
+  driverMessagesDB = setupDataBase(`${roomName}/Driver_Messages`)
+  navigatorMessagesDB = setupDataBase(`${roomName}/Navigator_Messages/`)
 }
 
 export {setUpRecording, mediaRecorder, startRecording, stopRecording}

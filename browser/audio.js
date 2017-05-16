@@ -1,7 +1,6 @@
 import { setupDataBase } from './firebase'
 import toBuffer from 'typedarray-to-buffer'
 import processRadioTransmission from './processRadioTransmission'
-import $ from 'jquery'
 import audioContext from './audioContext'
 
 /* global firebase MediaRecorder location URL FileReader Blob */
@@ -13,7 +12,7 @@ const audioQueue = []
 var audioSourceIsPlaying = false // Used to prevent message overlap
 
 const startRecording = () => {
-  if (isRecording) { // FIX THIS
+  if (isRecording) {
   } else {
     mediaRecorder.start()
     setTimeout(() => {
@@ -137,7 +136,7 @@ const setUpRecording = isNavigator => {
       if (recordingIndicator) recordingIndicator.setAttribute('visible', 'false')
     }
 
-    $(window).on('beforeunload', () => {
+    window.addEventListener('beforeunload', () => {
       if (isNavigator) {
         navigatorMessagesDB.set({})
         driverMessagesDB.set({})

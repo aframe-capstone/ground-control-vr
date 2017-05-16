@@ -30,6 +30,17 @@ li{
 
 }
 
+body{
+  background:black;
+}
+
+#indicator{
+  position:absolute;
+
+  top: 350px;
+  left:0px;
+}
+
 .img-text{
   position:absolute;
   top:20px;
@@ -207,9 +218,7 @@ li{
   color: #ff2331;
   font-size: 10px;
   margin: 80px auto;
-  position: relative;
-  top: 220px;
-  left:-60px;
+
   text-indent: -9999em;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);

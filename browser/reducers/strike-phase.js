@@ -4,6 +4,7 @@ const SET_STRIKE = 'SET_STRIKE'
 const SET_PHASE = 'SET_PHASE'
 const SET_NAVIGATOR_STATUS = 'SET_NAVIGATOR_STATUS'
 const SET_DRIVER_STATUS = 'SET_DRIVER_STATUS'
+const SPACE_BAR_DOWN = 'SPACE_BAR_DOWN'
 
 // #### INITIAL STATE #### //
 const initialPhaseStrike  = {
@@ -11,6 +12,7 @@ const initialPhaseStrike  = {
   strikes: 0,
   navigatorStatus: false,
   driverStatus: false,
+  spaceBarDown:false,
 }
 
 // #### ACTION CREATORS #### //
@@ -43,6 +45,11 @@ export const setDriverStatus = driverStatus => ({
   driverStatus
 })
 
+export const setSpaceBar = spaceBarDown =>({
+  type: SPACE_BAR_DOWN,
+  spaceBarDown
+})
+
 // #### REDUCER #### //
 
 export default function (state = initialPhaseStrike, action) {
@@ -72,7 +79,11 @@ export default function (state = initialPhaseStrike, action) {
     case SET_DRIVER_STATUS:
       newState.driverStatus = action.driverStatus
       break;
-      
+
+    case SPACE_BAR_DOWN:
+    newState.spaceBarDown= action.spaceBarDown
+    break;
+
     default:
       return state
   }

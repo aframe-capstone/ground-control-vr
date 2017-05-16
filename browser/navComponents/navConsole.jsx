@@ -15,37 +15,14 @@ export default class NavConsole extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      spaceBarDown:false,
       height: window.innerHeight,
       tabSelected:'rules',
     }
-    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.selectTab = this.selectTab.bind(this)
   }
 
   selectTab(id){
    this.setState({tabSelected: id})
-  }
-
-
-  handleKeyDown(e){
-    switch (e.keyCode) {
-    case SPACE_BAR:
-      this.setState({spaceBarDown: true})
-      break
-    default:
-      break
-    }
-  }
-
-  handleKeyUp(e) {
-    switch (e.keyCode) {
-    case SPACE_BAR:
-      this.setState({spaceBarDown: false})
-      break
-    default:
-      break
-    }
   }
 
 updateDimensions() {
@@ -62,13 +39,7 @@ updateDimensions() {
      window.removeEventListener("resize", this.updateDimensions.bind(this));
  }
 
-
-
-
-
-
-  render(){
-    {console.log(this.state, 'state', this.props, 'props')}
+ render(){
     let pushToTalk =(<div className="preloader-wrapper small active">
             <div className="spinner-layer spinner-green-only">
               <div className="circle-clipper left">
@@ -105,7 +76,7 @@ updateDimensions() {
             <NavContent tabSelected={this.state.tabSelected}/>
           </div>
 
-            {this.props.spaceBarDown ? <div style={{background:'black'}}>
+            {this.props.spaceBarDown ? <div id='indicator' style={{background:'none'}}>
               <div className="loader"></div>
               <div style={{fontSize:'15px', fontColor:'red'}}> Message Recording...</div>
             </div> : null}

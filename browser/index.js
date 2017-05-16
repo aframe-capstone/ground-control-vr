@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import Simulation from './simulation'
 import SimulationContainer from './container/Simulation'
 import Menu from './menu'
-import Navigator from './navComponents/navigator'
+import NavigatorContainer from './container/NavConsole.jsx'
 import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
 import Intro from './intro.jsx'
 import introText from './introText.js'
@@ -17,9 +17,10 @@ import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
 import {ViveControllerLeft, ViveControllerRight} from './viveController'
 import store from './store.jsx'
-import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
+import { setNavigatorStatus, setDriverStatus} from './reducers/strike-phase.js'
 //import controllerComponent from 'aframe-daydream-controller-component'
 import setUpDayDreamAudio from './utils/headset'
+
 
 const SPACE_BAR = 32
 const MENU = 1
@@ -35,8 +36,8 @@ class App extends React.Component {
     this.state = {
       inSim: false,
       spaceBarDown:false,
-      gameState: MENU,
-      isNavigator: false,
+      gameState: INGAME,
+      isNavigator: true,
     }
     this.setRole = this.setRole.bind(this)
     this.selectNavigator = this.selectNavigator.bind(this)
@@ -80,7 +81,12 @@ class App extends React.Component {
     switch (e.keyCode) {
     case SPACE_BAR:
       startRecording()
-      break
+      store.dispatch({
+        type:'SPACE_BAR_DOWN',
+        spaceBarDown: true
+
+      })
+      break;
     default:
       break
     }
@@ -90,7 +96,11 @@ class App extends React.Component {
     switch (e.keyCode) {
     case SPACE_BAR:
       stopRecording()
-      break
+      store.dispatch({
+        type:'SPACE_BAR_DOWN',
+        spaceBarDown: false
+      })
+      break;
     default:
       break
     }
@@ -146,7 +156,7 @@ class App extends React.Component {
       }
       else if(this.state.gameState === INGAME){
         return (
-            <Navigator spaceBarDown={this.spaceBarDown} isNavigator={this.state.isNavigator}/>
+            <NavigatorContainer/>
         )
       }
     }

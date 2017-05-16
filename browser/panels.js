@@ -5,6 +5,7 @@ const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedCo
   return (<Entity
             id='submit-button'
             key={`submit-button`}
+            rotation={{x: -90, y: 0, z: 0}}
             class={`${className} selectable`}
             scale={{x: 1.2, y: 1.2, z: 1.2}}
             events={{click: handleSubmit}}

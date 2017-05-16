@@ -71,10 +71,6 @@ export default class Simulation extends React.Component {
     this.setState({radius: this.state.radius += 2})
   }
 
-  componentDidMount() {
-    setUpRecording(this.props.isNavigator)
-  }
-
   handleClick(e) {
     stopDefaultAndPropagation(e)
     const panelId = e.currentTarget.parentElement.parentElement.id
@@ -124,6 +120,10 @@ export default class Simulation extends React.Component {
     newState[this.state.currentPhase][MODULE_ONE].currentState = []
     newState[this.state.currentPhase][MODULE_TWO].currentState = []
     return newState
+  }
+
+  componentDidMount() {
+    setUpRecording(this.props.isNavigator)
   }
 
   render() {

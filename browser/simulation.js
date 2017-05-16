@@ -13,7 +13,7 @@ import Sun from './sun'
 import {DriverCam} from './cameras'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
-import {playSpaceshipAmbience, playSwitchOnSound, playSwitchOffSound} from './soundEffects'
+import {playSpaceshipAmbience} from './soundEffects'
 import Failure from './failure'
 import {setUpRecording} from './audio'
 import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
@@ -65,8 +65,8 @@ export default class Simulation extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  increaseSunSize(){
-    this.setState({ radius: this.state.radius += 2})
+  increaseSunSize() {
+    this.setState({radius: this.state.radius += 2})
   }
 
   componentDidMount() {
@@ -79,7 +79,6 @@ export default class Simulation extends React.Component {
     const panelId = e.currentTarget.parentElement.parentElement.id
     const moduleId = e.currentTarget.parentElement.id
     const buttonId = e.currentTarget.id
-    // e.currentTarget.removeEventListener('click', this.handleClick)
     setButtonPressedColor(e.currentTarget)
     const typeOfwidget = e.currentTarget.className
     const nextState = _.cloneDeep(this.state)
@@ -104,14 +103,14 @@ export default class Simulation extends React.Component {
     }
     if (_.isEqual(this.state[this.state.currentPhase], solution)) {
       this.props.addPhase()
-      let newState = _.cloneDeep(this.state)
+      const newState = _.cloneDeep(this.state)
       newState[this.state.currentPhase][module1].currentState = []
       newState[this.state.currentPhase][module2].currentState = []
       newState.currentPhase++
       this.setState(newState)
     } else {
       this.props.addStrike()
-      let newState = _.cloneDeep(this.state)
+      const newState = _.cloneDeep(this.state)
       newState[this.state.currentPhase][module1].currentState = []
       newState[this.state.currentPhase][module2].currentState = []
       newState.strikes++
@@ -145,8 +144,6 @@ export default class Simulation extends React.Component {
         {generateSubmitButton(0, 3.31, 4.2, 'green', 'submit-button', this.handleSubmit, '#900')}
         {getWarningLightOfColor(this.state.strikes)}
         {playSpaceshipAmbience()}
-        {playSwitchOnSound()}
-        {playSwitchOffSound()}
         <Sun radius ={this.state.radius}/>
         <DriverCam increaseSunSize = {this.increaseSunSize} strikes={this.state.strikes} />
       </Entity>

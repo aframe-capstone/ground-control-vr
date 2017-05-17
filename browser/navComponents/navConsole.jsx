@@ -17,13 +17,40 @@ export default class NavConsole extends React.Component{
     this.state={
       height: window.innerHeight,
       tabSelected:'rules',
+      spaceBarDown: false,
     }
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.selectTab = this.selectTab.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
   }
 
   selectTab(id){
    this.setState({tabSelected: id})
   }
+
+  handleKeyDown(e) {
+    switch (e.keyCode) {
+    case SPACE_BAR:
+      this.setState({spaceBarDown:true})
+      break;
+    default:
+      break
+    }
+  }
+
+  handleKeyUp(e) {
+    switch (e.keyCode) {
+    case SPACE_BAR:
+      this.setState({spaceBarDown:false})
+      break;
+    default:
+      break
+    }
+  }
+
+
+
+
 
 updateDimensions() {
      this.setState({height: window.innerHeight});
@@ -31,13 +58,18 @@ updateDimensions() {
 
  componentWillMount() {
      this.updateDimensions();
+     document.addEventListener('keydown',this.handleKeyDown.bind(this));
+     document.addEventListener('keyup', this.handleKeyUp.bind(this));
  }
  componentDidMount(){
      window.addEventListener("resize", this.updateDimensions.bind(this));
+
  }
  componentWillUnmount() {
      window.removeEventListener("resize", this.updateDimensions.bind(this));
- }
+     document.removeEventListener('keydown', this.handleKeyDown.bind(this));
+     document.removeEventListener('keyup', this.handleKeyUp.bind(this))
+}
 
  render(){
    console.log(this.props, 'props');
@@ -56,7 +88,6 @@ updateDimensions() {
     return(
       <div className ='navContainer' style={{height: this.state.height}}>
         <link rel='stylesheet' type='text/css' href='aframe.css'/>
-        <link href="path/to/react-activity.css" />
         <div className='row1'>
            <div className='widget' id='clock' style={{flex:1}}>
               <div> Time until Impact</div>
@@ -77,7 +108,7 @@ updateDimensions() {
             <NavContent tabSelected={this.state.tabSelected}/>
           </div>
 
-            {this.props.spaceBarDown ? <div id='indicator' style={{background:'none'}}>
+            {this.state.spaceBarDown ? <div id='indicator' style={{background:'none'}}>
               <div className="loader"></div>
               <div style={{fontSize:'15px', color:'red'}}> Message Recording...</div>
             </div> : null}

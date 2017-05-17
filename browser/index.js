@@ -81,11 +81,6 @@ class App extends React.Component {
     switch (e.keyCode) {
     case SPACE_BAR:
       startRecording()
-      store.dispatch({
-        type:'SPACE_BAR_DOWN',
-        spaceBarDown: true
-
-      })
       break;
     default:
       break
@@ -96,10 +91,6 @@ class App extends React.Component {
     switch (e.keyCode) {
     case SPACE_BAR:
       stopRecording()
-      store.dispatch({
-        type:'SPACE_BAR_DOWN',
-        spaceBarDown: false
-      })
       break;
     default:
       break

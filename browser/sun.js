@@ -3,7 +3,7 @@ import {Entity, Animation} from 'aframe-react'
 
 class Sun extends React.Component {
   render() {
-    let rayRatio = 4
+    const rayRatio = 4
     return (<Entity id="Sun"
       primitive="a-sphere"
       material={{

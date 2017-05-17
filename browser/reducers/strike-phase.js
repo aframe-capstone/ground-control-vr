@@ -11,7 +11,6 @@ const initialPhaseStrike  = {
   strikes: 0,
   navigatorStatus: false,
   driverStatus: false,
-  spaceBarDown:false,
 }
 
 // #### ACTION CREATORS #### //

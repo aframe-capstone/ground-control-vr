@@ -3,7 +3,6 @@ import {Row, Navbar, NavItem} from 'react-materialize'
 import Rules from './rules.jsx'
 import Panels from './navinstrucpanels.jsx'
 import {panel1, panel2, panel3} from '../panelData.js'
-console.log(panel1, panel2, panel3);
 
 export default class  NavigationBar extends React.Component{
   constructor(props){
@@ -11,7 +10,6 @@ export default class  NavigationBar extends React.Component{
   }
 
 render(){
-    {console.log(this.props.tabSelected, 'tab select')}
 return(
 
   <div>

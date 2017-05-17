@@ -9,7 +9,6 @@ const mapStateToProps = state => ({
   strikes: state.strikes,
   driverStatus: state.driverStatus,
   navigatorStatus: state.navigatorStatus,
-  spaceBarDown: state.spaceBarDown,
   setUpRecording: setUpRecording(state.navigatorStatus)
 })
 
@@ -17,7 +16,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setSpaceBar:() => (dispatch(setSpaceBar()))
-
 })
 
 

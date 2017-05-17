@@ -35,7 +35,7 @@ const DriverCam = props => {
           <TransmissionIncoming />
           <RecordingIndicator />
           {endGameScreen || <Timer phase={props.phase}
-                                increaseSunSize={props.increaseSunSize}
+                                moveSunCloser={props.moveSunCloser}
                                 setTimeLeft={props.setTimeLeft}/>}
       </Entity>
     </Entity>

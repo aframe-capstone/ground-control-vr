@@ -1,23 +1,22 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
+// Exports all assets as array, rendered on applications top level
 export default () => (
   [loadModels(),
-  loadTextures(),
-  loadSoundAmbient(),
-  loadSoundEffects(),
-  loadFonts(),
-  loadUIElements(),
-  loadVideos()]
+    loadTextures(),
+    loadSoundAmbient(),
+    loadSoundEffects(),
+    loadFonts(),
+    loadUIElements(),
+    loadVideos()]
 )
 
-const loadFonts = () => {
-  return (
+const loadFonts = () => (
     <Entity primitive="a-assets" key="fonts">
       <a-asset-item primitive="a-assets" key="fonts" id="moduleFont" src='assets/Virgo.json'/>
     </Entity>
   )
-}
 
 const loadModels = () => (
   <Entity primitive="a-assets" key="spaceShipAssets">
@@ -25,7 +24,7 @@ const loadModels = () => (
     <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
     <a-asset-item id="viveObj" src="assets/vive/vive.obj" />
     <a-asset-item id="viveMtl" src="assets/vive/vive.mtl" />
-    <a-asset-item timeout="10000" loaded = {function(){console.log('loadedXX');}} id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
+    <a-asset-item timeout="10000" loaded = {() => { console.log('Loaded spaceship model') }} id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
   </Entity>
 )
 

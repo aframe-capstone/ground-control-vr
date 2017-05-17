@@ -1,5 +1,5 @@
 const introText = {
-  driverIntro : `Hello Pilot!\n
+  driverIntro: `Hello Pilot!\n
   We received your transmission for help. We'll patch you to an operator in a moment.\n
   Follow instructions from our operator to get your ship working again. Stay calm and don't waste time!\n
   *Click Text Anywhere To Continue*`,

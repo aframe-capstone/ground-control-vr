@@ -105,7 +105,11 @@ class App extends React.Component {
       return (
           <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
             {loadAllAssets()}
-            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole} isDesktop={this.state.isDesktop}/>
+            <Menu inSim={this.state.inSim}
+              selectDriver={this.selectDriver}
+              selectNavigator={this.selectNavigator}
+              setRole={this.setRole}
+              isDesktop={this.state.isDesktop}/>
           </Scene>
       )
     } else if (this.state.isNavigator) {
@@ -113,14 +117,18 @@ class App extends React.Component {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
+              <Intro text={introText.navigatorIntro}
+                goToNextState={this.goToNextState}
+                isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       } else if (this.state.gameState === INSTRUCTIONS) {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.generalInstructions} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
+              <Intro text={introText.generalInstructions}
+                goToNextState={this.goToNextState}
+                isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       } else if (this.state.gameState === INGAME) {

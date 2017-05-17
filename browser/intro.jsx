@@ -7,8 +7,8 @@ import Tutorial from './tutorial.js'
 import UserCam from './userCam.jsx'
 
 const driverIntro = `Hello space pilot ...\n
-We recieved your transmission for help from ground control. We\'ll patch you to an operator in a moment.\n
-You\'ll need to follow instructions from our operator to get your ship functional again. Stay calm and don\'t crash into the sun!\n
+We recieved your transmission for help from ground control. We'll patch you to an operator in a moment.\n
+You'll need to follow instructions from our operator to get your ship functional again. Stay calm and don't crash into the sun!\n
 *Click Text Anywhere To Continue*`
 
 export default class Intro extends React.Component {
@@ -31,7 +31,7 @@ export default class Intro extends React.Component {
         class='selectable'
         events={{click: this.props.goToNextState}}
         position={{x: 0, y: 1.75, z: -1.75}}
-        scale={{x:2, y:2, z:2}}
+        scale={{x: 2, y: 2, z: 2}}
         text={{
           font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt',
           value: this.props.text,

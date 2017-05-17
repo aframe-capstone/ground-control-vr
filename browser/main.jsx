@@ -6,9 +6,6 @@ import {connect, Provider} from 'react-redux'
 import App from './index.js'
 import store from './store.jsx'
 
-
-render(
-      <Provider store={store}>
-          <App />
-      </Provider>, document.getElementById('sceneContainer')
-       )
+render(<Provider store={store}>
+        <App />
+      </Provider>, document.getElementById('sceneContainer'))

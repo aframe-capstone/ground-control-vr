@@ -6,10 +6,10 @@ const processRadioTransmission = (audioContext, audioSource) => {
 
   // Filters out high and low freqs
   var filter = new tuna.Filter({
-    frequency: 440, //20 to 22050
-    Q: 80, //0.001 to 100
-    gain: 0, //-40 to 40 (in decibels)
-    filterType: "bandpass", //lowpass, highpass, bandpass, lowshelf, highshelf, peaking, notch, allpass
+    frequency: 440,
+    Q: 80,
+    gain: 0,
+    filterType: 'bandpass',
     bypass: 0
   })
 

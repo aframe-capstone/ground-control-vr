@@ -18,13 +18,9 @@ import { startSyncingPhaseAndStrikes } from './firebase'
 import store from './store.jsx'
 import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
 import 'aframe-daydream-controller-component'
+import stopDefaultAndPropagation from './utils/events'
 import setUpDayDreamAudio from './utils/headset'
-
-const SPACE_BAR = 32
-const MENU = 1
-const INTRO = 2
-const INSTRUCTIONS = 3
-const INGAME = 4
+import {SPACE_BAR, MENU, INTRO, INSTRUCTIONS, INGAME} from './utils/constants'
 
 setUpDayDreamAudio()
 
@@ -48,8 +44,7 @@ class App extends React.Component {
 
   selectNavigator(e) {
     if (this.state.gameState !== MENU) return // Blocks mysterious event handler from Menu from invoking in other views
-    e.stopPropagation()
-    e.preventDefault()
+    stopDefaultAndPropagation(e)
     this.setRole(true)
     startSyncingPhaseAndStrikes(true)
     store.dispatch(setNavigatorStatus(true))
@@ -57,8 +52,7 @@ class App extends React.Component {
 
   selectDriver(e) {
     if (this.state.gameState !== MENU) return // Blocks mysterious event handler from Menu from invoking in other views
-    e.stopPropagation()
-    e.preventDefault()
+    stopDefaultAndPropagation(e)
     this.setRole(false)
     startSyncingPhaseAndStrikes(false)
     store.dispatch(setDriverStatus(true))
@@ -77,23 +71,12 @@ class App extends React.Component {
   }
 
   handleKeyDown(e) {
-    switch (e.keyCode) {
-    case SPACE_BAR:
-      startRecording()
-      break;
-    default:
-      break
-    }
+
+    if (e.keyCode === SPACE_BAR) startRecording()
   }
 
   handleKeyUp(e) {
-    switch (e.keyCode) {
-    case SPACE_BAR:
-      stopRecording()
-      break;
-    default:
-      break
-    }
+    if (e.keyCode === SPACE_BAR) stopRecording()
   }
 
   setRole(isNavigator) {
@@ -126,55 +109,53 @@ class App extends React.Component {
       return (
           <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
             {loadAllAssets()}
-            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole} isDesktop={this.state.isDesktop}/>
+            <Menu inSim={this.state.inSim}
+              selectDriver={this.selectDriver}
+              selectNavigator={this.selectNavigator}
+              setRole={this.setRole}
+              isDesktop={this.state.isDesktop}/>
           </Scene>
       )
-    }
-    // NAVIGATOR
-    // document.getElementById('boxOne').click()
-    else if (this.state.isNavigator){
-      if (this.state.gameState === INTRO){
+    } else if (this.state.isNavigator) {
+      if (this.state.gameState === INTRO) {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
+              <Intro text={introText.navigatorIntro}
+                goToNextState={this.goToNextState}
+                isDesktop={this.state.isDesktop}/>
             </Scene>
         )
-      }
-      else if (this.state.gameState === INSTRUCTIONS){
+      } else if (this.state.gameState === INSTRUCTIONS) {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.generalInstructions} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
+              <Intro text={introText.generalInstructions}
+                goToNextState={this.goToNextState}
+                isDesktop={this.state.isDesktop}/>
             </Scene>
         )
-      }
-      else if(this.state.gameState === INGAME){
+      } else if (this.state.gameState === INGAME) {
         return (
             <NavigatorContainer isNavigator={this.state.isNavigator}/>
         )
       }
-    }
-    // DRIVER
-    // document.getElementById('boxTwo').click()
-    else if(!this.state.isNavigator){
-      if(this.state.gameState === INTRO){
+    } else if (!this.state.isNavigator) {
+      if (this.state.gameState === INTRO) {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.driverIntro} goToNextState={this.goToNextState}/>
             </Scene>
         )
-      }
-      else if(this.state.gameState === INSTRUCTIONS){
+      } else if (this.state.gameState === INSTRUCTIONS) {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
               <Intro text={introText.generalInstructions} goToNextState={this.goToNextState}/>
             </Scene>
         )
-      }
-      else if(this.state.gameState === INGAME){
+      } else if (this.state.gameState === INGAME) {
         return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
@@ -189,7 +170,6 @@ class App extends React.Component {
       )
     }
   }
-
 }
 
 export default App

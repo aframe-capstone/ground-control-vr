@@ -31,7 +31,7 @@ export default class Simulation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      radius: 0,
+      distance: 320,
       renderCockpit: true,
       cockpit: [],
       strikes: this.props.strikes,
@@ -62,14 +62,14 @@ export default class Simulation extends React.Component {
       },
       timeLeft: true
     }
-    this.increaseSunSize = this.increaseSunSize.bind(this)
+    this.moveSunCloser = this.moveSunCloser.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.setTimeLeft = this.setTimeLeft.bind(this)
   }
 
-  increaseSunSize() {
-    this.setState({radius: this.state.radius += 2})
+  moveSunCloser() {
+    if (this.state.distance > 55) this.setState({distance: this.state.distance -= 10})
   }
 
   componentDidMount() {
@@ -159,8 +159,12 @@ export default class Simulation extends React.Component {
           ? getWarningLightOfColor(null, null, true)
           : getWarningLightOfColor(this.state.strikes, this.state.timeLeft)}
         <SpaceshipAmbience />
-        <Sun radius ={this.state.radius}/>
-        <DriverCam increaseSunSize={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
+        <Sun distance={this.state.distance} />
+        <DriverCam movesunCloser={this.movesunCloser}
+          phase={this.state.currentPhase}
+          strikes={this.state.strikes}
+          setTimeLeft={this.setTimeLeft}
+          timeLeft={this.state.timeLeft} />
       </Entity>
     )
   }

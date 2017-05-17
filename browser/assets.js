@@ -14,7 +14,10 @@ export default () => (
 
 const loadFonts = () => (
     <Entity primitive="a-assets" key="fonts">
-      <a-asset-item primitive="a-assets" key="fonts" id="moduleFont" src='assets/Virgo.json'/>
+      <a-asset-item primitive="a-assets"
+        key="fonts"
+        id="moduleFont"
+        src='assets/Virgo.json'/>
     </Entity>
   )
 
@@ -24,7 +27,10 @@ const loadModels = () => (
     <a-asset-item id="sunRaysTwo" src="assets/sunrays/sun_rays2.dae" />
     <a-asset-item id="viveObj" src="assets/vive/vive.obj" />
     <a-asset-item id="viveMtl" src="assets/vive/vive.mtl" />
-    <a-asset-item timeout="10000" loaded = {() => { console.log('Loaded spaceship model') }} id="cockpit" src="assets/cockpit/cockpit-05_obj.obj" />
+    <a-asset-item timeout="10000"
+      loaded = {() => { console.log('Loaded spaceship model') }}
+      id="cockpit"
+      src="assets/cockpit/cockpit-05_obj.obj" />
   </Entity>
 )
 
@@ -78,6 +84,6 @@ const loadSoundAmbient = () => (
 
 const loadVideos = () => (
   <Entity primitive="a-assets" key="videos">
-    {/*<video id="sample-video" autoPlay="true" loop="false" src="assets/videos/small.mp4"></video>*/}
+    {/* <video id="sample-video" autoPlay="true" loop="false" src="assets/videos/small.mp4"></video> */}
   </Entity>
 )

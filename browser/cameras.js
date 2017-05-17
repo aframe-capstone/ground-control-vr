@@ -6,6 +6,7 @@ import RecordingIndicator from './recordingIndicator'
 import Failure from './failure'
 import Success from './success.jsx'
 import './utils/fps-cursor'
+import DayDreamController from './components/dayDreamController'
 
 const navigatorCam = (<Entity
   position="0 20 0"
@@ -26,23 +27,16 @@ const DriverCam = props => {
 
   return (
     <Entity id='driverCamera' position="0 2.5 2" >
-      <a-entity id="daydream" daydream-controller raycaster="objects: .selectable; recursive: true">
-        <a-cone id='ray'
-          color='cyan'
-          position='0 0 -2'
-          rotation='-90 0 0'
-          radius-bottom='0.005'
-          radius-top='0.001'
-          height='4' />
-        <a-box id='position-guide' visible='false' position='0 0 -2' />
-      </a-entity>
+      <DayDreamController />
     <Entity fence="width: 3; depth: 4; x0: 0; z0: 0"
       primitive="a-camera"
       fps-look-controls
       wasd-controls-enabled="true">
         <TransmissionIncoming />
         <RecordingIndicator />
-        {endGameScreen || <Timer phase={props.phase} increaseSunSize={props.increaseSunSize} setTimeLeft={props.setTimeLeft}/>}
+        {endGameScreen || <Timer phase={props.phase}
+                              increaseSunSize={props.increaseSunSize}
+                              setTimeLeft={props.setTimeLeft}/>}
     </Entity>
     </Entity>
   )

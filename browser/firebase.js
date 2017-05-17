@@ -2,9 +2,9 @@ import store from './store.jsx'
 import {setStrike, setPhase, setDriverStatus, setNavigatorStatus} from './reducers/strike-phase.js'
 import $ from 'jquery'
 
-
 // FIREBASE MODULE
-/* global firebase */
+/* global firebase location */
+
 var config = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
@@ -18,7 +18,7 @@ firebase.initializeApp(config)
 console.log('FIREBASE initialized')
 export const setupDataBase = (referenceString) => firebase.database().ref(referenceString)
 
-const roomName = location.hash.substring(1, location.hash.length) 
+const roomName = location.hash.substring(1, location.hash.length)
 const strikesDB = setupDataBase(`${roomName}/strikes`)
 const phaseDB = setupDataBase(`${roomName}/phase`)
 const navigatorStatusDB = setupDataBase(`${roomName}/navigatorStatus`)
@@ -33,40 +33,38 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
     strikesDB.set(currentStrikes)
     phaseDB.set(currentPhase)
     driverStatusDB.set(true)
-        
+
     const handleChange = () => {
       let previousStrikes = currentStrikes
       let previousPhase = currentPhase
       let state = store.getState()
       let currentStrikes = state.strikes
-      let currentPhase = state.phase 
+      let currentPhase = state.phase
 
       if (previousStrikes !== currentStrikes) {
         strikesDB.set(currentStrikes)
         // console.log('Strikes changed from', previousStrikes, 'to', currentStrikes)
       }
-      if(previousPhase !== currentPhase) {
-        // console.log('Phase changed from', previousPhase, 'to', currentPhase)    
+      if (previousPhase !== currentPhase) {
+        // console.log('Phase changed from', previousPhase, 'to', currentPhase)
         phaseDB.set(currentPhase)
       }
     }
     const unsubscribe = store.subscribe(handleChange)
-    
+
     navigatorStatusDB.on('value', (snapshot) => {
       const navigatorStatus = snapshot.val()
-      if(navigatorStatus){
+      if (navigatorStatus) {
         store.dispatch(setNavigatorStatus(true))
-      }
-      else{
+      } else {
         store.dispatch(setNavigatorStatus(false))
       }
     })
 
     // Set status on exit
-    $(window).on('beforeunload',() => {
+    $(window).on('beforeunload', () => {
       driverStatusDB.set(false)
     })
-
   } else {
     // NAVIGATOR READONLY
     navigatorStatusDB.set(true)
@@ -77,7 +75,7 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
       let currentStrikes = state.strikes
       // console.log('CURRENT STRIKES: ', currentStrikes)
       // console.log('DB STRIKES: ', DBStrikes)
-      if(currentStrikes !== DBStrikes){
+      if (currentStrikes !== DBStrikes) {
         // console.log('INCREMENTING STRIKES')
         store.dispatch(setStrike(DBStrikes))
       }
@@ -91,7 +89,7 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
       const DBPhase = snapshot.val()
       // console.log('DB PHASE: ', DBPhase)
 
-      if(currentPhase !== DBPhase){
+      if (currentPhase !== DBPhase) {
         // console.log('INCREMENTING PHASE')
         store.dispatch(setPhase(DBPhase))
       }
@@ -99,20 +97,16 @@ export const startSyncingPhaseAndStrikes = isNavigator => {
 
     driverStatusDB.on('value', (snapshot) => {
       const driverStatus = snapshot.val()
-      if(driverStatus){
+      if (driverStatus) {
         store.dispatch(setDriverStatus(true))
-      }
-      else{
+      } else {
         store.dispatch(setDriverStatus(false))
       }
     })
 
     // Set status on exit
-    $(window).on('beforeunload',() => {
-      navigatorStatusDB.set(false)      
+    $(window).on('beforeunload', () => {
+      navigatorStatusDB.set(false)
     })
   }
 }
-
-
-

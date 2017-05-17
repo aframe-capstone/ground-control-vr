@@ -159,8 +159,12 @@ export default class Simulation extends React.Component {
           ? getWarningLightOfColor(null, null, true)
           : getWarningLightOfColor(this.state.strikes, this.state.timeLeft)}
         <SpaceshipAmbience />
-        <Sun radius ={this.state.radius}/>
-        <DriverCam increaseSunSize={this.increaseSunSize} phase={this.state.currentPhase} strikes={this.state.strikes} setTimeLeft={this.setTimeLeft} timeLeft={this.state.timeLeft}/>
+        <Sun radius={this.state.radius} />
+        <DriverCam increaseSunSize={this.increaseSunSize}
+          phase={this.state.currentPhase}
+          strikes={this.state.strikes}
+          setTimeLeft={this.setTimeLeft}
+          timeLeft={this.state.timeLeft} />
       </Entity>
     )
   }

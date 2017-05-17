@@ -28,16 +28,16 @@ const DriverCam = props => {
   return (
     <Entity id='driverCamera' position="0 2.5 2" >
       <DayDreamController />
-    <Entity fence="width: 3; depth: 4; x0: 0; z0: 0"
-      primitive="a-camera"
-      fps-look-controls
-      wasd-controls-enabled="true">
-        <TransmissionIncoming />
-        <RecordingIndicator />
-        {endGameScreen || <Timer phase={props.phase}
-                              increaseSunSize={props.increaseSunSize}
-                              setTimeLeft={props.setTimeLeft}/>}
-    </Entity>
+      <Entity fence="width: 3; depth: 4; x0: 0; z0: 0"
+        primitive="a-camera"
+        fps-look-controls
+        wasd-controls-enabled="true">
+          <TransmissionIncoming />
+          <RecordingIndicator />
+          {endGameScreen || <Timer phase={props.phase}
+                                increaseSunSize={props.increaseSunSize}
+                                setTimeLeft={props.setTimeLeft}/>}
+      </Entity>
     </Entity>
   )
 }

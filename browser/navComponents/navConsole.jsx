@@ -48,10 +48,6 @@ export default class NavConsole extends React.Component{
     }
   }
 
-
-
-
-
 updateDimensions() {
      this.setState({height: window.innerHeight});
  }

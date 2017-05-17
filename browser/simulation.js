@@ -69,7 +69,7 @@ export default class Simulation extends React.Component {
   }
 
   moveSunCloser() {
-    if (this.state.distance > 55) this.setState({distance: this.state.distance -= 1})
+    if (this.state.distance > 55) this.setState({distance: this.state.distance -= 10})
   }
 
   componentDidMount() {

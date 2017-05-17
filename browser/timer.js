@@ -27,12 +27,12 @@ export default class Timer extends React.Component {
       this.interval = null
     }
   }
-  
+
   countdownTimer(numberOfSeconds) {
     var timeRemaining = numberOfSeconds
     var interval = setInterval(() => {
-      if (timeRemaining % 60 === 0){
-        this.props.increaseSunSize()
+      if (timeRemaining % 1 === 0) {
+        this.props.moveSunCloser()
       }
 
       if (timeRemaining <= 1) {

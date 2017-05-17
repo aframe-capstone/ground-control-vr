@@ -9,17 +9,16 @@ import Simulation from './simulation'
 import SimulationContainer from './container/Simulation'
 import Menu from './menu'
 import NavigatorContainer from './container/NavConsole.jsx'
-import {setUpRecording, mediaRecorder, startRecording, stopRecording} from './audio'
 import Intro from './intro.jsx'
 import introText from './introText.js'
+import {mediaRecorder, startRecording, stopRecording} from './audio'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
 import store from './store.jsx'
-import { setNavigatorStatus, setDriverStatus} from './reducers/strike-phase.js'
-//import controllerComponent from 'aframe-daydream-controller-component'
+import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase.js'
+import 'aframe-daydream-controller-component'
 import setUpDayDreamAudio from './utils/headset'
-
 
 const SPACE_BAR = 32
 const MENU = 1
@@ -152,7 +151,7 @@ class App extends React.Component {
       }
       else if(this.state.gameState === INGAME){
         return (
-            <NavigatorContainer/>
+            <NavigatorContainer isNavigator={this.state.isNavigator}/>
         )
       }
     }

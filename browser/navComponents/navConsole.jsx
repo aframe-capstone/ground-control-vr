@@ -7,6 +7,7 @@ import NavigationBar from './navBar.jsx'
 import CountDown from './clock.jsx'
 import NavContent from './navContent.jsx'
 import Footer from './footer.jsx'
+import {setUpRecording} from '../audio'
 
 const SPACE_BAR = 32
 
@@ -49,42 +50,26 @@ export default class NavConsole extends React.Component{
   }
 
 
+  updateDimensions() {
+       this.setState({height: window.innerHeight});
+   }
 
-
-
-updateDimensions() {
-     this.setState({height: window.innerHeight});
- }
-
- componentWillMount() {
+  componentWillMount() {
      this.updateDimensions();
      document.addEventListener('keydown',this.handleKeyDown.bind(this));
      document.addEventListener('keyup', this.handleKeyUp.bind(this));
- }
- componentDidMount(){
-     window.addEventListener("resize", this.updateDimensions.bind(this));
-
- }
+  }
+  componentDidMount(){
+       window.addEventListener("resize", this.updateDimensions.bind(this));
+       setUpRecording(this.props.isNavigator)
+  }
  componentWillUnmount() {
      window.removeEventListener("resize", this.updateDimensions.bind(this));
      document.removeEventListener('keydown', this.handleKeyDown.bind(this));
      document.removeEventListener('keyup', this.handleKeyUp.bind(this))
-}
+  }
 
  render(){
-   console.log(this.props, 'props');
-    let pushToTalk =(<div className="preloader-wrapper small active">
-            <div className="spinner-layer spinner-green-only">
-              <div className="circle-clipper left">
-                <div className="circle"></div>
-              </div><div className="gap-patch">
-                <div className="circle"></div>
-              </div><div className="circle-clipper right">
-                <div className="circle"></div>
-              </div>
-            </div>
-          </div>)
-
     return(
       <div className ='navContainer' style={{height: this.state.height}}>
         <link rel='stylesheet' type='text/css' href='aframe.css'/>
@@ -96,7 +81,7 @@ updateDimensions() {
             <div className='widget-black' id='navbar'style={{flex:4, textAlign:'left'}}>
               <NavigationBar tabSelected={this.state.tabSelected} selectTab={this.selectTab}/>
             </div>
-            <div className='widget' id='strikesphase' style={{flex:1}}>
+            <div className='widget' id='strikesr' style={{flex:1}}>
               <StrikesWidget strikes={this.props.strikes}/>
               <PhasesWidget phase={this.props.phase}/>
             </div>

@@ -15,7 +15,6 @@ import introText from './introText.js'
 import loadAllAssets from './assets'
 import FailureView from './failureView'
 import { startSyncingPhaseAndStrikes } from './firebase'
-import {ViveControllerLeft, ViveControllerRight} from './viveController'
 import store from './store.jsx'
 import { setNavigatorStatus, setDriverStatus} from './reducers/strike-phase.js'
 //import controllerComponent from 'aframe-daydream-controller-component'
@@ -30,6 +29,8 @@ const INGAME = 4
 
 setUpDayDreamAudio()
 
+/* global screen */
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -38,6 +39,7 @@ class App extends React.Component {
       spaceBarDown:false,
       gameState: MENU,
       isNavigator: false,
+      isDesktop: true
     }
     this.setRole = this.setRole.bind(this)
     this.selectNavigator = this.selectNavigator.bind(this)
@@ -66,13 +68,11 @@ class App extends React.Component {
   goToNextState(e) {
     e.stopPropagation()
     e.preventDefault()
-    if(this.state.gameState === INTRO){
+    if (this.state.gameState === INTRO) {
       this.setGameState(INSTRUCTIONS)
-    }
-    else if(this.state.gameState === INSTRUCTIONS){
+    } else if (this.state.gameState === INSTRUCTIONS) {
       this.setGameState(INGAME)
-    }
-    else{
+    } else {
       console.error('ERROR: should not have called goToNextState in the state your in.')
     }
   }
@@ -116,41 +116,46 @@ class App extends React.Component {
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this))
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
+    document.addEventListener('keyup', this.handleKeyUp.bind(this))
+    if (screen.width < 1000) {
+      this.setState({
+        isDesktop: false
+      })
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this))
-    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this))
   }
 
   render() {
 
     // MENU
-    if(this.state.gameState === MENU){
+    if (this.state.gameState === MENU) {
       return (
           <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
             {loadAllAssets()}
-            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole}/>
+            <Menu inSim={this.state.inSim} selectDriver={this.selectDriver} selectNavigator={this.selectNavigator} setRole={this.setRole} isDesktop={this.state.isDesktop}/>
           </Scene>
       )
     }
     // NAVIGATOR
     // document.getElementById('boxOne').click()
-    else if(this.state.isNavigator){
-      if(this.state.gameState === INTRO){
-        return(
+    else if (this.state.isNavigator){
+      if (this.state.gameState === INTRO){
+        return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState}/>
+              <Intro text={introText.navigatorIntro} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       }
-      else if(this.state.gameState === INSTRUCTIONS){
-        return(
+      else if (this.state.gameState === INSTRUCTIONS){
+        return (
             <Scene keyboard-shortcuts={{enterVR: true}} vr-mode-ui={{enabled: true}}>
               {loadAllAssets()}
-              <Intro text={introText.generalInstructions} goToNextState={this.goToNextState}/>
+              <Intro text={introText.generalInstructions} goToNextState={this.goToNextState} isDesktop={this.state.isDesktop}/>
             </Scene>
         )
       }

@@ -21,19 +21,31 @@ export default class Timer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if(this.interval) {
+      clearInterval(this.interval)
+      this.interval = null
+    }
+  }
+  
   countdownTimer(numberOfSeconds) {
     var timeRemaining = numberOfSeconds
-    var timeInterval = setInterval(() => {
+    var interval = setInterval(() => {
       if (timeRemaining % 60 === 0){
         this.props.increaseSunSize()
       }
 
-      if (timeRemaining < 0) {
-        clearInterval(timeInterval)
+      if (timeRemaining <= 1) {
+        clearInterval(interval)
+        this.interval = null
+        this.props.setTimeLeft(false)
       }
-      timeRemaining--
-      this.setState({timeRemaining})
+      else{
+        timeRemaining--
+        this.setState({timeRemaining})
+      }
     }, 1000)
+    this.interval = interval
   }
 
   render() {

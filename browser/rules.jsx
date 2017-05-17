@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button, Icon, Row, Col, NavItem, Navbar} from 'react-materialize'
 
-
 export default function Rules(props) {
   return (
     <div className='instructions'>

@@ -2,20 +2,23 @@ import React from 'react'
 import {Entity} from 'aframe-react'
 import FloatingUIPanel from './floatingUIPanel'
 
-const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedColor) => (<Entity
-            id='submit-button'
-            key={`submit-button`}
-            rotation={{x: -90, y: 0, z: 0}}
-            class={`${className} selectable`}
-            scale={{x: 1.2, y: 1.2, z: 1.2}}
-            events={{click: handleSubmit}}
-            ui-button={{color, pressedColor}}
-            position={{x, y, z}} >
+const generateSubmitButton = (x, y, z, color, className, handleSubmit, pressedColor) => (
+  <Entity id='submit-button'
+    key={`submit-button`}
+    rotation={{x: -90, y: 0, z: 0}}
+    class={`${className} selectable`}
+    scale={{x: 1.2, y: 1.2, z: 1.2}}
+    events={{click: handleSubmit}}
+    ui-button={{color, pressedColor}}
+    position={{x, y, z}} >
     <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
   </Entity>)
 
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
-  const generateModuleName = (name) => (<Entity position={{x: 0.63, y: 0.05, z: -0.18}} rotation='-60 0 0' text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>)
+  const generateModuleName = (name) => (
+    <Entity position={{x: 0.63, y: 0.05, z: -0.18}}
+      rotation='-60 0 0'
+      text={{font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt', value: name}}/>)
 
   const generateModule = (initialXCoord, initialYCoord, initialZCoord, moduleName, widgetNameSpecifiers) => {
     const widgets = []
@@ -26,7 +29,9 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
       iterator+=0.3
     }
     return (<Entity id={moduleId++} key={`module${moduleId}`}
-      position={{x: initialXCoord, y: initialZCoord, z: initialZCoord}}>
+      position={{x: initialXCoord,
+        y: initialZCoord,
+        z: initialZCoord}}>
       {generateModuleName(moduleName)}
       { widgets }
     </Entity>)
@@ -49,19 +54,43 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     }
   }
 
-  const generateRotary = (x, z, color) => (<Entity class='selectable' key={`slider-${x}`} ui-rotary color={color} position={{x, y: 0.02, z: z}} >
+  const generateRotary = (x, z, color) => (
+    <Entity class='selectable'
+      key={`slider-${x}`}
+      ui-rotary color={color}
+      position={{x, y: 0.02, z: z}} >
+      <Entity position={{x: 0, y: 0, z: 0}}
+        geometry={{width: 'auto', height: 'auto'}} />
+    </Entity>)
+
+  const generateSlider = (x, z, color) => (
+    <Entity class='selectable'
+      key={`slider-${x}`}
+      ui-slider
+      color={color}
+      rotation={{x: 0, y: 90, z: 0}}
+      position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>)
 
-  const generateSlider = (x, z, color) => (<Entity class='selectable' key={`slider-${x}`} ui-slider color={color} rotation={{x: 0, y: 90, z: 0}} position={{x, y: 0.02, z}} >
+  const generateButton = (x, z, color, className, isSubmit=handleFunction, pressedColor='#009', baseColor) => (
+    <Entity class={`${className} selectable`}
+      id={id++}
+      key={`button-${id}`}
+      events={{click: isSubmit}}
+      ui-button={{color, baseColor, pressedColor}}
+      position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>)
 
-  const generateButton = (x, z, color, className, isSubmit=handleFunction, pressedColor='#009', baseColor) => (<Entity class={`${className} selectable`} id={id++} key={`button-${id}`} events={{click: isSubmit}} ui-button={{color, baseColor, pressedColor}} position={{x, y: 0.02, z}} >
-      <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
-    </Entity>)
-
-  const generateSwitch = (x, z, color) => (<Entity class={`switch selectable`} id={id++} key={`switch-${id}`} events={{change: handleFunction}} ui-toggle color={color} position={{x, y: 0.02, z}} >
+  const generateSwitch = (x, z, color) => (
+    <Entity class={`switch selectable`}
+      id={id++}
+      key={`switch-${id}`}
+      events={{change: handleFunction}}
+      ui-toggle
+      color={color}
+      position={{x, y: 0.02, z}} >
       <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
     </Entity>)
 

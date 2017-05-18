@@ -7,6 +7,8 @@ import NavigationBar from './navBar.jsx'
 import CountDown from './clock.jsx'
 import NavContent from './navContent.jsx'
 import Footer from './footer.jsx'
+import {setUpRecording} from '../audio'
+
 
 const SPACE_BAR = 32
 
@@ -59,7 +61,7 @@ updateDimensions() {
  }
  componentDidMount(){
      window.addEventListener("resize", this.updateDimensions.bind(this));
-
+    setUpRecording(this.props.isNavigator)
  }
  componentWillUnmount() {
      window.removeEventListener("resize", this.updateDimensions.bind(this));
@@ -68,18 +70,6 @@ updateDimensions() {
 }
 
  render(){
-   console.log(this.props, 'props');
-    let pushToTalk =(<div className="preloader-wrapper small active">
-            <div className="spinner-layer spinner-green-only">
-              <div className="circle-clipper left">
-                <div className="circle"></div>
-              </div><div className="gap-patch">
-                <div className="circle"></div>
-              </div><div className="circle-clipper right">
-                <div className="circle"></div>
-              </div>
-            </div>
-          </div>)
 
     return(
       <div className ='navContainer' style={{height: this.state.height}}>

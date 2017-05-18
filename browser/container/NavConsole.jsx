@@ -1,16 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import NavConsole from '../navConsole.jsx'
+import NavConsole from '../navComponents/navConsole.jsx'
+import {setSpaceBar} from '../reducers/strike-phase'
 
 const mapStateToProps = state => ({
   phase: state.phase,
   strikes: state.strikes,
   driverStatus: state.driverStatus,
-  navigatorStatus: state.navigatorStatus,
+  navigatorStatus: state.navigatorStatus
 })
 
 
+
 const mapDispatchToProps = dispatch => ({
+  setSpaceBar:() => (dispatch(setSpaceBar()))
 })
 
 

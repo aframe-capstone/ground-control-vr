@@ -43,6 +43,7 @@ export const setDriverStatus = driverStatus => ({
   driverStatus
 })
 
+
 // #### REDUCER #### //
 
 export default function (state = initialPhaseStrike, action) {
@@ -72,7 +73,7 @@ export default function (state = initialPhaseStrike, action) {
     case SET_DRIVER_STATUS:
       newState.driverStatus = action.driverStatus
       break;
-      
+
     default:
       return state
   }

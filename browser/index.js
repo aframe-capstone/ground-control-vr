@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import Simulation from './simulation'
 import SimulationContainer from './container/Simulation'
 import Menu from './menu'
-import Navigator from './navigator'
+import NavigatorContainer from './container/NavConsole.jsx'
 import Intro from './intro.jsx'
 import introText from './introText.js'
 import {mediaRecorder, startRecording, stopRecording} from './audio'
@@ -30,6 +30,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      inSim: false,
+      spaceBarDown:false,
       gameState: MENU,
       isNavigator: false,
       isDesktop: true
@@ -69,6 +71,7 @@ class App extends React.Component {
   }
 
   handleKeyDown(e) {
+
     if (e.keyCode === SPACE_BAR) startRecording()
   }
 
@@ -100,6 +103,7 @@ class App extends React.Component {
   }
 
   render() {
+
     // MENU
     if (this.state.gameState === MENU) {
       return (
@@ -133,7 +137,7 @@ class App extends React.Component {
         )
       } else if (this.state.gameState === INGAME) {
         return (
-            <Navigator isNavigator={this.state.isNavigator}/>
+            <NavigatorContainer isNavigator={this.state.isNavigator}/>
         )
       }
     } else if (!this.state.isNavigator) {

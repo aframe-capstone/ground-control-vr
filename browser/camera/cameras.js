@@ -6,15 +6,7 @@ import RecordingIndicator from '../UI/recordingIndicator'
 import Failure from '../UI/failure'
 import Success from './UI/success'
 import '../utils/fps-cursor'
-import DayDreamController from '../components/dayDreamController'
-
-const navigatorCam = (<Entity
-  position="0 20 0"
-  rotation="-90 0 0"
-  primitive="a-camera"
-  look-controls-enabled="false"
-  wasd-controls-enabled="false">
-</Entity>)
+import DayDreamController from '../vr/dayDreamController'
 
 // REMOVED USER HEIGHT IN CAMERA HERE
 const DriverCam = props => {
@@ -41,4 +33,5 @@ const DriverCam = props => {
     </Entity>
   )
 }
-export {DriverCam, navigatorCam}
+
+export default DriverCam

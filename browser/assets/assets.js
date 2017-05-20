@@ -8,8 +8,8 @@ export default () => (
     loadSoundAmbient(),
     loadSoundEffects(),
     loadFonts(),
-    loadUIElements(),
-    loadVideos()]
+    loadUIElements()
+  ]
 )
 
 const loadFonts = () => (
@@ -79,11 +79,5 @@ const loadSoundAmbient = () => (
     <audio id="spaceshipAmbience" src="assets/sound/spaceship-ambience.wav"/>
     <audio id="menuMusic" src="assets/sound/memory.wav"/>
     <audio id="machineHumAmbience" src="assets/sound/machine-ambience.wav"/>
-  </Entity>
-)
-
-const loadVideos = () => (
-  <Entity primitive="a-assets" key="videos">
-    {/* <video id="sample-video" autoPlay="true" loop="false" src="assets/videos/small.mp4"></video> */}
   </Entity>
 )

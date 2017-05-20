@@ -1,6 +1,6 @@
 import 'aframe'
 import {Entity} from 'aframe-react'
-import Tutorial from './tutorial'
+import Tutorial from './tutorial/tutorial'
 import React from 'react'
 import DayDreamController from '../vr/dayDreamController'
 import Cursor from '../UI/cursor'

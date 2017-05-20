@@ -1,7 +1,7 @@
 import React from 'react'
-import Rules from '../rules.js'
-import Panels from '../navinstrucpanels.js'
-import {panel1, panel2, panel3} from '../panelData.js'
+import Rules from './rules'
+import Panels from './navinstrucpanels'
+import {panel1, panel2, panel3} from './panelData'
 
 export default class NavigationBar extends React.Component {
   constructor(props) {

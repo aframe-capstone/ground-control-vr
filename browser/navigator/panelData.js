@@ -1,5 +1,5 @@
 export const panel1={
-  module:[
+  module: [
     { name: 'Nanomatronic Kilowasher',
       subset: [{
         widget: 'Switch',
@@ -18,7 +18,7 @@ export const panel1={
       }]
     }
   ,
-      {name: 'Gravitron Emitter',
+    {name: 'Gravitron Emitter',
       subset: [{
         widget: 'Button',
         action: 'Press 1x',
@@ -40,7 +40,7 @@ export const panel1={
 }
 
 export const panel2={
-  module:[
+  module: [
     { name: 'Quantum Carburetor',
       subset: [{
         widget: 'Switch',
@@ -59,7 +59,7 @@ export const panel2={
       }]
     }
   ,
-      {name: 'Micro-Verse Battery',
+    {name: 'Micro-Verse Battery',
       subset: [{
         widget: 'Button',
         action: 'Press 1x',
@@ -81,7 +81,7 @@ export const panel2={
 }
 
 export const panel3={
-  module:[
+  module: [
     { name: 'Dark Matter Engine',
       subset: [{
         widget: 'Button',
@@ -100,7 +100,7 @@ export const panel3={
       }]
     }
   ,
-      {name: 'C-137',
+    {name: 'C-137',
       subset: [{
         widget: 'Switch',
         action: 'Toggle 1x',

@@ -1,8 +1,7 @@
 import React from 'react'
 
-const Footer =() =>{
-  return(
-    <div style={{display:'flex', width:'100%', height:'100%'}}>
+const Footer = () => (
+  <div style={{display: 'flex', width: '100%', height: '100%'}}>
       <div className='img-wrapper'>
         <img className='img-col' src="assets/shipPhotos/button.png">
         </img>
@@ -27,6 +26,5 @@ const Footer =() =>{
       </div>
     </div>
   )
-}
 
 export default Footer

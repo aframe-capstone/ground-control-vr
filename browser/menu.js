@@ -6,7 +6,7 @@ import {Entity, Scene} from 'aframe-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe-text-geometry-component'
-import DriverCam from './cameras'
+import DriverCam from '../camera/DriverCam'
 import UserCam from './userCam.jsx'
 
 const boxes = (props) => (

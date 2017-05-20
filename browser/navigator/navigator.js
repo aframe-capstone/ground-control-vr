@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import NavConsole from './container/NavConsole.jsx'
+import NavConsole from './container/NavConsole'
 import {setUpRecording} from '.audio/audio'
 
 export default class Navigator extends React.Component {

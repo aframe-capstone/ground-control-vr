@@ -1,5 +1,5 @@
-import store from './store.jsx'
-import {setStrike, setPhase, setDriverStatus, setNavigatorStatus} from './reducers/strike-phase.js'
+import store from '../store'
+import {setStrike, setPhase, setDriverStatus, setNavigatorStatus} from '../reducers/strike-phase'
 import $ from 'jquery'
 
 // FIREBASE MODULE

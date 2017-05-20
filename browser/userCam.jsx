@@ -3,7 +3,7 @@ import {Entity} from 'aframe-react'
 import Tutorial from './tutorial'
 import React from 'react'
 import DayDreamController from '../vr/dayDreamController'
-import Cursor from './components/cursor'
+import Cursor from '../UI/cursor'
 
 const UserCam = (props) => (
     <Entity id='menuCamera' position='0 0 0'>

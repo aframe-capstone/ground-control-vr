@@ -4,7 +4,7 @@ import Timer from '../components/timer'
 import TransmissionIncoming from '../UI/transmissionIncoming'
 import RecordingIndicator from '../UI/recordingIndicator'
 import Failure from '../UI/failure'
-import Success from './UI/success'
+import Success from '../UI/success'
 import '../utils/fps-cursor'
 import DayDreamController from '../vr/dayDreamController'
 

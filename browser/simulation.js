@@ -10,22 +10,22 @@ import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import 'aframe-cubemap-component'
 import Sun from './components/sun'
-import DriverCam from '../camera/DriverCam'
+import DriverCam from './camera/DriverCam'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
-import {SpaceshipAmbience} from '../assets/soundEffects'
-import Failure from './failure'
+import {SpaceshipAmbience} from './assets/soundEffects'
+import Failure from './UI/failure'
 import {setUpRecording} from './audio/audio'
 import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI/ui-event-utils'
 import stopDefaultAndPropagation from './utils/events'
 import {MODULE_ONE, MODULE_TWO} from './utils/constants'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
-import {generatePanel, generateSubmitButton} from './panels'
+import {generatePanel, generateSubmitButton} from './UI/panels'
 
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
-import {getWarningLightOfColor} from '../UI/strike'
+import {getWarningLightOfColor} from './UI/strike'
 
 export default class Simulation extends React.Component {
   constructor(props) {

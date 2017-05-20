@@ -1,7 +1,7 @@
-import { setupDataBase } from './firebase'
+import { setupDataBase } from '../firebase/firebase'
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
-import {convertDataStreamToAudioArrayBuffer, convertBinaryToTypedArray} from './utils/audioUtils'
+import {convertDataStreamToAudioArrayBuffer, convertBinaryToTypedArray} from '../utils/audioUtils'
 
 let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
 let fileReader // Globally available fileReader instance to convert binary string audio to buffer

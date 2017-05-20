@@ -4,7 +4,7 @@ import 'babel-polyfill'
 import { Entity, Scene } from 'aframe-react'
 import React from 'react'
 import Tutorial from './tutorial'
-import UserCam from './userCam'
+import UserCam from '../camera/UserCam'
 
 export default class Intro extends React.Component {
   constructor(props) {

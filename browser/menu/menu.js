@@ -7,7 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe-text-geometry-component'
 import DriverCam from '../camera/DriverCam'
-import UserCam from './userCam'
+import UserCam from '../camera/UserCam'
 import Boxes from './boxes'
 
 export default class Menu extends React.Component {

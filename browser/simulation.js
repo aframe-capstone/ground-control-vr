@@ -9,14 +9,14 @@ import Peer from 'simple-peer'
 import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import 'aframe-cubemap-component'
-import Sun from './sun'
+import Sun from './components/sun'
 import DriverCam from '../camera/DriverCam'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
-import {SpaceshipAmbience} from './soundEffects'
+import {SpaceshipAmbience} from '../assets/soundEffects'
 import Failure from './failure'
 import {setUpRecording} from './audio/audio'
-import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
+import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI/ui-event-utils'
 import stopDefaultAndPropagation from './utils/events'
 import {MODULE_ONE, MODULE_TWO} from './utils/constants'
 
@@ -25,7 +25,7 @@ import {generatePanel, generateSubmitButton} from './panels'
 
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
-import {getWarningLightOfColor} from './strike'
+import {getWarningLightOfColor} from '../UI/strike'
 
 export default class Simulation extends React.Component {
   constructor(props) {

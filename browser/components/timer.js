@@ -1,7 +1,6 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
 
-
 var hasNotBeenInvoked = true
 
 export default class Timer extends React.Component {
@@ -22,7 +21,7 @@ export default class Timer extends React.Component {
   }
 
   componentWillUnmount() {
-    if(this.interval) {
+    if (this.interval) {
       clearInterval(this.interval)
       this.interval = null
     }
@@ -39,8 +38,7 @@ export default class Timer extends React.Component {
         clearInterval(interval)
         this.interval = null
         this.props.setTimeLeft(false)
-      }
-      else{
+      } else {
         timeRemaining--
         this.setState({timeRemaining})
       }

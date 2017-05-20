@@ -1,12 +1,12 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
-import Timer from './timer'
-import TransmissionIncoming from './transmissionIncoming'
-import RecordingIndicator from './recordingIndicator'
-import Failure from './failure'
-import Success from './success.jsx'
-import './utils/fps-cursor'
-import DayDreamController from './components/dayDreamController'
+import Timer from '../components/timer'
+import TransmissionIncoming from '../UI/transmissionIncoming'
+import RecordingIndicator from '../UI/recordingIndicator'
+import Failure from '../UI/failure'
+import Success from './UI/success'
+import '../utils/fps-cursor'
+import DayDreamController from '../components/dayDreamController'
 
 const navigatorCam = (<Entity
   position="0 20 0"

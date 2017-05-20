@@ -3,8 +3,8 @@ import 'aframe-animation-component'
 import 'babel-polyfill'
 import { Entity, Scene } from 'aframe-react'
 import React from 'react'
-import Tutorial from './tutorial.js'
-import UserCam from './userCam.jsx'
+import Tutorial from './tutorial'
+import UserCam from './userCam'
 
 const driverIntro = `Hello space pilot ...\n
 We recieved your transmission for help from ground control. We'll patch you to an operator in a moment.\n

@@ -18,7 +18,7 @@ import store from './store'
 import { setNavigatorStatus, setDriverStatus } from './reducers/strike-phase'
 import 'aframe-daydream-controller-component'
 import stopDefaultAndPropagation from './utils/events'
-import setUpDayDreamAudio from './utils/headset'
+import setUpDayDreamAudio from './vr/headset'
 import {SPACE_BAR, MENU, INTRO, INSTRUCTIONS, INGAME} from './utils/constants'
 
 setUpDayDreamAudio()

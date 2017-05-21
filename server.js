@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('api', require('./apiRoutes'));
+// app.use('api', require('./apiRoutes'));
 app.use(session({
   secret: 'a wildly insecure secret',
   resave: false,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import simulation from '../simulation'
+import Simulation from '../simulation'
 import {addStrike, addPhase} from '../reducers/strike-phase'
 
 const mapStateToProps = state => ({
@@ -10,13 +10,11 @@ const mapStateToProps = state => ({
   navigatorStatus: state.navigatorStatus,
 })
 
-
 const mapDispatchToProps = dispatch => ({
   addStrike: () => (dispatch(addStrike())),
   addPhase: () => (dispatch(addPhase()))
 })
 
-
-const SimulationContainer = connect(mapStateToProps, mapDispatchToProps)(simulation)
+const SimulationContainer = connect(mapStateToProps, mapDispatchToProps)(Simulation)
 
 export default SimulationContainer

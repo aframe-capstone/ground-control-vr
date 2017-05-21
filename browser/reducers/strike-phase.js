@@ -6,7 +6,7 @@ const SET_NAVIGATOR_STATUS = 'SET_NAVIGATOR_STATUS'
 const SET_DRIVER_STATUS = 'SET_DRIVER_STATUS'
 
 // #### INITIAL STATE #### //
-const initialPhaseStrike  = {
+const initialPhaseStrike = {
   phase: 1,
   strikes: 0,
   navigatorStatus: false,
@@ -45,36 +45,36 @@ export const setDriverStatus = driverStatus => ({
 
 // #### REDUCER #### //
 
-export default function (state = initialPhaseStrike, action) {
+export default function(state = initialPhaseStrike, action) {
   const newState = Object.assign({}, state)
 
-  switch(action.type) {
-    case PASSING:
-      newState.phase ++;
-      break;
+  switch (action.type) {
+  case PASSING:
+    newState.phase ++
+    break
 
-    case FAILING:
-      newState.strikes ++;
-      break;
+  case FAILING:
+    newState.strikes ++
+    break
 
-    case SET_PHASE:
-      newState.phase = action.phase
-      break;
+  case SET_PHASE:
+    newState.phase = action.phase
+    break
 
-    case SET_STRIKE:
-      newState.strikes = action.strikes
-      break;
+  case SET_STRIKE:
+    newState.strikes = action.strikes
+    break
 
-    case SET_NAVIGATOR_STATUS:
-      newState.navigatorStatus = action.navigatorStatus
-      break;
+  case SET_NAVIGATOR_STATUS:
+    newState.navigatorStatus = action.navigatorStatus
+    break
 
-    case SET_DRIVER_STATUS:
-      newState.driverStatus = action.driverStatus
-      break;
-      
-    default:
-      return state
+  case SET_DRIVER_STATUS:
+    newState.driverStatus = action.driverStatus
+    break
+
+  default:
+    return state
   }
   return newState
 }

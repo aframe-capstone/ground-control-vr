@@ -9,23 +9,24 @@ import Peer from 'simple-peer'
 import 'aframe-ui-widgets'
 import 'aframe-fence-component'
 import 'aframe-cubemap-component'
-import Sun from './sun'
-import {DriverCam} from './cameras'
+import Sun from './components/sun'
+import DriverCam from './camera/DriverCam'
 import _ from 'lodash'
 import {solution1, solution2, solution3} from './validation'
-import {SpaceshipAmbience} from './soundEffects'
-import Failure from './failure'
-import {setUpRecording} from './audio'
-import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI'
+import {SpaceshipAmbience} from './assets/soundEffects'
+import Failure from './UI/failure'
+import {setUpRecording} from './audio/audio'
+import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI/ui-event-utils'
 import stopDefaultAndPropagation from './utils/events'
 import {MODULE_ONE, MODULE_TWO} from './utils/constants'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
-import {generatePanel, generateSubmitButton} from './panels'
+import generatePanel from './panels/panels'
+import SubmitButton from './panels/SubmitButton'
 
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */
-import {getWarningLightOfColor} from './strike'
+import {getWarningLightOfColor} from './UI/strike'
 
 export default class Simulation extends React.Component {
   constructor(props) {
@@ -154,7 +155,11 @@ export default class Simulation extends React.Component {
         {generatePanel(-1.5, 2.5, 90, 1, this.handleClick, 1, this.handleSubmit, solvedPhase1)}
         {generatePanel(1.5, 2.5, -90, 2, this.handleClick, 2, this.handleSubmit, solvedPhase2)}
         {generatePanel(0, 0, 0, 3, this.handleClick, 3, this.handleSubmit, solvedPhase3)}
-        {generateSubmitButton(0, 3.62, 4.44, 'green', 'submit-button', this.handleSubmit, '#900')}
+        <SubmitButton x='0' y='3.62' z='4.44'
+          color='green'
+          id='submit-button'
+          handleSubmit={this.handleSubmit}
+          pressedColor='#900' />
         {this.state.currentPhase > 3
           ? getWarningLightOfColor(null, null, true)
           : getWarningLightOfColor(this.state.strikes, this.state.timeLeft)}

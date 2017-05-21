@@ -1,61 +1,25 @@
 import React from 'react'
 import {Entity} from 'aframe-react'
-import FloatingUIPanel from './floatingUIPanel'
+import Slider from './Slider'
+import Rotary from './Rotary'
+import Button from './Button'
+import Switch from './Switch'
+import FloatingUI from './FloatingUI'
+import SubmitButton from './SubmitButton'
 
-const Rotary = props => (
-  <Entity class='selectable'
-    key={`slider-${props.x}`}
-    ui-rotary color={props.color}
-    position={{x: props.x, y: 0.02, z: props.z}} >
-    <Entity position={{x: 0, y: 0, z: 0}}
-      geometry={{width: 'auto', height: 'auto'}} />
-  </Entity>)
-
-const Slider = props => (
-  <Entity class='selectable'
-    key={`slider-${props.x}`}
-    ui-slider
-    color={props.color}
-    rotation={{x: 0, y: 90, z: 0}}
-    position={{x: props.x, y: 0.02, z: props.z}} >
-    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
-  </Entity>)
-
-const SubmitButton = props => (
-  <Entity id='submit-button'
-    key={`submit-button`}
-    rotation={{x: -90, y: 0, z: 0}}
-    class={`${props.className} selectable`}
-    scale={{x: 1.2, y: 1.2, z: 1.2}}
-    events={{click: props.handleSubmit}}
-    ui-button={{color: props.color, pressedColor: props.pressedColor}}
-    position={{x: props.x, y: props.y, z: props.z}} >
-    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
-  </Entity>)
-
-  const FloatingUI = props => (
-    <FloatingUIPanel panelId={props.panelId} isVisible={props.solvedPhase} />)
-
-const Button = props => (
-  <Entity class={`${props.className} selectable`}
-    id={props.id}
-    key={`button-${props.id}`}
-    events={{click: props.handleClick}}
-    ui-button={{color: props.color, baseColor: props.baseColor, pressedColor: props.pressedColor}}
-    position={{x: props.x, y: 0.02, z: props.z}} >
-    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
-  </Entity>)
-
-const Switch = props => (
-  <Entity class={`switch selectable`}
-    id={props.id}
-    key={`switch-${props.id}`}
-    events={{change: props.handleChange}}
-    ui-toggle
-    color={props.color}
-    position={{x: props.x, y: 0.02, z: props.z}} >
-    <Entity position={{x: 0, y: 0, z: 0}} geometry={{width: 'auto', height: 'auto'}} />
-  </Entity>)
+const PanelBase = props => (
+  <Entity
+    id={props.panelId}
+    color="#213033"
+    primitive="a-box"
+    width="2.3"
+    height="0.01"
+    depth="0.6"
+    rotation={{x: 60, y: props.yRotation, z: 0}}
+    position={{x: props.xDimension, y: 3.5, z: props.zDimension}}
+    key={props.panelNumber}
+    > {props.panelWidgets} </Entity>
+)
 
 const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFunction, panelId, handleSubmit, solvedPhase1) => {
   const ModuleName = props => (
@@ -105,49 +69,37 @@ const generatePanel = (xDimension, zDimension, yRotation, panelNumber, handleFun
     panel.push(generateModule(0, 0, 0, 'Gravitron Emitter', ['button', 'button', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Nanomatronic Kilowasher', ['switch', 'switch', 'switch']))
     panel.push(<FloatingUI panelId={panelId} solvedPhase={solvedPhase1} />)
-    return (<Entity
-      id={panelId}
-      color="#213033"
-      primitive="a-box"
-      width="2.3"
-      height="0.01"
-      depth="0.6"
-      rotation={{x: 60, y: yRotation, z: 0}}
-      position={{x: xDimension, y: 3.5, z: zDimension}}
-      key={panelNumber}
-      > {panel} </Entity>)
+    return (<PanelBase yRotation={yRotation}
+      panelId={panelId}
+      xDimension={xDimension}
+      zDimension={zDimension}
+      panelNumber={panelNumber}
+      panelWidgets={panel}
+    />)
   } else if (panelId === 2) {
     const panel = []
     panel.push(generateModule(0, 0, 0, 'Micro-Verse Battery', ['button', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Quantum Carburetor', ['switch', 'button', 'switch']))
     panel.push(<FloatingUI panelId={panelId} solvedPhase={solvedPhase1} />)
-    return (<Entity
-      id={panelId}
-      color="#213033"
-      primitive="a-box"
-      width="2.3"
-      height="0.01"
-      depth="0.6"
-      rotation={{x: 60, y: yRotation, z: 0}}
-      position={{x: xDimension, y: 3.5, z: zDimension}}
-      key={panelNumber}
-      > {panel} </Entity>)
+    return (<PanelBase yRotation={yRotation}
+      panelId={panelId}
+      xDimension={xDimension}
+      zDimension={zDimension}
+      panelNumber={panelNumber}
+      panelWidgets={panel}
+    />)
   } else if (panelId === 3) {
     const panel = []
     panel.push(generateModule(0, 0, 0, 'C-137', ['switch', 'switch', 'button']))
     panel.push(generateModule(-1, 0, 0, 'Dark Matter Engine', ['button', 'switch', 'button']))
     panel.push(<FloatingUI panelId={panelId} solvedPhase={solvedPhase1} />)
-    return (<Entity
-      id={panelId}
-      color="#213033"
-      primitive="a-box"
-      width="2.3"
-      height="0.01"
-      depth="0.6"
-      rotation={{x: 60, y: yRotation, z: 0}}
-      position={{x: xDimension, y: 3.5, z: zDimension}}
-      key={panelNumber}
-      > {panel} </Entity>)
+    return (<PanelBase yRotation={yRotation}
+      panelId={panelId}
+      xDimension={xDimension}
+      zDimension={zDimension}
+      panelNumber={panelNumber}
+      panelWidgets={panel}
+    />)
   }
 }
-export {generatePanel, SubmitButton}
+export default generatePanel

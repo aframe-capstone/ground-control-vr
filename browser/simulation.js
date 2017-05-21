@@ -21,7 +21,8 @@ import stopDefaultAndPropagation from './utils/events'
 import {MODULE_ONE, MODULE_TWO} from './utils/constants'
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
-import {generatePanel, SubmitButton} from './panels/panels'
+import generatePanel from './panels/panels'
+import SubmitButton from './panels/SubmitButton'
 
 /* Call getWarningLightOfColor with a string ('white', 'orange', or 'red')
 to generate a warning light with proper hex value and animation */

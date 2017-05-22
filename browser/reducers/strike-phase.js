@@ -1,9 +1,9 @@
-const PASSING = 'PASSING'
-const FAILING = 'FAILING'
-const SET_STRIKE = 'SET_STRIKE'
-const SET_PHASE = 'SET_PHASE'
-const SET_NAVIGATOR_STATUS = 'SET_NAVIGATOR_STATUS'
-const SET_DRIVER_STATUS = 'SET_DRIVER_STATUS'
+export const PASSING = 'PASSING'
+export const FAILING = 'FAILING'
+export const SET_STRIKE = 'SET_STRIKE'
+export const SET_PHASE = 'SET_PHASE'
+export const SET_NAVIGATOR_STATUS = 'SET_NAVIGATOR_STATUS'
+export const SET_DRIVER_STATUS = 'SET_DRIVER_STATUS'
 
 // #### INITIAL STATE #### //
 const initialPhaseStrike = {

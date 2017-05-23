@@ -2,19 +2,18 @@ import React from 'react'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 require('chai-enzyme')
+require('jsdom-global')()
 import NavConsole from '../browser/navigator/navConsole.js'
-window = global
 describe('The navigator view',() =>{
+  var wrapper
   beforeEach('Create compnent', () =>{
-    let wrapper = shallow(<NavConsole/>)
-    console.log(process.browser, 'POROSFJKSJDJFS')
-
+     wrapper = shallow(<NavConsole/>)
   })
 
   it('should have properly initialized initial state', ()=> {
-    const wrapper = shallow(<NavConsole />)
-      expect(wrapper.state().sendingmessage.toBe(false))
-      expect(wrapper.state().tabSelected.toBe('rules'))
+    console.log(state);
+      expect(wrapper.state.sendingmessage.toBe(false))
+      expect(wrapper.state.tabSelected.toBe('rules'))
     })
 
   it('should have methods that properly update state', ()=>{

@@ -4,7 +4,7 @@
   "description": "AFrame VR project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/*.spec.jsx --compilers js:babel-register",
+    "test": "mocha tests/*.spec.jsx -r jsdom-global/register --compilers js:babel-register",
     "start": "webpack -w & nodemon app.js",
     "build": "webpack -w"
   },
@@ -33,7 +33,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
-    "chai-enzyme": "^0.6.1",
     "css-loader": "^0.28.1",
     "enzyme": "^2.8.2",
     "esdoc": "^0.5.2",
@@ -41,7 +40,13 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+<<<<<<< HEAD
+    "jsdom": "11.0.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^3.3.0",
+=======
     "mocha": "^3.4.1",
+>>>>>>> 37d2730342eae7b1444d9a47bab928fd4859fc0d
     "sinon": "^2.2.0",
     "style-loader": "^0.17.0",
     "supertest": "^3.0.0",

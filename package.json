@@ -40,13 +40,9 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-<<<<<<< HEAD
     "jsdom": "11.0.0",
     "jsdom-global": "3.0.2",
     "mocha": "^3.3.0",
-=======
-    "mocha": "^3.4.1",
->>>>>>> 37d2730342eae7b1444d9a47bab928fd4859fc0d
     "sinon": "^2.2.0",
     "style-loader": "^0.17.0",
     "supertest": "^3.0.0",

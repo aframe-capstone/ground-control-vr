@@ -3,13 +3,12 @@ import {expect} from 'chai'
 import {shallow} from 'enzyme'
 require('chai-enzyme')
 import NavConsole from '../browser/navigator/navConsole.js'
-
+window = global
 describe('The navigator view',() =>{
-
-
-
   beforeEach('Create compnent', () =>{
     let wrapper = shallow(<NavConsole/>)
+    console.log(process.browser, 'POROSFJKSJDJFS')
+
   })
 
   it('should have properly initialized initial state', ()=> {

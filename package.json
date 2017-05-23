@@ -41,7 +41,7 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^3.3.0",
+    "mocha": "^3.4.1",
     "sinon": "^2.2.0",
     "style-loader": "^0.17.0",
     "supertest": "^3.0.0",

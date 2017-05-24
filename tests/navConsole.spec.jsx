@@ -37,35 +37,3 @@ describe('The navConsole component',() =>{
   })
 
 })
-
-// describe('The navContent component', () =>{
-//
-//   let tabs = {
-//     rules:'rules',
-//     phase1:'phase1',
-//     phase2:'phase2',
-//     phase3:'phase3'
-//
-//   }
-//
-//   let panelDirections = {
-//     panel1,
-//     panel2,
-//     panel3
-//   }
-//
-//   let wrapper, inst, wrapperPanel, panelInst
-//   beforeEach('Create component', ()=>{
-//     wrapper = shallow(<NavContent tabSelected={tabs}/>)
-//     inst = wrapper.instance()
-//     wrapperPanel = shallow(<Panels panel={panelDirections}/>)
-//     panelInst = wrapperPanel.instance()
-//   })
-//
-//   it('should render the proper panels under the right conditions', ()=>{
-//   console.log(wrapper.props, 'wrapper props')
-//   console.log(panelInst.props,'panelInst');
-//
-//   })
-//
-// })

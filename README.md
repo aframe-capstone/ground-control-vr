@@ -1,45 +1,45 @@
-# aframe-vr
-A-Frame/React/Firebase VR capstone project
-hello world
+# Ground Control VR
 
-## Standards
-- Always work on a branch associated with an ISSUE.
-- No commits direct to master.
-- No `git yolo`!
-- Many small commits throughout the day
-- If you are stuck on a bug, ask someone to help you. Don't spend too much time and get burned out or lose momentum!
+A VR simulation about clear communication built in AFrame, React, Redux, Firebase, for the Google Daydream headset.
 
-## Code Style
-- Functions should be ES6-style functions, saved to consts and exported (default if possible)
-- Keep it modular! Don't pollute our primary views/top-level server logic with utility functions or other components that can be put into separate files
+> NOTE: To play Ground Control one user must have access to a Google Daydream headset and controller.
 
-## Tools
-[Waffle](https://waffle.io/aframe-capstone/aframe-vr-capstone)
+## How to Play
+To win:
+- Space pilot must solve three panels to repair their ship.
+- Ground Control has instructions under three tabs that explains the order that the pilot must toggle switches and press buttons.
+- Panels must be solved in order: from panel one to panel three
 
-**!!!Please look here first if you have any problems with A-frame!!!**
-- [Awesome-A-Frame Resources/Components/Integration/Scenes/Tools/Materials](https://github.com/aframevr/awesome-aframe)
-- [A-Frame Slack Channel](https://aframevr-slack.herokuapp.com/)
+After each solved panel, press the large green button at the front of the ship to check your solution. Incorrect submissions will trigger an alarm. Correct submissions will show the system back online. The pilot has three chances to solve the panels.
 
-## Tutorial
-[Getting Started]
-(https://www.youtube.com/watch?v=dv6_C4UqTfs&list=PLRtjMdoYXLf4inSULAHyCMqpIUj4cmBTr)
-(https://www.youtube.com/watch?v=XFv55TajSAg&list=PLUtkqA7NXVH7ctoJYhsh4xqJn3iWMpP30)
+## Tips for Winning
+- Don't talk too much. Wait for your partner to respond before sending another message.
+- Make every word count.
+- Stay calm.
 
-[A-Frame-React-Redux]
-(https://medium.com/immersion-for-the-win/hands-on-with-virtual-reality-using-a-frame-react-and-redux-bc66240834f7)
+## How to Run Ground Control
+If you'd like to run Ground Control locally...
 
-[Relative positioning in A-Frame]
-(https://medium.com/immersion-for-the-win/relative-positioning-in-a-frame-d839fc0e3249)
+1. clone this repository
+2. run `npm install` to get all dependencies
+3. `npm start`
 
-[Building a Simple UI with A-Frame]
-(https://blog.neondaylight.com/build-a-simple-web-vr-ui-with-a-frame-a17a2d5b484)
+## Rooms
+Ground Control uses a room system to pair participants. To enter the same room as your partner, go to your server at the same hashed address. For example:
 
-[Building a Maze Game]
-(https://24ways.org/2016/first-steps-in-vr)
+```
+localhost:3000/#2
+                ^ room address
 
-[Building an A-Frame Vive App from Scratch]
-(https://www.youtube.com/watch?v=UcEMhuha8DA)
+This will put you in room two. Your partner should go to the same address at /#2
+```
 
-## Other Resources
-[Building Dungeon with A-Frame]
-(https://hacks.mozilla.org/2016/03/building-cardboard-dungeon-with-a-frame/)
+Make sure only one person chooses Pilot and one person chooses Ground Control, or you will not be able to communicate.
+
+## Contributors
+- Julius Cassin
+- Nate Anecone
+- Wilson Wong
+- Zach Caceres
+
+Built at Fullstack Academy of Code in NYC

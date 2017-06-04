@@ -1,4 +1,5 @@
 # Ground Control VR
+![alt text] (/public/assets/Ground Control.png?raw=true "Ground Control")
 
 A VR simulation about clear communication built in AFrame, React, Redux, Firebase, for the Google Daydream headset.
 

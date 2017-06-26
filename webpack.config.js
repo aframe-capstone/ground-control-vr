@@ -1,8 +1,8 @@
 `use strict`
 const webpack = require('webpack')
 // LOAD ENV VARIABLES
-var dotenv = require('dotenv');
-dotenv.load();
+var dotenv = require('dotenv')
+dotenv.load()
 module.exports = {
   entry: './browser/main.jsx',
   output: {
@@ -39,4 +39,4 @@ module.exports = {
     'MESSAGING_SENDER_ID': JSON.stringify(process.env.MESSAGING_SENDER_ID)
     }),
   ]
-};
+}

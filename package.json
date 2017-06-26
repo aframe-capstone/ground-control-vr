@@ -60,6 +60,7 @@
     "aframe-react": "^4.2.3",
     "aframe-text-geometry-component": "^0.5.1",
     "aframe-ui-widgets": "^1.0.2",
+    "audiobuffer-to-wav": "^1.0.0",
     "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",

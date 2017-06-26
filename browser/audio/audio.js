@@ -2,6 +2,8 @@ import { setupDataBase } from '../firebase/firebase'
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
 import {convertDataStreamToAudioArrayBuffer, convertBinaryToTypedArray} from '../utils/audioUtils'
+import $ from "jquery"
+const toWav = require('audiobuffer-to-wav')
 
 let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
 let fileReader // Globally available fileReader instance to convert binary string audio to buffer
@@ -69,6 +71,7 @@ const stopRecording = () => {
 const delayEndRecording = () => {
   setTimeout(() => {
     mediaRecorder.stop()
+    console.log('this is mediaRecorder', mediaRecorder)
     isRecording = false
   }, 400)
 }
@@ -102,7 +105,10 @@ const onRecordingReady = (e) => {
 }
 
 const convertAudioToBinary = (event) => {
+  console.log('this is event', event)
   const audioData = event.data
+  console.log('this is audioData', audioData)
+  //Blob
   fileReader.readAsBinaryString(audioData)
 }
 
@@ -112,6 +118,8 @@ const toggleHUDIndicatorVisible = (indicatorElement, turnOn) => {
 
 const playAudio = (dataArr) => {
   const audioArrBuff = convertDataStreamToAudioArrayBuffer(dataArr)
+  console.log('this is audioArrBufff', audioArrBuff)
+  //ArrayBuffer
   const source = audioContext.createBufferSource()
   // Event listener to play 'NASA Beep' at end of transmission
   source.onended = () => {
@@ -128,6 +136,41 @@ const playAudio = (dataArr) => {
     .then(decodedAudio => {
       audioSourceIsPlaying = true
       source.buffer = decodedAudio
+      console.log('this is source.buffer', source.buffer)
+      //AudioBuffer
+      let newWav = toWav(decodedAudio)
+      var blob = new window.Blob([ new DataView(newWav) ], {
+        type: 'audio/wav'
+        })
+      console.log('this is new blob', blob)
+      // var anchor = document.createElement('a')
+      // document.body.appendChild(anchor)
+      // anchor.style = 'display: none'
+      // window.URL = window.URL || window.webkitURL;
+      // var url = URL.createObjectURL(blob)
+      // anchor.href = url
+      // anchor.download = 'audio.wav'
+      // anchor.click()
+      // console.log('this is the audioBuff url', url)
+      var fd = new FormData();
+      fd.append('fname', 'test.wav');
+      fd.append('data', blob);
+      console.log('this is formData', blob)
+      $.ajax({
+        url: 'https://wilsonwongnodered.mybluemix.net/audio',
+        type: 'POST',
+        data: blob,
+        processData:false,
+        beforeSend: () => {console.log('Sending message')},
+        success: function(data) {
+          console.log(data)
+        },
+        error: function(xhr, textStatus, error) {
+          console.log(xhr.statusText);
+          console.log(textStatus);
+          console.log(error);
+        }
+      })
       source.start()
       // Displays UI indicator if Driver
       toggleHUDIndicatorVisible(transmissionIncomingIndicator, true)

@@ -19,6 +19,7 @@ import {setUpRecording} from './audio/audio'
 import {setButtonPressedColor, resetButtonPressedColors, resetClickHandlers} from './UI/ui-event-utils'
 import stopDefaultAndPropagation from './utils/events'
 import {MODULE_ONE, MODULE_TWO} from './utils/constants'
+import {toneAnalyzer} from './text-speech/text-speech';
 
 /* Call generatePanel with x coordinate, z coordinate, and y rotation */
 import generatePanel from './panels/panels'
@@ -117,6 +118,11 @@ export default class Simulation extends React.Component {
       this.props.addStrike()
       const newState = this.cloneAndResetCurrentState()
       newState.strikes++
+      if(newState.strikes > 2) {
+        setTimeout(function() {
+          toneAnalyzer()
+        }, 5000)
+      }
       this.setState(newState)
     }
   }

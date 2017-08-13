@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 
   handleKeyDown(e) {
-    if (e.keyCode === SPACE_BAR) startRecording()
+    if (e.keyCode === SPACE_BAR) startRecording(this.state.isNavigator) // Getting who is currently talking
   }
 
   handleKeyUp(e) {

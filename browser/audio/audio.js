@@ -2,6 +2,7 @@ import { setupDataBase } from '../firebase/firebase'
 import processRadioTransmission from './processRadioTransmission'
 import audioContext from './audioContext'
 import {convertDataStreamToAudioArrayBuffer, convertBinaryToTypedArray} from '../utils/audioUtils'
+import {startTextToSpeech, endingTextToSpeech} from '../text-speech/text-speech'
 
 let mediaRecorder // Globally available MediaRecorder, assigned in getUserMedia for setUpRecording (audio.js)
 let fileReader // Globally available fileReader instance to convert binary string audio to buffer
@@ -38,16 +39,18 @@ const gotMedia = stream => {
   registerMediaRecorderEventListeners(mediaRecorder)
 }
 
-const startRecording = () => {
+const startRecording = (isNavigator) => {
   if (!mediaRecorder) return // prevents triggering recorder while outside simulation
   if (!isRecording) {
     console.log('inside start recording')
+    startTextToSpeech(isNavigator) // trigger the speech to text
     mediaRecorder.start()
     if (timeOut) clearTimeout(timeOut)
     timeOut = setTimeout(() => {
       console.log('inside timeout for start recording')
       if (isRecording) {
         console.log('inside CB for start recording stopping recorder')
+        endingTextToSpeech()
         mediaRecorder.stop()
         isRecording = false
       }

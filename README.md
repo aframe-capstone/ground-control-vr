@@ -3,6 +3,10 @@
 
 A VR simulation about clear communication built in AFrame, React, Redux, Firebase, for the Google Daydream headset.
 
+## Update
+
+Added IBM Watson Tone Analyzer. Now after the game you can see an analysis of your conversation with the other player. Please make sure that the pilot enters into their environment first before ground control.
+
 > NOTE: To play Ground Control one user must have access to a Google Daydream headset and controller.
 
 ## How to Play

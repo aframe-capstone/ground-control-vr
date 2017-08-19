@@ -30,7 +30,7 @@ export default class NavConsole extends React.Component {
   handleKeyDown(e) {
     switch (e.keyCode) {
     case SPACE_BAR:
-      this.setState({sendingmessage: false})
+      this.setState({sendingmessage: true})
       break
     default:
       break
